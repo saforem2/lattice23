@@ -45,7 +45,7 @@ format:
 [<br>&nbsp;]{style="padding-bottom: 0.5rem;"}  
 [{{< fa solid home >}}](https://samforeman.me) Sam Foreman  
 [Xiao-Yong Jin, James C. Osborn]{.dim-text style="font-size:0.8em;"}  
-[[{{< fa brands github >}} `saforem2/mlmc`](https://github.com/saforem2/mlmc)]{style="font-size:0.8em;"}
+[[{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)]{style="font-size:0.8em;"}
 :::
 
 ::: footer
@@ -86,7 +86,7 @@ If these were <span style="color:#00CCFF;">independent</span>, we could approxim
 [^notation]: Here, $\sim$ means "is distributed according to"
 
 ::: footer
-[{{< fa brands github >}} `saforem2/mlmc`](https://github.com/saforem2/mlmc)
+[{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
 :::
 
 # Markov Chain Monte Carlo (MCMC) {.centeredslide}
@@ -121,7 +121,7 @@ $\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}$:
 [^notation]: Here, $\sim$ means "is distributed according to"
 
 ::: footer
-[{{< fa brands github >}} `saforem2/mlmc`](https://github.com/saforem2/mlmc)
+[{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
 :::
 
 
@@ -860,8 +860,8 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 
 - **References**:
    - [Link to HMC demo](https://chi-feng.github.io/mcmc-demo/app.html)
-    - [Link to slides](https://saforem2.github.io/mlmc/)
-        - [{{< fa brands github >}} link to github with slides](https://github.com/saforem2/mlmc)
+    - [Link to slides](https://saforem2.github.io/lattice23/)
+        - [{{< fa brands github >}} link to github with slides](https://github.com/saforem2/lattice23)
    - {{< fa solid book >}} [@Foreman:2021ljl; @Foreman:2021rhs; @Foreman:2021ixr]
    - {{< fa solid book >}} [@Boyda:2022nmh; @Shanahan:2022ifi]
 
@@ -886,9 +886,9 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 
 ## Links + References
 
-- This talk: [{{< fa brands github >}} `saforem2/mlmc`](https://github.com/saforem2/mlmc)
+- This talk: [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
 - Code repo [{{< fa brands github >}} `saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
-- Slides [{{< fa solid presentation >}} saforem2.github.io/mlmc](https://saforem2.github.io/mlmc)
+- Slides [{{< fa solid presentation >}} saforem2.github.io/lattice23](https://saforem2.github.io/lattice23)
 - [Title Slide Background (worms) animation](https://saforem2.github.io/grid-worms-animation/)
 
 ## References {style="line-height:1.2em;"}
