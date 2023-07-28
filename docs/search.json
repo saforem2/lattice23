@@ -1,0 +1,114 @@
+[
+  {
+    "objectID": "index.html#integrated-autocorrelation-time-tau_mathrmint",
+    "href": "index.html#integrated-autocorrelation-time-tau_mathrmint",
+    "title": "",
+    "section": "Integrated Autocorrelation time: \\tau_{\\mathrm{int}}",
+    "text": "Integrated Autocorrelation time: \\tau_{\\mathrm{int}}\n\n\n\n\n\n\n\n\n\n\nImprovement\n\n\nWe can measure the performance by comparing \\tau_{\\mathrm{int}} for the trained model vs. HMC.\nNote: lower is better"
+  },
+  {
+    "objectID": "index.html#integrated-autocorrelation-time",
+    "href": "index.html#integrated-autocorrelation-time",
+    "title": "",
+    "section": "Integrated Autocorrelation Time",
+    "text": "Integrated Autocorrelation Time\n\nFigure 7: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale)."
+  },
+  {
+    "objectID": "index.html#interpretation",
+    "href": "index.html#interpretation",
+    "title": "",
+    "section": "Interpretation",
+    "text": "Interpretation\n\n\nDeviation in x_{P}\n\nTopological charge mixing\n\nArtificial influx of energy\n\n\n\nFigure 8: Illustration of how different observables evolve over a single L2HMC trajectory."
+  },
+  {
+    "objectID": "index.html#interpretation-1",
+    "href": "index.html#interpretation-1",
+    "title": "",
+    "section": "Interpretation",
+    "text": "Interpretation\n\n\n\n\n\n\n\nAverage plaquette: \\langle x_{P}\\rangle vs LF step\n\n\n\n\n\n\n\nAverage energy: H - \\sum\\log|\\mathcal{J}|\n\n\n\n\nFigure 9: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors."
+  },
+  {
+    "objectID": "index.html#plaquette-analysis-x_p",
+    "href": "index.html#plaquette-analysis-x_p",
+    "title": "",
+    "section": "Plaquette analysis: x_{P}",
+    "text": "Plaquette analysis: x_{P}\n\n\nDeviation from V\\rightarrow\\infty limit, x_{P}^{\\ast}\n\nAverage \\langle x_{P}\\rangle, with x_{P}^{\\ast} (dotted-lines)\n\n\n\nFigure 10: Plot showing how average plaquette, \\left\\langle x_{P}\\right\\rangle varies over a single trajectory for models trained at different \\beta, with varying trajectory lengths N_{\\mathrm{LF}}"
+  },
+  {
+    "objectID": "index.html#comparison",
+    "href": "index.html#comparison",
+    "title": "",
+    "section": "Comparison",
+    "text": "Comparison\n\n\n\n\n\n\n\n(a) Trained model\n\n\n\n\n\n\n\n(b) Generic HMC\n\n\n\n\nFigure 11: Comparison of \\langle \\delta Q\\rangle = \\frac{1}{N}\\sum_{i=k}^{N} \\delta Q_{i} for the trained model Figure 11 (a) vs. HMC Figure 11 (b)"
+  },
+  {
+    "objectID": "index.html#acknowledgements",
+    "href": "index.html#acknowledgements",
+    "title": "",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\n\n\n\nLinks:\n\n Link to github\n reach out!\n\nReferences:\n\nLink to HMC demo\nLink to slides\n\n link to github with slides\n\n (Foreman et al. 2022; Foreman, Jin, and Osborn 2022, 2021)\n (Boyda et al. 2022; Shanahan et al. 2022)\n\n\n\n\nHuge thank you to:\n\nYannick Meurice\nNorman Christ\nAkio Tomiya\nLuchang Jin\nChulwoo Jung\nPeter Boyle\nTaku Izubuchi\nECP-CSD group\nALCF Staff + Datascience Group"
+  },
+  {
+    "objectID": "index.html#links-references",
+    "href": "index.html#links-references",
+    "title": "",
+    "section": "Links + References",
+    "text": "Links + References\n\nThis talk:  saforem2/mlmc\nCode repo  saforem2/l2hmc-qcd\nSlides  saforem2.github.io/mlmc\nTitle Slide Background (worms) animation"
+  },
+  {
+    "objectID": "index.html#references",
+    "href": "index.html#references",
+    "title": "",
+    "section": "References",
+    "text": "References\n\n\nBoyda, Denis et al. 2022. “Applications of Machine Learning to Lattice Quantum Field Theory.” In Snowmass 2021. https://arxiv.org/abs/2202.05838.\n\n\nForeman, Sam, Taku Izubuchi, Luchang Jin, Xiao-Yong Jin, James C. Osborn, and Akio Tomiya. 2022. “HMC with Normalizing Flows.” PoS LATTICE2021: 073. https://doi.org/10.22323/1.396.0073.\n\n\nForeman, Sam, Xiao-Yong Jin, and James C. Osborn. 2021. “Deep Learning Hamiltonian Monte Carlo.” In 9th International Conference on Learning Representations. https://arxiv.org/abs/2105.03418.\n\n\n———. 2022. “LeapfrogLayers: A Trainable Framework for Effective Topological Sampling.” PoS LATTICE2021: 508. https://doi.org/10.22323/1.396.0508.\n\n\nShanahan, Phiala et al. 2022. “Snowmass 2021 Computational Frontier CompF03 Topical Group Report: Machine Learning,” September. https://arxiv.org/abs/2209.07559."
+  },
+  {
+    "objectID": "index.html#lattice-gauge-theory-2d-u1",
+    "href": "index.html#lattice-gauge-theory-2d-u1",
+    "title": "",
+    "section": "Lattice Gauge Theory (2D U(1))",
+    "text": "Lattice Gauge Theory (2D U(1))\n\n\n\n\n\n\n\n\n\nLink Variables\n\n\nU_{\\mu}(n) = e^{i x_{\\mu}(n)}\\in \\mathbb{C},\\quad \\text{where}\\quad x_{\\mu}(n) \\in [-\\pi,\\pi)\n\n\n\n\n\n\n\n\n\n\nWilson Action\n\n\nS_{\\beta}(x) = \\beta\\sum_{P} \\cos \\textcolor{#00CCFF}{x_{P}},\n\\textcolor{#00CCFF}{x_{P}} = \\left[x_{\\mu}(n) + x_{\\nu}(n+\\hat{\\mu})\n- x_{\\mu}(n+\\hat{\\nu})-x_{\\nu}(n)\\right]\n\n\n\nNote: \\textcolor{#00CCFF}{x_{P}} is the product of links around 1\\times 1 square, called a “plaquette”\n\n\n\n\n\n\n2D Lattice"
+  },
+  {
+    "objectID": "index.html#section-1",
+    "href": "index.html#section-1",
+    "title": "",
+    "section": "",
+    "text": "Figure 12: Jupyter Notebook"
+  },
+  {
+    "objectID": "index.html#annealing-schedule",
+    "href": "index.html#annealing-schedule",
+    "title": "",
+    "section": "Annealing Schedule",
+    "text": "Annealing Schedule\n\nIntroduce an annealing schedule during the training phase:\n\\left\\{ \\gamma_{t}  \\right\\}_{t=0}^{N} = \\left\\{\\gamma_{0}, \\gamma_{1},\n\\ldots, \\gamma_{N-1}, \\gamma_{N} \\right\\}\nwhere \\gamma_{0} &lt; \\gamma_{1} &lt; \\cdots &lt; \\gamma_{N} \\equiv 1, and \\left|\\gamma_{t+1} - \\gamma_{t}\\right| \\ll 1\nNote:\n\nfor \\left|\\gamma_{t}\\right| &lt; 1, this rescaling helps to reduce the height of the energy barriers \\Longrightarrow\neasier for our sampler to explore previously inaccessible regions of the phase space"
+  },
+  {
+    "objectID": "index.html#networks-2d-u1",
+    "href": "index.html#networks-2d-u1",
+    "title": "",
+    "section": "Networks 2D U(1)",
+    "text": "Networks 2D U(1)\n\nStack gauge links as shape\\left(U_{\\mu}\\right)=[Nb, 2, Nt, Nx] \\in \\mathbb{C}\n x_{\\mu}(n) ≔ \\left[\\cos(x), \\sin(x)\\right]\nwith shape\\left(x_{\\mu}\\right)= [Nb, 2, Nt, Nx, 2] \\in \\mathbb{R}\nx-Network:\n\n\\psi_{\\theta}: (x, v) \\longrightarrow \\left(s_{x},\\, t_{x},\\, q_{x}\\right) \n\nv-Network:\n\n\\varphi_{\\theta}: (x, v) \\longrightarrow \\left(s_{v},\\, t_{v},\\, q_{v}\\right)"
+  },
+  {
+    "objectID": "index.html#networks-2d-u1-1",
+    "href": "index.html#networks-2d-u1-1",
+    "title": "",
+    "section": "Networks 2D U(1)",
+    "text": "Networks 2D U(1)\n\nStack gauge links as shape\\left(U_{\\mu}\\right)=[Nb, 2, Nt, Nx] \\in \\mathbb{C}\n x_{\\mu}(n) ≔ \\left[\\cos(x), \\sin(x)\\right]\nwith shape\\left(x_{\\mu}\\right)= [Nb, 2, Nt, Nx, 2] \\in \\mathbb{R}\nx-Network:\n\n\\psi_{\\theta}: (x, v) \\longrightarrow \\left(s_{x},\\, t_{x},\\, q_{x}\\right) \n\nv-Network:\n\n\\varphi_{\\theta}: (x, v) \\longrightarrow \\left(s_{v},\\, t_{v},\\, q_{v}\\right) \\hspace{2pt}\\longleftarrow lets look at this"
+  },
+  {
+    "objectID": "index.html#toy-example-gmm-in-mathbbr2",
+    "href": "index.html#toy-example-gmm-in-mathbbr2",
+    "title": "",
+    "section": "Toy Example: GMM \\in \\mathbb{R}^{2}",
+    "text": "Toy Example: GMM \\in \\mathbb{R}^{2}"
+  },
+  {
+    "objectID": "index.html#physical-quantities",
+    "href": "index.html#physical-quantities",
+    "title": "",
+    "section": "Physical Quantities",
+    "text": "Physical Quantities\n\nTo estimate physical quantities, we:\n\ncalculate physical observables at increasing spatial resolution\nperform extrapolation to continuum limit\n\n\n\n\n\nFigure 13: Increasing the physical resolution (a \\rightarrow 0) allows us to make predictions about numerical values of physical quantities in the continuum limit."
+  }
+]

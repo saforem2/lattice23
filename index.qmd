@@ -1,0 +1,1016 @@
+---
+author: "Sam Foreman"
+date: today
+bibliography: references.bib
+format:
+  revealjs:
+    title-block-style: none
+    slide-number: c/t
+    title-slide-style: pandoc
+    # chalkboard:
+    #   buttons: false
+    auto-animate: true
+    reference-location: section
+    touch: true
+    pause: false
+    footnotes-hover: true
+    citations-hover: true
+    preview-links: true
+    controls-tutorial: true
+    controls: false
+    logo: "https://raw.githubusercontent.com/saforem2/anl-job-talk/main/docs/assets/anl.svg"
+    history: false
+    theme: [dark, css/dark.scss]
+    css: [css/default.css, css/callouts.css, css/code-callout.css]
+    self-contained: false
+    embed-resources: false
+    self-contained-math: false
+    center: true
+    highlight-style: "atom-one"
+    default-image-extension: svg
+    code-line-numbers: true
+    code-overflow: scroll
+    html-math-method: katex
+    fig-align: center
+    mermaid:
+      theme: dark
+---
+
+# {.title-slide .centeredslide background-iframe="https://saforem2.github.io/grid-worms-animation/" loading="lazy"}
+
+<!-- ::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(22,22,22,0.33); border-radius: 10px; text-align:center; box-shadow:RGBA(0, 0, 0, 0.25) 0px 5px 15px; padding-top: 0.25em; padding-bottom: 0.25em;"} -->
+::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.66); background-color: rgba(22,22,22,0.75); border-radius: 10px; text-align:center; box-shadow:RGBA(0, 0, 0, 0.25) 0px 5px 15px; padding: 0px; padding-left: 1.5em; padding-right: 1.5em; max-width: min-content; min-width: max-content; margin-left: auto; margin-right: auto; padding-top: 0.2em; padding-bottom: 0.2em; line-height: 1.5em!important;"}
+<span style="color:#939393; font-size:1.5em; font-weight: bold;">MLMC: Machine Learning Monte Carlo</span>  
+<span style="color:#777777; font-size:1.2em; font-weight: bold;">for Lattice Gauge Theory</span>  
+[<br>&nbsp;]{style="padding-bottom: 0.5rem;"}  
+[{{< fa solid home >}}](https://samforeman.me) Sam Foreman  
+[Xiao-Yong Jin, James C. Osborn]{.dim-text style="font-size:0.8em;"}  
+[[{{< fa brands github >}} `saforem2/mlmc`](https://github.com/saforem2/mlmc)]{style="font-size:0.8em;"}
+:::
+
+::: footer
+
+[2023-07-31 @ [Lattice 2023](https://indico.fnal.gov/event/57249/contributions/271305/)]{.dim-text style="text-align:left;'}
+
+:::
+
+
+# Markov Chain Monte Carlo (MCMC) {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.callout-note title="Goal" style="text-align:left;!important"}
+Generate **independent** samples $\{x_{i}\}$, such that[^notation]
+$$\{x_{i}\} \sim \pi(x) \propto e^{-S(x)}$$
+where $S(x)$ is the _action_ (or potential energy)
+:::
+
+- Want to calculate observables $\mathcal{O}$:  
+  $\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, \pi(x)}$
+
+:::
+
+::: {.column width="49%"}
+![](https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/normal_distribution.dark.svg)
+:::
+
+::::
+
+If these were <span style="color:#00CCFF;">independent</span>, we could approximate:
+  $\left\langle\mathcal{O}\right\rangle \simeq \frac{1}{N}\sum^{N}_{n=1}\mathcal{O}(x_{n})$  
+  $$\sigma_{\mathcal{O}}^{2} = \frac{1}{N}\mathrm{Var}{\left[\mathcal{O} (x)
+  \right]}\Longrightarrow \sigma_{\mathcal{O}} \propto \frac{1}{\sqrt{N}}$$
+
+[^notation]: Here, $\sim$ means "is distributed according to"
+
+::: footer
+[{{< fa brands github >}} `saforem2/mlmc`](https://github.com/saforem2/mlmc)
+:::
+
+# Markov Chain Monte Carlo (MCMC) {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.callout-note title="Goal" style="text-align:left;!important"}
+Generate **independent** samples $\{x_{i}\}$, such that[^notation]
+$$\{x_{i}\} \sim \pi(x) \propto e^{-S(x)}$$
+where $S(x)$ is the _action_ (or potential energy)
+:::
+
+- Want to calculate observables $\mathcal{O}$:  
+  $\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, \pi(x)}$
+
+:::
+
+::: {.column width="49%"}
+![](https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/normal_distribution.dark.svg)
+:::
+
+::::
+
+Instead, nearby configs are [correlated]{.red-text}, and we incur a factor of
+$\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}$:
+  $$\sigma_{\mathcal{O}}^{2} =
+  \frac{\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}}{N}\mathrm{Var}{\left[\mathcal{O}
+  (x) \right]}$$
+
+[^notation]: Here, $\sim$ means "is distributed according to"
+
+::: footer
+[{{< fa brands github >}} `saforem2/mlmc`](https://github.com/saforem2/mlmc)
+:::
+
+
+# Hamiltonian Monte Carlo (HMC) {.centeredslide}
+
+- Want to (sequentially) construct a chain of states:
+  $$x_{0} \rightarrow x_{1} \rightarrow x_{i} \rightarrow \cdots \rightarrow x_{N}\hspace{10pt}$$
+
+  such that, as $N \rightarrow \infty$:
+  $$\left\{x_{i}, x_{i+1}, x_{i+2}, \cdots, x_{N} \right\} \xrightarrow[]{N\rightarrow\infty} \pi(x)
+  \propto e^{-S(x)}$$
+
+::: {.callout-tip title="Trick" style="display:inline!important;"}
+  - Introduce [fictitious]{.green-text} momentum $v \sim \mathcal{N}(0, \mathbb{1})$
+    - Normally distributed **independent** of $x$, i.e.
+  $$\begin{align*}
+    \pi(x, v) &\textcolor{#02b875}{=} \pi(x)\pi(v) \propto e^{-S{(x)}} e^{-\frac{1}{2} v^{T}v}
+   	= e^{-\left[S(x) + \frac{1}{2} v^{T}{v}\right]}
+   	\textcolor{#02b875}{=} e^{-H(x, v)}
+  \end{align*}$$
+:::
+
+# Hamiltonian Monte Carlo (HMC) {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+- [**Idea**]{.green-text}: Evolve the $(\dot{x}, \dot{v})$ system to get new states $\{x_{i}\}$❗
+
+- Write the **joint distribution** $\pi(x, v)$:
+  $$
+  \pi(x, v) \propto e^{-S[x]} e^{-\frac{1}{2}v^{T} v} = e^{-H(x, v)}
+  $$
+:::
+
+::: {.column width="45%"}
+
+::: {.callout-tip title="Hamiltonian Dynamics"}
+$H = S[x] + \frac{1}{2} v^{T} v \Longrightarrow$
+$$\dot{x} = +\partial_{v} H,
+\,\,\dot{v} = -\partial_{x} H$$
+:::
+
+:::
+
+::::
+
+::: {#fig-hmc-traj}
+
+![](https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/hmc1.svg){.r-stretch}
+
+Overview of HMC algorithm
+:::
+
+# Leapfrog Integrator (HMC) {.centeredslide}
+
+:::: {.columns style="text-align:center;"}
+
+::: {.column width="48%"}
+
+::: {.callout-tip title="Hamiltonian Dynamics" style="font-size:1.1em;"}
+$\left(\dot{x}, \dot{v}\right) = \left(\partial_{v} H, -\partial_{x} H\right)$
+:::
+
+::: {.callout-note title="Leapfrog Step"}
+`input` $\,\left(x, v\right) \rightarrow \left(x', v'\right)\,$ `output`
+
+$$\begin{align*}
+\tilde{v} &:= \textcolor{#F06292}{\Gamma}(x, v)\hspace{2.2pt} = v - \frac{\varepsilon}{2} \partial_{x} S(x) \\
+x' &:= \textcolor{#FD971F}{\Lambda}(x, \tilde{v}) \, =  x + \varepsilon \, \tilde{v} \\
+v' &:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varepsilon}{2} \partial_{x} S(x')
+\end{align*}$$
+
+:::
+
+::: {.callout-warning title="Warning!" style="text-align:left;"}
+[Resample $v_{0} \sim \mathcal{N}(0, \mathbb{1})$]{style="text-align:left!important;"}  
+[at the [beginning]{.yellow-text} of each trajectory]{style="text-align:left;"}
+:::
+
+::: {style="font-size:0.8em; margin-left:13%;"}
+[**Note**: $\partial_{x} S(x)$ is the _force_]{.dim-text}
+:::
+
+:::
+
+::: {.column width="49%" style="text-align:left; margin-left:2%;"}
+![](./assets/hmc1/hmc-update-light.svg){width=60%}
+:::
+::::
+
+# HMC Update
+
+:::: {.columns}
+
+::: {.column width="65%"}
+- We build a trajectory of $N_{\mathrm{LF}}$ **leapfrog steps**[^v0]
+  $$\begin{equation*}
+  (x_{0}, v_{0})%
+  \rightarrow (x_{1}, v_{1})\rightarrow \cdots%
+  \rightarrow (x', v')
+  \end{equation*}$$
+
+- And propose $x'$ as the next state in our chain
+<!-- - which is _accepted_ (or rejected) via Metroplis-Hastings[^accept] -->
+<!-- - $x'$ is proposed with probability $A(x'|x)$[^accept] -->
+<!-- - Use $x'$ as our proposal in the Metropolis-Hastings accept / reject, $A(x'|x)$ -->
+
+$$\begin{align*}
+  \textcolor{#F06292}{\Gamma}: (x, v) \textcolor{#F06292}{\rightarrow} v' &:= v - \frac{\varepsilon}{2} \partial_{x} S(x) \\
+  \textcolor{#FD971F}{\Lambda}: (x, v) \textcolor{#FD971F}{\rightarrow} x' &:= x + \varepsilon v
+\end{align*}$$
+
+- We then accept / reject $x'$ using Metropolis-Hastings criteria,  
+  $A(x'|x) = \min\left\{1, \frac{\pi(x')}{\pi(x)}\left|\frac{\partial x'}{\partial x}\right|\right\}$
+
+:::
+
+::: {.column width="30%"}
+
+![](./assets/hmc1/hmc-update-light.svg)
+
+:::
+::::
+
+[^v0]: We **always** start by resampling the momentum, $v_{0} \sim
+\mathcal{N}(0, \mathbb{1})$
+
+
+# HMC Demo {.centeredslide}
+
+::: {#fig-hmc-demo}
+
+<iframe data-src="https://chi-feng.github.io/mcmc-demo/app.html" width="90%" height="500" title="l2hmc-qcd"></iframe>
+
+HMC Demo
+:::
+
+# 4D $SU(3)$ Model {.centeredslide style="font-size: 0.9em;"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.callout-note title="Link Variables" style="text-align:left;"}
+
+- Write link variables $U_{\mu}(x) \in SU(3)$:
+
+  $$ \begin{align*} 
+  U_{\mu}(x) &= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)} \lambda^{k}}\right]\\
+  &= e^{i \textcolor{#AE81FF}{Q}},\quad \text{with} \quad \textcolor{#AE81FF}{Q} \in \mathfrak{su}(3)
+  \end{align*}$$ 
+
+  where [$\omega^{k}_{\mu}(x) \in \mathbb{R}$]{.purple-text}, and $\lambda^{k}$ are
+  the generators of $SU(3)$
+
+:::
+
+::: {.callout-tip title="Conjugate Momenta" style="text-align:left;"}
+
+- Introduce momenta [$P_{\mu}(x) = P^{k}_{\mu}(x) \lambda^{k}$]{.green-text} conjugate to the **real fields**
+[$\omega^{k}_{\mu}(x)$]{.purple-text}
+
+:::
+
+::: {.callout-important title="Wilson Action" style="text-align:left;"}
+
+$$ S_{G} = -\frac{\beta}{6} \sum
+\mathrm{Tr}\left[U_{\mu\nu}(x)
++ U^{\dagger}_{\mu\nu}(x)\right] $$
+
+where $U_{\mu\nu}(x) = U_{\mu}(x) U_{\nu}(x+\hat{\mu})
+U^{\dagger}_{\mu}(x+\hat{\nu}) U^{\dagger}_{\nu}(x)$
+
+:::
+
+
+:::
+
+::: {.column width="45%"}
+
+::: {#fig-4dlattice}
+
+![](./assets/u1lattice.dark.svg){width="90%"}
+
+Illustration of the lattice
+:::
+
+:::
+
+::::
+
+# HMC: 4D $SU(3)$
+
+Hamiltonian: $H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow$
+
+:::: {.columns}
+
+::: {.column width="65%" style="font-size:0.9em; text-align: center;"}
+
+::: {.callout style="text-align:left;"}
+- [$U$ update]{style="border-bottom: 2px solid #AE81FF;"}:
+[$\frac{d\omega^{k}}{dt} = \frac{\partial H}{\partial P^{k}}$]{.purple-text style="font-size:1.5em;"}
+$$\frac{d\omega^{k}}{dt}\lambda^{k} = P^{k}\lambda^{k} \Longrightarrow \frac{dQ}{dt} = P$$
+$$\begin{align*}
+Q(\textcolor{#FFEE58}{\varepsilon}) &= Q(0) + \textcolor{#FFEE58}{\varepsilon} P(0)\Longrightarrow\\
+-i\, \log U(\textcolor{#FFEE58}{\varepsilon}) &= -i\, \log U(0) + \textcolor{#FFEE58}{\varepsilon} P(0) \\
+U(\textcolor{#FFEE58}{\varepsilon}) &= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(0)} U(0)
+\end{align*}$$
+
+:::
+
+::: {aside}
+
+[$\textcolor{#FFEE58}{\varepsilon}$ is the step size]{.dim-text style="font-size:0.8em;"}
+
+:::
+
+:::
+
+
+::: {.column width="35%" style="font-size:0.9em; text-align:center"}
+
+::: {.callout style="text-align:center; font-size: 2.0em;"}
+
+- [$P$ update]{style="border-bottom: 2px solid #07B875;"}:
+[$\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}$]{.green-text style="font-size:1.5em;"} 
+$$\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}
+= -\frac{\partial H}{\partial Q} = -\frac{dS}{dQ}\Longrightarrow$$
+$$\begin{align*}
+P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \left.\frac{dS}{dQ}\right|_{t=0} \\
+&= P(0) - \textcolor{#FFEE58}{\varepsilon} \,\textcolor{#E599F7}{F[U]}
+\end{align*}$$
+
+:::
+
+::: {aside}
+
+[$\textcolor{#E599F7}{F[U]}$ is the force term]{.dim-text style="font-size:0.8em;"}
+
+:::
+
+:::
+
+
+::::
+
+# HMC: 4D $SU(3)$ {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width="47%" style="text-align:left;"}
+
+Again, we can express the updates in terms of the operators
+
+- [Momentum Update]{style="border-bottom: 2px solid #F06292;"}:
+  $$\textcolor{#F06292}{\Gamma}: P \longrightarrow P' := P - \frac{\varepsilon}{2} F[U]$$
+
+- [Link Update]{style="border-bottom: 2px solid #FD971F;"}:
+  $$\textcolor{#FD971F}{\Lambda}: U \longrightarrow U' := e^{i\varepsilon P'} U\quad\quad$$
+
+:::
+
+::: {.column width="47%" style="text-align:right;"}
+
+![](./assets/hmc/hmc-update-light.svg){width=60%}
+
+:::
+
+::::
+
+# Issues with HMC {style="font-size:0.9em;"}
+
+- What do we want in a good sampler?
+  - **Fast mixing** (small autocorrelations)
+  - **Fast burn-in** (quick convergence)
+
+- Problems with HMC:
+  - Energy levels selected randomly $\rightarrow$ **slow mixing**
+  - Cannot easily traverse low-density zones $\rightarrow$ **slow convergence**
+
+::: {#fig-hmc-issues layout-ncol=2}
+![HMC Samples with $\varepsilon=0.25$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps025.svg)
+
+![HMC Samples with $\varepsilon=0.5$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps05.svg)
+
+HMC Samples generated with varying step sizes $\varepsilon$
+:::
+
+# Topological Freezing {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+::: {style="text-align:left; font-size: 0.9em;"}
+**Topological Charge**:
+$$Q = \frac{1}{2\pi}\sum_{P}\left\lfloor x_{P}\right\rfloor  \in \mathbb{Z}$$
+:::
+
+[**note:** $\left\lfloor x_{P} \right\rfloor = x_{P} - 2\pi
+\left\lfloor\frac{x_{P} + \pi}{2\pi}\right\rfloor$]{.dim-text style="font-size:0.8em;"}
+
+::: {.callout-important title="Critical Slowing Down" style="text-align:left;"}
+- $Q$ gets stuck!
+    - as $\beta\longrightarrow \infty$:
+        - $Q \longrightarrow \text{const.}$
+        - $\delta Q = \left(Q^{\ast} - Q\right) \rightarrow 0 \textcolor{#FF5252}{\Longrightarrow}$
+    - \# configs required to estimate errors  
+    **grows exponentially**:
+    [$\tau_{\mathrm{int}}^{Q} \longrightarrow \infty$]{.red-text}
+:::
+
+:::
+
+::: {.column width="45%"}
+
+![Note $\delta Q \rightarrow 0$ at increasing
+$\beta$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/critical_slowing_down.svg){width="80%"}
+
+<!-- Illustration of critical slowing down at increasing $\beta$. Note at $\beta = 7$, $Q$ remains stuck for the entire run. -->
+
+:::
+
+::::
+
+# Can we do better[^l2hmc]?
+
+- Generalize MD update by introducing 6 functions:
+  - [$x$-update]{style="border-bottom: 1px solid #AE81FF;"}:
+    [$\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$]{.purple-text}
+  - [$v$-update]{style="border-bottom: 1px solid #09B875"}:
+    [$\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{.green-text}
+
+  here [$\psi_{\theta}$]{.purple-text}, [$\varphi_{\theta}$]{.green-text} are NNs,
+  parameterized by weights $\theta$
+
+&nbsp;<br>
+
+- Use $\left(s_{k}, t_{k}, q_{k}\right)$, for $k \in \{x, v\}$ in a generalized
+  MD update
+  - [$x'$]{.purple-text} $\gets \Lambda_{\theta}(x, v)$
+  - [$v'$]{.green-text} $\gets \Gamma_{\theta}(x, v)$
+
+
+[^l2hmc]: [L2HMC: ](https://github.com/saforem2/l2hmc-qcd) {{< fa solid book >}}
+[@Foreman:2021ixr; @Foreman:2021rhs]
+
+# Generalizing the MD Update {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+- To ensure ergodicity + reversibility[^direction] [^reverse] we split the $x$ update into sequential (complementary) updates:
+
+  ::: {.callout title="Generalized Update:"}
+
+  1. Update $\textcolor{#07B875}{v}$:  
+    [$\textcolor{#07B875}{v'} =$ [$\Gamma^{\pm}$]{.pink-text}$(\textcolor{#AE81FF}{x}, \textcolor{#07B875}{v})$]{style="font-size: 1.2em;"}
+
+  2. Update **half** of $\textcolor{#AE81FF}{x}$:  
+    [$\textcolor{#AE81FF}{x'} =$ [$x_{A}$]{.blue-text}$\,+\,$[$m_{B}$]{.red-text}$\,\odot\,$ [$\Lambda^{\pm}$]{.orange-text}$($[$x_{B}$]{.red-text}$, \textcolor{#07B875}{v})$]{style="font-size: 1.2em;"}
+
+  3. Update (other) half of $\textcolor{#AE81FF}{x}$:  
+    [$\textcolor{#AE81FF}{x''} =$ [$x_{B}$]{.red-text}$\,+\,$[$m_{A}$]{.blue-text}$\,\odot\,$ [$\Lambda^{\pm}$]{.orange-text}$($[$x_{A}$]{.blue-text}$, \textcolor{#07B875}{v})$]{style="font-size: 1.2em;"}
+
+  4. Update $\textcolor{#07B875}{v}$:  
+    [$\textcolor{#07B875}{v}'' =$ [$\Gamma^{\pm}$]{.pink-text}$(\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v'})$]{style="font-size: 1.2em;"}
+
+  :::
+
+[^direction]: [We introduce a directional variable $d \sim \mathcal{U}(\pm)$ that is _resampled each trajectory_ to determine the direction of our update]{style="font-size:0.8em;"}
+[^reverse]: [Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e. $\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)$]{style="font-size:0.8em;"}
+
+:::
+
+::: {.column width="50%"}
+
+::: {#fig-mdupdate}
+
+![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:66%; text-align:center;"}
+<!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} -->
+
+Generalized MD update with $\Lambda_{\theta}^{\pm}$, $\Gamma_{\theta}^{\pm}$
+:::
+
+:::
+
+::::
+
+# L2HMC Update {style="font-size: 0.775em;"}
+
+:::: {.columns}
+
+::: {.column width="50%" style="font-size:0.99em;"}
+
+::: {.callout title="Algorithm"}
+
+1. `input`: $\mathbf{x}$  
+
+    - Resample: $\textcolor{#07B875}{v} \sim \mathcal{N}(0, \mathbb{1})$; $\,\,{d\sim\mathcal{U}(\pm)}$
+    - Construct initial state:
+     $\textcolor{#FF67FF}{\xi} =(\textcolor{#AE81FF}{x}, \textcolor{#07B875}{v}, {\pm})$
+
+2. `forward`: Generate [proposal $\xi'$]{style="color:#f8f8f8"} by passing [initial $\xi$]{style="color:#939393"} through $N_{\mathrm{LF}}$ leapfrog layers  
+$$\textcolor{#939393} \xi \hspace{1pt}\xrightarrow[]{\tiny{\mathrm{LF} \text{ layer}}}\xi_{1} \longrightarrow\cdots \longrightarrow \xi_{N_{\mathrm{LF}}} = \textcolor{#f8f8f8}{\xi'} := (\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v''})$$
+
+    - Compute the Metropolis-Hastings (MH) acceptance (with Jacobian $\mathcal{J}$)
+      $$\begin{equation}
+      A({\textcolor{#f8f8f8}{\xi'}}|{\textcolor{#939393}{\xi}})=
+      \mathrm{min}\left\{1,
+      \frac{\pi(\textcolor{#f8f8f8}{\xi'})}{\pi(\textcolor{#939393}{\xi})} \left| \mathcal{J}\left(\textcolor{#f8f8f8}{\xi'},\textcolor{#939393}{\xi}\right)\right| \right\}
+      \end{equation}$$
+
+5. `backward` (if training):  
+    - Evaluate the **loss function**[^loss] $\mathcal{L}\gets \mathcal{L}_{\theta}(\textcolor{#f8f8f8}{\xi'}, \textcolor{#939393}{\xi})$ and backprop
+6. `return`: Evaluate MH criteria $(1)$ and return accepted config, $\textcolor{#AE81FF}{x}_{i+1}$
+  $$\textcolor{#AE81FF}{{x}_{i+1}}\gets
+  \begin{cases}
+  \textcolor{#f8f8f8}{\textcolor{#AE81FF}{x''}} \small{\text{ w/ prob }} A(\textcolor{#f8f8f8}{\xi''}|\textcolor{#939393}{\xi}) \hspace{26pt} ✅ \\
+  \textcolor{#939393}{\textcolor{#AE81FF}{x}} \hspace{5pt}\small{\text{ w/ prob }} 1 - A(\textcolor{#f8f8f8}{\xi''}|{\textcolor{#939393}{\xi}}) \hspace{10pt} 🚫
+  \end{cases}$$
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+::: {#fig-mdupdate}
+
+![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:75%; text-align:center;"}
+<!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} -->
+
+**Leapfrog Layer** used in generalized MD update
+:::
+
+:::
+
+::::
+
+[^loss]: 
+    For simple $\mathbf{x} \in \mathbb{R}^{2}$ example, $\mathcal{L}_{\theta} =
+    A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}$
+
+
+# L2HMC: Leapfrog Layer {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width="35%"}
+![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/update_steps.svg){.absolute  top="30" width="40%"}
+:::
+
+::: {.column width="65%"}
+![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/leapfrog_layer_dark2.svg){width="100%"}
+:::
+::::
+
+![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/network_functions.svg){.absolute top=440 width="100%"}
+
+
+# 4D $SU(3)$ Model {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width="45%" style="font-size:0.9em;"}
+
+- link variables: 
+    - $U_{\mu}(x) \in SU(3)$,
+- \+ conjugate momenta:
+    - $P_{\mu}(x) \in \mathfrak{su}(3)$
+- We maintain a batch of `Nb` lattices, all updated in parallel
+    - `lattice.shape`:
+        - [`[4, Nt, Nx, Ny, Nz, 3, 3]`]{style="font-size: 0.9em;"}
+    - `batch.shape`:
+        - [`[Nb, *lattice.shape]`]{style="font-size: 0.9em;"}
+:::
+
+::: {.column width="45%"}
+
+![](./assets/leapfrog-layer-4D-SU3-vertical.light.svg)
+
+:::
+
+::::
+
+# Networks 4D $SU(3)$
+
+- Stack gauge links as  
+
+  `shape`$\left(U_{\mu}\right)$` = [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]` $\in \mathbb{C}$
+
+  <!-- with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$ -->
+
+- $U$-Network:
+    - [$\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)$]{.purple-text}
+    <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
+
+- $v$-Network:
+    - [$\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)$]{.green-text}
+    <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
+
+# Networks 4D $SU(3)$ {auto-animate=true}
+
+- Stack gauge links as  
+
+  `shape`$\left(U_{\mu}\right)$` = [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]` $\in \mathbb{C}$
+
+  <!-- with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$ -->
+
+- $U$-Network:
+    - [$\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)$]{.purple-text}
+    <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
+
+- $v$-Network:
+    - [$\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)$]{.green-text} [$\hspace{2pt}\longleftarrow$ lets look at this]{.dim-text}
+    <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
+
+# $P$-update (pt. 1) {style="font-size:0.95em;"}
+
+<!-- - `v-network`[^sigma]: $\left(x, \partial_{x} S(x)\right) \coloneqq \left(x, F \right)\rightarrow (s_{v}, t_{v}, q_{v})$ -->
+
+- `input`[^sigma]: $\hspace{7pt}\left(U, \frac{dS_{G}}{dQ}\right) \coloneqq (e^{i Q}, F[U]) \longrightarrow$
+  $$\begin{align*}
+  h_{0} &= \sigma\left( w_{Q} Q + w_{F} F + b \right) \\
+  h_{1} &= \sigma\left( w_{1} h_{0} + b_{1} \right) \\
+  &\vdots \\
+  h_{n} &= \sigma\left(w_{n} h_{n-1} + b_{n}\right) \longrightarrow \\
+  \end{align*}$$
+  $$
+  \begin{align*}
+  & \underbrace{s_{P} = \lambda_{s} \tanh\left(w_{s} h_{n} + b_{s}\right)\, ; \quad
+   t_{P} = w_{t} z + b_{t}\, ; \quad q_{P} = \lambda_{q}\tanh\left(w_{q} z + b_{q}\right)} \\
+  \end{align*}
+  $$
+    <!-- &\textcolor{#ff67ff}{\texttt{output:}}\hspace{74pt} (s_{v}, t_{v}, q_{v}) -->
+- `output`[^lambda]: $\hspace{92pt}(s_{P}, t_{P}, q_{P})$
+
+[^sigma]: $\sigma(\cdot)$ denotes an activation function
+[^lambda]: $\lambda_{s}, \lambda_{q} \in \mathbb{R}$, trainable parameters
+
+# $P$-update (pt. 2) {style="font-size:0.9em;"}
+
+- `output`[^lambda]: $(s_{P}, t_{P}, q_{P})$
+  $$s_{P} = \lambda_{s} \tanh\left(w_{s}\, h_{n} + b_{s}\right), \quad
+  t_{P} = w_{t} h_{n} + b_{t}, \quad
+  q_{P} = \lambda_{q}\tanh\left(w_{q} h_{n} + b_{q}\right)$$
+
+- Use these to update $\Gamma^{\pm}: (U, P) \rightarrow \left(U, P_{\pm}\right)$[^inverse]:
+
+    - [forward]{style="color:#FF5252"} $(d = \textcolor{#FF5252}{+})$:
+      $$\Gamma^{\textcolor{#FF5252}{+}}(U, P) \coloneqq P_{\textcolor{#FF5252}{+}} = P \cdot e^{\frac{\varepsilon}{2} s_{P}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]$$
+
+    - [backward]{style="color:#1A8FFF;"} $(d = \textcolor{#1A8FFF}{-})$: 
+      $$\Gamma^{\textcolor{#1A8FFF}{-}}(U, P) \coloneqq P_{\textcolor{#1A8FFF}{-}} = e^{-\frac{\varepsilon}{2} s_{P}} \left\{P + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]\right\}$$
+
+
+[^lambda]: $\lambda_{s},\, \lambda_{q} \in \mathbb{R}$ are trainable parameters
+[^inverse]: Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e. $\Gamma^{+}\left[\Gamma^{-}(U, P)\right] = \Gamma^{-}\left[\Gamma^{+}(U, P)\right] = (U, P)$
+
+
+# Loss Function
+
+- Want to maximize the _expected_ squared charge difference[^charge-diff]:
+  $$\begin{equation*}
+  \mathcal{L}_{\theta}\left(\xi^{\ast}, \xi\right) =
+  {\mathbb{E}_{p(\xi)}}\big[-\textcolor{#FA5252}{{\delta Q}}^{2}
+  \left(\xi^{\ast}, \xi \right)\cdot A(\xi^{\ast}|\xi)\big]
+  \end{equation*}$$
+
+- Where:
+    - $\delta Q$ is the _tunneling rate_:
+      $$\begin{equation*}
+      \textcolor{#FA5252}{\delta Q}(\xi^{\ast},\xi)=\left|Q^{\ast} - Q\right|
+      \end{equation*}$$
+
+    - $A(\xi^{\ast}|\xi)$ is the probability[^jacobian] of accepting the proposal $\xi^{\ast}$:
+      $$\begin{equation*}
+      A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
+      \frac{p(\xi^{\ast})}{p(\xi)}\left|\frac{\partial \xi^{\ast}}{\partial
+      \xi^{T}}\right|\right)
+      \end{equation*}$$
+
+[^charge-diff]: Where $\xi^{\ast}$ is the _proposed_ configuration (prior to
+Accept / Reject)
+[^jacobian]: And $\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|$ is the
+Jacobian of the transformation from $\xi \rightarrow \xi^{\ast}$
+
+# 2D $U(1)$ Results
+
+## Integrated Autocorrelation time: $\tau_{\mathrm{int}}$ {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width=50% style="align:top;"}
+![](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/autocorr_new.svg){width="90%"}
+:::
+
+::: {.column width="33%" style="text-align:left; padding-top: 5%;"}
+
+::: {.callout-important title="Improvement" style="text-align:left!important;"}
+We can measure the performance by comparing $\tau_{\mathrm{int}}$ for the
+[**trained model**]{style="color:#FF2052;"} vs.
+[**HMC**]{style="color:#9F9F9F;"}.  
+  
+**Note**: [lower]{style="color:#FF2052;"} is better
+:::
+
+:::
+
+::::
+
+![](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/charge_histories.svg){.absolute top=400 left=0 width="100%" style="margin-bottom: 1em;margin-top: 1em;"}
+
+
+## Integrated Autocorrelation Time {.centeredslide}
+
+::: {#fig-iat}
+![](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/tint1.svg){width="100%"}
+
+Plot of the integrated autocorrelation time for both the trained model
+(colored) and HMC (greyscale).
+:::
+
+## Interpretation {.centeredslide}
+
+:::: {.columns style="margin-left:1pt;"}
+
+::: {.column width="36%"}
+
+[Deviation in $x_{P}$]{.dim-text style="text-align:center; font-size:0.8em"}
+
+:::
+
+::: {.column width="30%"}
+
+[Topological charge mixing]{.dim-text style="text-align:right; font-size:0.8em"}
+
+:::
+
+::: {.column width="32%"}
+
+[Artificial influx of energy]{.dim-text style="text-align:right!important; font-size:0.8em;"}
+
+:::
+
+::::
+
+::: {#fig-interpretation}
+
+![](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/ridgeplots.svg){width="100%"}
+
+Illustration of how different observables evolve over a single L2HMC
+trajectory.
+:::
+
+
+## Interpretation {.centeredslide}
+
+::: {#fig-energy-ridgeplot layout-ncol=2 layout-valign="top"}
+
+![Average plaquette: $\langle x_{P}\rangle$ vs LF step](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_ridgeplot.svg)
+
+![Average energy: $H - \sum\log|\mathcal{J}|$](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/Hf_ridgeplot.svg)
+
+The trained model artifically increases the energy towards
+the middle of the trajectory, allowing the sampler to tunnel between isolated
+sectors.
+:::
+
+## Plaquette analysis: $x_{P}$ {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+[Deviation from $V\rightarrow\infty$ limit,  $x_{P}^{\ast}$]{.dim-text style="text-align:center; font-size:0.9em;"}
+:::
+
+::: {.column width="45%"}
+
+[Average $\langle x_{P}\rangle$, with $x_{P}^{\ast}$ (dotted-lines)]{.dim-text style="text-align:right!important; font-size:0.9em;"}
+:::
+
+::::
+
+::: {#fig-avg-plaq}
+
+![](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_vs_lf_step1.svg){width="100%"}
+
+Plot showing how **average plaquette**, $\left\langle x_{P}\right\rangle$
+varies over a single trajectory for models trained at different $\beta$, with
+varying trajectory lengths $N_{\mathrm{LF}}$
+:::
+
+## Comparison
+
+::: {#fig-comparison layout-ncol=2}
+
+![Trained model](https://saforem2.github.io/anl-job-talk/assets/dQint_eval.svg){#fig-eval}
+
+![Generic HMC](https://saforem2.github.io/anl-job-talk/assets/dQint_hmc.svg){#fig-hmc}
+
+Comparison of $\langle \delta Q\rangle = \frac{1}{N}\sum_{i=k}^{N} \delta Q_{i}$ for the
+trained model [@fig-eval] vs. HMC [@fig-hmc]
+:::
+
+
+# Thank you!
+
+::: {style="text-align:left;"}
+[{{< fa solid home >}} `samforeman.me`](https://samforeman.me)  
+[{{< fa brands github >}} `saforem2`](https://github.com/saforem2)  
+[{{< fa brands twitter >}} `@saforem2`](https://www.twitter.com/saforem2)  
+[{{< fa regular paper-plane >}} `foremans@anl.gov`](mailto:///foremans@anl.gov)
+:::
+
+::: {.callout-note title="Acknowledgements"}
+This research used resources of the Argonne Leadership Computing Facility,  
+which is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357.
+:::
+
+## Acknowledgements
+
+:::: {.columns}
+
+
+::: {.column width="50%"}
+
+- **Links**:
+   - [{{< fa brands github >}} Link to github](https://github.com/saforem2/l2hmc-qcd)
+   - [{{< fa solid paper-plane >}} reach out!](mailto:foremans@anl.gov)
+
+- **References**:
+   - [Link to HMC demo](https://chi-feng.github.io/mcmc-demo/app.html)
+    - [Link to slides](https://saforem2.github.io/mlmc/)
+        - [{{< fa brands github >}} link to github with slides](https://github.com/saforem2/mlmc)
+   - {{< fa solid book >}} [@Foreman:2021ljl; @Foreman:2021rhs; @Foreman:2021ixr]
+   - {{< fa solid book >}} [@Boyda:2022nmh; @Shanahan:2022ifi]
+
+:::
+
+::: {.column width="50%"}
+
+- Huge thank you to:
+  - Yannick Meurice
+  - Norman Christ
+  - Akio Tomiya
+  - Luchang Jin
+  - Chulwoo Jung
+  - Peter Boyle
+  - Taku Izubuchi
+  - ECP-CSD group
+  - [**ALCF Staff + Datascience Group**]{.red-text}
+
+:::
+
+::::
+
+## Links + References
+
+- This talk: [{{< fa brands github >}} `saforem2/mlmc`](https://github.com/saforem2/mlmc)
+- Code repo [{{< fa brands github >}} `saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
+- Slides [{{< fa solid presentation >}} saforem2.github.io/mlmc](https://saforem2.github.io/mlmc)
+- [Title Slide Background (worms) animation](https://saforem2.github.io/grid-worms-animation/)
+
+## References {style="line-height:1.2em;"}
+
+::: {#refs}
+:::
+
+# Extras
+
+## Lattice Gauge Theory (2D $U(1)$) {.centeredslide}
+
+:::: {.columns layout-valign="top"}
+
+::: {.column width="50%"}
+
+::: {style="text-align:center;"}
+
+::: {.callout-note title="Link Variables"}
+$$U_{\mu}(n) = e^{i x_{\mu}(n)}\in \mathbb{C},\quad \text{where}\quad$$
+$$x_{\mu}(n) \in [-\pi,\pi)$$
+:::
+
+::: {}
+
+::: {.callout-important title="Wilson Action"}
+$$S_{\beta}(x) = \beta\sum_{P} \cos \textcolor{#00CCFF}{x_{P}},$$
+
+$$\textcolor{#00CCFF}{x_{P}} = \left[x_{\mu}(n) + x_{\nu}(n+\hat{\mu})
+- x_{\mu}(n+\hat{\nu})-x_{\nu}(n)\right]$$
+:::
+
+[**Note**: $\textcolor{#00CCFF}{x_{P}}$ is the product of
+links around $1\times 1$ square, called a ["plaquette"]{.blue-text}]{.dim-text style=font-size:0.8em;}
+:::
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+![2D Lattice](https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/u1lattice.dark.svg){width="80%"}
+
+:::
+
+::::
+
+
+## {background-color="white"}
+
+::: {#fig-notebook}
+
+<iframe data-src="https://nbviewer.org/github/saforem2/l2hmc-qcd/blob/SU3/src/l2hmc/notebooks/l2hmc-2dU1.ipynb" width="100%" height="650" title="l2hmc-qcd"></iframe>
+
+Jupyter Notebook
+
+:::
+
+## Annealing Schedule
+
+- Introduce an _annealing schedule_ during the training phase:
+
+  $$\left\{ \gamma_{t}  \right\}_{t=0}^{N} = \left\{\gamma_{0}, \gamma_{1},
+  \ldots, \gamma_{N-1}, \gamma_{N} \right\}$$
+
+  where $\gamma_{0} < \gamma_{1} < \cdots < \gamma_{N} \equiv 1$, and $\left|\gamma_{t+1} - \gamma_{t}\right| \ll 1$  
+
+- [**Note**]{.green-text}: 
+    - for $\left|\gamma_{t}\right| < 1$, this rescaling helps to reduce the
+      height of the energy barriers $\Longrightarrow$
+    - easier for our sampler to explore previously inaccessible regions of the phase space
+
+
+## Networks 2D $U(1)$
+
+- Stack gauge links as `shape`$\left(U_{\mu}\right)$` =[Nb, 2, Nt, Nx]` $\in \mathbb{C}$
+
+  $$ x_{\mu}(n) ≔ \left[\cos(x), \sin(x)\right]$$
+
+  with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$
+
+- $x$-Network:
+    - [$\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$]{.purple-text}
+    <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
+
+- $v$-Network:
+    - [$\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{.green-text}
+    <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
+
+## Networks 2D $U(1)$ {auto-animate=true}
+
+- Stack gauge links as `shape`$\left(U_{\mu}\right)$` =[Nb, 2, Nt, Nx]` $\in \mathbb{C}$
+
+  $$ x_{\mu}(n) ≔ \left[\cos(x), \sin(x)\right]$$
+
+  with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$
+
+- $x$-Network:
+    - [$\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$]{.purple-text}
+    <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
+
+- $v$-Network:
+  - [$\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{.green-text} [$\hspace{2pt}\longleftarrow$ lets look at this]{.dim-text}
+    <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
+
+
+## Toy Example: GMM $\in \mathbb{R}^{2}$ {.centeredslide}
+
+![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/iso_gmm_chains.svg){#fig-gmm .r-stretch}
+
+## Physical Quantities
+
+- To estimate physical quantities, we:
+  - calculate physical observables at **increasing** spatial resolution
+  - perform extrapolation to continuum limit
+
+::: {#fig-continuum}
+
+![](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/static/continuum.svg)
+
+Increasing the physical resolution ($a \rightarrow 0$) allows us to make
+predictions about numerical values of physical quantities in the continuum
+limit.
+
+:::
