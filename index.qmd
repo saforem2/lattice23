@@ -261,139 +261,6 @@ $$\begin{align*}
 HMC Demo
 :::
 
-# 4D $SU(3)$ Model {.centeredslide style="font-size: 0.9em;"}
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-::: {.callout-note title="Link Variables" style="text-align:left;"}
-
-- Write link variables $U_{\mu}(x) \in SU(3)$:
-
-  $$ \begin{align*} 
-  U_{\mu}(x) &= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)} \lambda^{k}}\right]\\
-  &= e^{i \textcolor{#AE81FF}{Q}},\quad \text{with} \quad \textcolor{#AE81FF}{Q} \in \mathfrak{su}(3)
-  \end{align*}$$ 
-
-  where [$\omega^{k}_{\mu}(x) \in \mathbb{R}$]{.purple-text}, and $\lambda^{k}$ are
-  the generators of $SU(3)$
-
-:::
-
-::: {.callout-tip title="Conjugate Momenta" style="text-align:left;"}
-
-- Introduce momenta [$P_{\mu}(x) = P^{k}_{\mu}(x) \lambda^{k}$]{.green-text} conjugate to the **real fields**
-[$\omega^{k}_{\mu}(x)$]{.purple-text}
-
-:::
-
-::: {.callout-important title="Wilson Action" style="text-align:left;"}
-
-$$ S_{G} = -\frac{\beta}{6} \sum
-\mathrm{Tr}\left[U_{\mu\nu}(x)
-+ U^{\dagger}_{\mu\nu}(x)\right] $$
-
-where $U_{\mu\nu}(x) = U_{\mu}(x) U_{\nu}(x+\hat{\mu})
-U^{\dagger}_{\mu}(x+\hat{\nu}) U^{\dagger}_{\nu}(x)$
-
-:::
-
-
-:::
-
-::: {.column width="45%"}
-
-::: {#fig-4dlattice}
-
-![](./assets/u1lattice.dark.svg){width="90%"}
-
-Illustration of the lattice
-:::
-
-:::
-
-::::
-
-# HMC: 4D $SU(3)$
-
-Hamiltonian: $H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow$
-
-:::: {.columns}
-
-::: {.column width="65%" style="font-size:0.9em; text-align: center;"}
-
-::: {.callout style="text-align:left;"}
-- [$U$ update]{style="border-bottom: 2px solid #AE81FF;"}:
-[$\frac{d\omega^{k}}{dt} = \frac{\partial H}{\partial P^{k}}$]{.purple-text style="font-size:1.5em;"}
-$$\frac{d\omega^{k}}{dt}\lambda^{k} = P^{k}\lambda^{k} \Longrightarrow \frac{dQ}{dt} = P$$
-$$\begin{align*}
-Q(\textcolor{#FFEE58}{\varepsilon}) &= Q(0) + \textcolor{#FFEE58}{\varepsilon} P(0)\Longrightarrow\\
--i\, \log U(\textcolor{#FFEE58}{\varepsilon}) &= -i\, \log U(0) + \textcolor{#FFEE58}{\varepsilon} P(0) \\
-U(\textcolor{#FFEE58}{\varepsilon}) &= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(0)} U(0)
-\end{align*}$$
-
-:::
-
-::: {aside}
-
-[$\textcolor{#FFEE58}{\varepsilon}$ is the step size]{.dim-text style="font-size:0.8em;"}
-
-:::
-
-:::
-
-
-::: {.column width="35%" style="font-size:0.9em; text-align:center"}
-
-::: {.callout style="text-align:center; font-size: 2.0em;"}
-
-- [$P$ update]{style="border-bottom: 2px solid #07B875;"}:
-[$\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}$]{.green-text style="font-size:1.5em;"} 
-$$\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}
-= -\frac{\partial H}{\partial Q} = -\frac{dS}{dQ}\Longrightarrow$$
-$$\begin{align*}
-P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \left.\frac{dS}{dQ}\right|_{t=0} \\
-&= P(0) - \textcolor{#FFEE58}{\varepsilon} \,\textcolor{#E599F7}{F[U]}
-\end{align*}$$
-
-:::
-
-::: {aside}
-
-[$\textcolor{#E599F7}{F[U]}$ is the force term]{.dim-text style="font-size:0.8em;"}
-
-:::
-
-:::
-
-
-::::
-
-# HMC: 4D $SU(3)$ {.centeredslide}
-
-:::: {.columns}
-
-::: {.column width="47%" style="text-align:left;"}
-
-Again, we can express the updates in terms of the operators
-
-- [Momentum Update]{style="border-bottom: 2px solid #F06292;"}:
-  $$\textcolor{#F06292}{\Gamma}: P \longrightarrow P' := P - \frac{\varepsilon}{2} F[U]$$
-
-- [Link Update]{style="border-bottom: 2px solid #FD971F;"}:
-  $$\textcolor{#FD971F}{\Lambda}: U \longrightarrow U' := e^{i\varepsilon P'} U\quad\quad$$
-
-:::
-
-::: {.column width="47%" style="text-align:right;"}
-
-![](./assets/hmc/hmc-update-light.svg){width=60%}
-
-:::
-
-::::
-
 # Issues with HMC {style="font-size:0.9em;"}
 
 - What do we want in a good sampler?
@@ -586,6 +453,139 @@ $$\textcolor{#939393} \xi \hspace{1pt}\xrightarrow[]{\tiny{\mathrm{LF} \text{ la
 ![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/network_functions.svg){.absolute top=440 width="100%"}
 
 
+# 4D $SU(3)$ Model {.centeredslide style="font-size: 0.9em;"}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.callout-note title="Link Variables" style="text-align:left;"}
+
+- Write link variables $U_{\mu}(x) \in SU(3)$:
+
+  $$ \begin{align*} 
+  U_{\mu}(x) &= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)} \lambda^{k}}\right]\\
+  &= e^{i \textcolor{#AE81FF}{Q}},\quad \text{with} \quad \textcolor{#AE81FF}{Q} \in \mathfrak{su}(3)
+  \end{align*}$$ 
+
+  where [$\omega^{k}_{\mu}(x) \in \mathbb{R}$]{.purple-text}, and $\lambda^{k}$ are
+  the generators of $SU(3)$
+
+:::
+
+::: {.callout-tip title="Conjugate Momenta" style="text-align:left;"}
+
+- Introduce momenta [$P_{\mu}(x) = P^{k}_{\mu}(x) \lambda^{k}$]{.green-text} conjugate to the **real fields**
+[$\omega^{k}_{\mu}(x)$]{.purple-text}
+
+:::
+
+::: {.callout-important title="Wilson Action" style="text-align:left;"}
+
+$$ S_{G} = -\frac{\beta}{6} \sum
+\mathrm{Tr}\left[U_{\mu\nu}(x)
++ U^{\dagger}_{\mu\nu}(x)\right] $$
+
+where $U_{\mu\nu}(x) = U_{\mu}(x) U_{\nu}(x+\hat{\mu})
+U^{\dagger}_{\mu}(x+\hat{\nu}) U^{\dagger}_{\nu}(x)$
+
+:::
+
+
+:::
+
+::: {.column width="45%"}
+
+::: {#fig-4dlattice}
+
+![](./assets/u1lattice.dark.svg){width="90%"}
+
+Illustration of the lattice
+:::
+
+:::
+
+::::
+
+# HMC: 4D $SU(3)$
+
+Hamiltonian: $H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow$
+
+:::: {.columns}
+
+::: {.column width="65%" style="font-size:0.9em; text-align: center;"}
+
+::: {.callout style="text-align:left;"}
+- [$U$ update]{style="border-bottom: 2px solid #AE81FF;"}:
+[$\frac{d\omega^{k}}{dt} = \frac{\partial H}{\partial P^{k}}$]{.purple-text style="font-size:1.5em;"}
+$$\frac{d\omega^{k}}{dt}\lambda^{k} = P^{k}\lambda^{k} \Longrightarrow \frac{dQ}{dt} = P$$
+$$\begin{align*}
+Q(\textcolor{#FFEE58}{\varepsilon}) &= Q(0) + \textcolor{#FFEE58}{\varepsilon} P(0)\Longrightarrow\\
+-i\, \log U(\textcolor{#FFEE58}{\varepsilon}) &= -i\, \log U(0) + \textcolor{#FFEE58}{\varepsilon} P(0) \\
+U(\textcolor{#FFEE58}{\varepsilon}) &= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(0)} U(0)
+\end{align*}$$
+
+:::
+
+::: {aside}
+
+[$\textcolor{#FFEE58}{\varepsilon}$ is the step size]{.dim-text style="font-size:0.8em;"}
+
+:::
+
+:::
+
+
+::: {.column width="35%" style="font-size:0.9em; text-align:center"}
+
+::: {.callout style="text-align:center; font-size: 2.0em;"}
+
+- [$P$ update]{style="border-bottom: 2px solid #07B875;"}:
+[$\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}$]{.green-text style="font-size:1.5em;"} 
+$$\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}
+= -\frac{\partial H}{\partial Q} = -\frac{dS}{dQ}\Longrightarrow$$
+$$\begin{align*}
+P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \left.\frac{dS}{dQ}\right|_{t=0} \\
+&= P(0) - \textcolor{#FFEE58}{\varepsilon} \,\textcolor{#E599F7}{F[U]}
+\end{align*}$$
+
+:::
+
+::: {aside}
+
+[$\textcolor{#E599F7}{F[U]}$ is the force term]{.dim-text style="font-size:0.8em;"}
+
+:::
+
+:::
+
+
+::::
+
+# HMC: 4D $SU(3)$ {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width="47%" style="text-align:left;"}
+
+Again, we can express the updates in terms of the operators
+
+- [Momentum Update]{style="border-bottom: 2px solid #F06292;"}:
+  $$\textcolor{#F06292}{\Gamma}: P \longrightarrow P' := P - \frac{\varepsilon}{2} F[U]$$
+
+- [Link Update]{style="border-bottom: 2px solid #FD971F;"}:
+  $$\textcolor{#FD971F}{\Lambda}: U \longrightarrow U' := e^{i\varepsilon P'} U\quad\quad$$
+
+:::
+
+::: {.column width="47%" style="text-align:right;"}
+
+![](./assets/hmc/hmc-update-light.svg){width=60%}
+
+:::
+
+::::
+
 # 4D $SU(3)$ Model {.centeredslide}
 
 :::: {.columns}
@@ -613,35 +613,65 @@ $$\textcolor{#939393} \xi \hspace{1pt}\xrightarrow[]{\tiny{\mathrm{LF} \text{ la
 
 # Networks 4D $SU(3)$
 
+:::: {.columns}
+
+::: {.column width="54%" style="font-size:0.9em;"}
+
 - Stack gauge links as  
 
-  `shape`$\left(U_{\mu}\right)$` = [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]` $\in \mathbb{C}$
+  [`shape`$\left(U_{\mu}\right)$` = [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]` $\in \mathbb{C}$]{style="font-size:0.85em;"}
 
   <!-- with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$ -->
 
 - $U$-Network:
-    - [$\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)$]{.purple-text}
+    - [$\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)$]{.purple-text style="padding:0.2em; border-radius: 6px"}
     <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
 
 - $v$-Network:
-    - [$\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)$]{.green-text}
+    - [$\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)$]{.green-text style="padding:0.2em; border-radius: 6px;"}
     <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
 
-# Networks 4D $SU(3)$ {auto-animate=true}
+:::
+
+::: {.column width="45%" style="text-align:right;"}
+
+![](./assets/leapfrog-layer-4D-SU3-vertical.light.svg){width="80%"}
+
+:::
+
+::::
+
+# Networks 4D $SU(3)$
+
+:::: {.columns}
+
+::: {.column width="54%" style="font-size:0.9em;"}
 
 - Stack gauge links as  
 
-  `shape`$\left(U_{\mu}\right)$` = [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]` $\in \mathbb{C}$
+  [`shape`$\left(U_{\mu}\right)$` = [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]` $\in \mathbb{C}$]{style="font-size:0.85em;"}
 
   <!-- with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$ -->
 
 - $U$-Network:
-    - [$\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)$]{.purple-text}
+    - [$\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)$]{.purple-text style="padding:0.2em; border-radius: 6px"}
     <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
 
 - $v$-Network:
-    - [$\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)$]{.green-text} [$\hspace{2pt}\longleftarrow$ lets look at this]{.dim-text}
+    - [$\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)$]{.green-text style="border:1px solid #666666; padding:0.2em; border-radius: 6px;"}  
+      [$\hspace{50pt}\uparrow$]{.dim-text}  
+      [$\hspace{30pt}$ let's look at this]{.dim-text style="padding-top: 0.5em!important;"}
     <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
+
+:::
+
+::: {.column width="45%" style="text-align:right;"}
+
+![](./assets/leapfrog-layer-4D-SU3-vertical.light.svg){width="80%"}
+
+:::
+
+::::
 
 # $P$-update (pt. 1) {style="font-size:0.95em;"}
 
@@ -831,6 +861,19 @@ varying trajectory lengths $N_{\mathrm{LF}}$
 Comparison of $\langle \delta Q\rangle = \frac{1}{N}\sum_{i=k}^{N} \delta Q_{i}$ for the
 trained model [@fig-eval] vs. HMC [@fig-hmc]
 :::
+
+# 4D $SU(3)$ Results
+
+
+::: {#fig-ridgeplot layout-valign="top"}
+
+![ridgeplot1](./assets/SU3/logdet_ridgeplot1.svg)
+![ridgeplot2](./assets/SU3/logdet_ridgeplot2.svg)
+![ridgeplot3](./assets/SU3/logdet_ridgeplot3.svg)
+![ridgeplot4](./assets/SU3/logdet_ridgeplot4.svg)
+
+:::
+
 
 
 # Thank you!

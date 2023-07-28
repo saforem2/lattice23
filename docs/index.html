@@ -609,129 +609,6 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </div>
 </section>
 
-<section id="d-su3-model" class="title-slide slide level1 centeredslide center" style="font-size: 0.9em;">
-<h1>4D <span class="math inline">SU(3)</span> Model</h1>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Link Variables</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li><p>Write link variables <span class="math inline">U_{\mu}(x) \in SU(3)</span>:</p>
-<p><span class="math display"> \begin{align*}
-U_{\mu}(x) &amp;= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)} \lambda^{k}}\right]\\
-&amp;= e^{i \textcolor{#AE81FF}{Q}},\quad \text{with} \quad \textcolor{#AE81FF}{Q} \in \mathfrak{su}(3)
-\end{align*}</span></p>
-<p>where <span class="purple-text"><span class="math inline">\omega^{k}_{\mu}(x) \in \mathbb{R}</span></span>, and <span class="math inline">\lambda^{k}</span> are the generators of <span class="math inline">SU(3)</span></p></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Conjugate Momenta</strong></p>
-</div>
-<div class="callout-content">
-<ul>
-<li>Introduce momenta <span class="green-text"><span class="math inline">P_{\mu}(x) = P^{k}_{\mu}(x) \lambda^{k}</span></span> conjugate to the <strong>real fields</strong> <span class="purple-text"><span class="math inline">\omega^{k}_{\mu}(x)</span></span></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Wilson Action</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math display"> S_{G} = -\frac{\beta}{6} \sum
-\mathrm{Tr}\left[U_{\mu\nu}(x)
-+ U^{\dagger}_{\mu\nu}(x)\right] </span></p>
-<p>where <span class="math inline">U_{\mu\nu}(x) = U_{\mu}(x) U_{\nu}(x+\hat{\mu}) U^{\dagger}_{\mu}(x+\hat{\nu}) U^{\dagger}_{\nu}(x)</span></p>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:45%;">
-<div id="fig-4dlattice" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/u1lattice.dark.svg" style="width:90.0%"></p>
-<figcaption>Figure&nbsp;3: Illustration of the lattice</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</section>
-
-<section id="hmc-4d-su3" class="title-slide slide level1 center">
-<h1>HMC: 4D <span class="math inline">SU(3)</span></h1>
-<p>Hamiltonian: <span class="math inline">H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow</span></p>
-<div class="columns">
-<div class="column" style="font-size:0.9em; text-align: center;">
-<div class="callout callout-none no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<ul>
-<li><span style="border-bottom: 2px solid #AE81FF;"><span class="math inline">U</span> update</span>: <span class="purple-text" style="font-size:1.5em;"><span class="math inline">\frac{d\omega^{k}}{dt} = \frac{\partial H}{\partial P^{k}}</span></span> <span class="math display">\frac{d\omega^{k}}{dt}\lambda^{k} = P^{k}\lambda^{k} \Longrightarrow \frac{dQ}{dt} = P</span> <span class="math display">\begin{align*}
-Q(\textcolor{#FFEE58}{\varepsilon}) &amp;= Q(0) + \textcolor{#FFEE58}{\varepsilon} P(0)\Longrightarrow\\
--i\, \log U(\textcolor{#FFEE58}{\varepsilon}) &amp;= -i\, \log U(0) + \textcolor{#FFEE58}{\varepsilon} P(0) \\
-U(\textcolor{#FFEE58}{\varepsilon}) &amp;= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(0)} U(0)
-\end{align*}</span></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="{aside}">
-<p><span class="dim-text" style="font-size:0.8em;"><span class="math inline">\textcolor{#FFEE58}{\varepsilon}</span> is the step size</span></p>
-</div>
-</div><div class="column" style="font-size:0.9em; text-align:center">
-<div class="callout callout-none no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<ul>
-<li><span style="border-bottom: 2px solid #07B875;"><span class="math inline">P</span> update</span>: <span class="green-text" style="font-size:1.5em;"><span class="math inline">\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}</span></span> <span class="math display">\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}
-= -\frac{\partial H}{\partial Q} = -\frac{dS}{dQ}\Longrightarrow</span> <span class="math display">\begin{align*}
-P(\textcolor{#FFEE58}{\varepsilon}) &amp;= P(0) - \textcolor{#FFEE58}{\varepsilon} \left.\frac{dS}{dQ}\right|_{t=0} \\
-&amp;= P(0) - \textcolor{#FFEE58}{\varepsilon} \,\textcolor{#E599F7}{F[U]}
-\end{align*}</span></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="{aside}">
-<p><span class="dim-text" style="font-size:0.8em;"><span class="math inline">\textcolor{#E599F7}{F[U]}</span> is the force term</span></p>
-</div>
-</div>
-</div>
-</section>
-
-<section id="hmc-4d-su3-1" class="title-slide slide level1 centeredslide center">
-<h1>HMC: 4D <span class="math inline">SU(3)</span></h1>
-<div class="columns">
-<div class="column" style="text-align:left;">
-<p>Again, we can express the updates in terms of the operators</p>
-<ul>
-<li><p><span style="border-bottom: 2px solid #F06292;">Momentum Update</span>: <span class="math display">\textcolor{#F06292}{\Gamma}: P \longrightarrow P' := P - \frac{\varepsilon}{2} F[U]</span></p></li>
-<li><p><span style="border-bottom: 2px solid #FD971F;">Link Update</span>: <span class="math display">\textcolor{#FD971F}{\Lambda}: U \longrightarrow U' := e^{i\varepsilon P'} U\quad\quad</span></p></li>
-</ul>
-</div><div class="column" style="text-align:right;">
-<p><img data-src="./assets/hmc/hmc-update-light.svg" style="width:60.0%"></p>
-</div>
-</div>
-</section>
-
 <section id="issues-with-hmc" class="title-slide slide level1 center" style="font-size:0.9em;">
 <h1>Issues with HMC</h1>
 <ul>
@@ -766,7 +643,7 @@ P(\textcolor{#FFEE58}{\varepsilon}) &amp;= P(0) - \textcolor{#FFEE58}{\varepsilo
 </div>
 </div>
 </div>
-<p></p><figcaption>Figure&nbsp;4: HMC Samples generated with varying step sizes <span class="math inline">\varepsilon</span></figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;3: HMC Samples generated with varying step sizes <span class="math inline">\varepsilon</span></figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -866,7 +743,7 @@ here <span class="purple-text"><span class="math inline">\psi_{\theta}</span></s
 <div id="fig-mdupdate" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:66%; text-align:center;"> <!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} --></p>
-<figcaption>Figure&nbsp;5: Generalized MD update with <span class="math inline">\Lambda_{\theta}^{\pm}</span>, <span class="math inline">\Gamma_{\theta}^{\pm}</span></figcaption>
+<figcaption>Figure&nbsp;4: Generalized MD update with <span class="math inline">\Lambda_{\theta}^{\pm}</span>, <span class="math inline">\Gamma_{\theta}^{\pm}</span></figcaption>
 </figure>
 </div>
 </div>
@@ -916,7 +793,7 @@ A({\textcolor{#f8f8f8}{\xi'}}|{\textcolor{#939393}{\xi}})=
 <div id="fig-mdupdate" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:75%; text-align:center;"> <!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} --></p>
-<figcaption>Figure&nbsp;6: <strong>Leapfrog Layer</strong> used in generalized MD update</figcaption>
+<figcaption>Figure&nbsp;5: <strong>Leapfrog Layer</strong> used in generalized MD update</figcaption>
 </figure>
 </div>
 </div>
@@ -934,6 +811,129 @@ A({\textcolor{#f8f8f8}{\xi'}}|{\textcolor{#939393}{\xi}})=
 </div>
 </div>
 <p><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/network_functions.svg" class="absolute" style="top: 440px; width: 100%; "></p>
+</section>
+
+<section id="d-su3-model" class="title-slide slide level1 centeredslide center" style="font-size: 0.9em;">
+<h1>4D <span class="math inline">SU(3)</span> Model</h1>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Link Variables</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><p>Write link variables <span class="math inline">U_{\mu}(x) \in SU(3)</span>:</p>
+<p><span class="math display"> \begin{align*}
+U_{\mu}(x) &amp;= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)} \lambda^{k}}\right]\\
+&amp;= e^{i \textcolor{#AE81FF}{Q}},\quad \text{with} \quad \textcolor{#AE81FF}{Q} \in \mathfrak{su}(3)
+\end{align*}</span></p>
+<p>where <span class="purple-text"><span class="math inline">\omega^{k}_{\mu}(x) \in \mathbb{R}</span></span>, and <span class="math inline">\lambda^{k}</span> are the generators of <span class="math inline">SU(3)</span></p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Conjugate Momenta</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Introduce momenta <span class="green-text"><span class="math inline">P_{\mu}(x) = P^{k}_{\mu}(x) \lambda^{k}</span></span> conjugate to the <strong>real fields</strong> <span class="purple-text"><span class="math inline">\omega^{k}_{\mu}(x)</span></span></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Wilson Action</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display"> S_{G} = -\frac{\beta}{6} \sum
+\mathrm{Tr}\left[U_{\mu\nu}(x)
++ U^{\dagger}_{\mu\nu}(x)\right] </span></p>
+<p>where <span class="math inline">U_{\mu\nu}(x) = U_{\mu}(x) U_{\nu}(x+\hat{\mu}) U^{\dagger}_{\mu}(x+\hat{\nu}) U^{\dagger}_{\nu}(x)</span></p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:45%;">
+<div id="fig-4dlattice" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./assets/u1lattice.dark.svg" style="width:90.0%"></p>
+<figcaption>Figure&nbsp;6: Illustration of the lattice</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+
+<section id="hmc-4d-su3" class="title-slide slide level1 center">
+<h1>HMC: 4D <span class="math inline">SU(3)</span></h1>
+<p>Hamiltonian: <span class="math inline">H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow</span></p>
+<div class="columns">
+<div class="column" style="font-size:0.9em; text-align: center;">
+<div class="callout callout-none no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<ul>
+<li><span style="border-bottom: 2px solid #AE81FF;"><span class="math inline">U</span> update</span>: <span class="purple-text" style="font-size:1.5em;"><span class="math inline">\frac{d\omega^{k}}{dt} = \frac{\partial H}{\partial P^{k}}</span></span> <span class="math display">\frac{d\omega^{k}}{dt}\lambda^{k} = P^{k}\lambda^{k} \Longrightarrow \frac{dQ}{dt} = P</span> <span class="math display">\begin{align*}
+Q(\textcolor{#FFEE58}{\varepsilon}) &amp;= Q(0) + \textcolor{#FFEE58}{\varepsilon} P(0)\Longrightarrow\\
+-i\, \log U(\textcolor{#FFEE58}{\varepsilon}) &amp;= -i\, \log U(0) + \textcolor{#FFEE58}{\varepsilon} P(0) \\
+U(\textcolor{#FFEE58}{\varepsilon}) &amp;= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(0)} U(0)
+\end{align*}</span></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="{aside}">
+<p><span class="dim-text" style="font-size:0.8em;"><span class="math inline">\textcolor{#FFEE58}{\varepsilon}</span> is the step size</span></p>
+</div>
+</div><div class="column" style="font-size:0.9em; text-align:center">
+<div class="callout callout-none no-icon callout-style-simple">
+<div class="callout-body">
+<div class="callout-content">
+<ul>
+<li><span style="border-bottom: 2px solid #07B875;"><span class="math inline">P</span> update</span>: <span class="green-text" style="font-size:1.5em;"><span class="math inline">\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}</span></span> <span class="math display">\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}
+= -\frac{\partial H}{\partial Q} = -\frac{dS}{dQ}\Longrightarrow</span> <span class="math display">\begin{align*}
+P(\textcolor{#FFEE58}{\varepsilon}) &amp;= P(0) - \textcolor{#FFEE58}{\varepsilon} \left.\frac{dS}{dQ}\right|_{t=0} \\
+&amp;= P(0) - \textcolor{#FFEE58}{\varepsilon} \,\textcolor{#E599F7}{F[U]}
+\end{align*}</span></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="{aside}">
+<p><span class="dim-text" style="font-size:0.8em;"><span class="math inline">\textcolor{#E599F7}{F[U]}</span> is the force term</span></p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="hmc-4d-su3-1" class="title-slide slide level1 centeredslide center">
+<h1>HMC: 4D <span class="math inline">SU(3)</span></h1>
+<div class="columns">
+<div class="column" style="text-align:left;">
+<p>Again, we can express the updates in terms of the operators</p>
+<ul>
+<li><p><span style="border-bottom: 2px solid #F06292;">Momentum Update</span>: <span class="math display">\textcolor{#F06292}{\Gamma}: P \longrightarrow P' := P - \frac{\varepsilon}{2} F[U]</span></p></li>
+<li><p><span style="border-bottom: 2px solid #FD971F;">Link Update</span>: <span class="math display">\textcolor{#FD971F}{\Lambda}: U \longrightarrow U' := e^{i\varepsilon P'} U\quad\quad</span></p></li>
+</ul>
+</div><div class="column" style="text-align:right;">
+<p><img data-src="./assets/hmc/hmc-update-light.svg" style="width:60.0%"></p>
+</div>
+</div>
 </section>
 
 <section id="d-su3-model-1" class="title-slide slide level1 centeredslide center">
@@ -969,36 +969,50 @@ A({\textcolor{#f8f8f8}{\xi'}}|{\textcolor{#939393}{\xi}})=
 
 <section id="networks-4d-su3" class="title-slide slide level1 center">
 <h1>Networks 4D <span class="math inline">SU(3)</span></h1>
+<div class="columns">
+<div class="column" style="font-size:0.9em;">
 <ul>
 <li><p>Stack gauge links as</p>
-<p><code>shape</code><span class="math inline">\left(U_{\mu}\right)</span><code>= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]</code> <span class="math inline">\in \mathbb{C}</span></p>
+<p><span style="font-size:0.85em;"><code>shape</code><span class="math inline">\left(U_{\mu}\right)</span><code>= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]</code> <span class="math inline">\in \mathbb{C}</span></span></p>
 <!-- with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$ --></li>
 <li><p><span class="math inline">U</span>-Network:</p>
 <ul>
-<li><span class="purple-text"><span class="math inline">\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)</span></span> <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ --></li>
+<li><span class="purple-text" style="padding:0.2em; border-radius: 6px"><span class="math inline">\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)</span></span> <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ --></li>
 </ul></li>
 <li><p><span class="math inline">v</span>-Network:</p>
 <ul>
-<li><span class="green-text"><span class="math inline">\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)</span></span> <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ --></li>
+<li><span class="green-text" style="padding:0.2em; border-radius: 6px;"><span class="math inline">\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)</span></span> <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ --></li>
 </ul></li>
 </ul>
+</div><div class="column" style="text-align:right;">
+<p><img data-src="./assets/leapfrog-layer-4D-SU3-vertical.light.svg" style="width:80.0%"></p>
+</div>
+</div>
 </section>
 
-<section id="networks-4d-su3-1" class="title-slide slide level1 center" data-auto-animate="true">
-<h1 data-id="quarto-animate-title">Networks 4D <span class="math inline">SU(3)</span></h1>
+<section id="networks-4d-su3-1" class="title-slide slide level1 center">
+<h1>Networks 4D <span class="math inline">SU(3)</span></h1>
+<div class="columns">
+<div class="column" style="font-size:0.9em;">
 <ul>
 <li><p>Stack gauge links as</p>
-<p><code>shape</code><span class="math inline">\left(U_{\mu}\right)</span><code>= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]</code> <span class="math inline">\in \mathbb{C}</span></p>
+<p><span style="font-size:0.85em;"><code>shape</code><span class="math inline">\left(U_{\mu}\right)</span><code>= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]</code> <span class="math inline">\in \mathbb{C}</span></span></p>
 <!-- with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$ --></li>
 <li><p><span class="math inline">U</span>-Network:</p>
 <ul>
-<li><span class="purple-text"><span class="math inline">\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)</span></span> <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ --></li>
+<li><span class="purple-text" style="padding:0.2em; border-radius: 6px"><span class="math inline">\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)</span></span> <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ --></li>
 </ul></li>
 <li><p><span class="math inline">v</span>-Network:</p>
 <ul>
-<li><span class="green-text"><span class="math inline">\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)</span></span> <span class="dim-text"><span class="math inline">\hspace{2pt}\longleftarrow</span> lets look at this</span> <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ --></li>
+<li><span class="green-text" style="border:1px solid #666666; padding:0.2em; border-radius: 6px;"><span class="math inline">\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)</span></span><br>
+<span class="dim-text"><span class="math inline">\hspace{50pt}\uparrow</span></span><br>
+<span class="dim-text" style="padding-top: 0.5em!important;"><span class="math inline">\hspace{30pt}</span> let’s look at this</span> <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ --></li>
 </ul></li>
 </ul>
+</div><div class="column" style="text-align:right;">
+<p><img data-src="./assets/leapfrog-layer-4D-SU3-vertical.light.svg" style="width:80.0%"></p>
+</div>
+</div>
 </section>
 
 <section id="p-update-pt.-1" class="title-slide slide level1 center" style="font-size:0.95em;">
@@ -1168,6 +1182,16 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </figure>
 </div>
 </section></section>
+<section id="d-su3-results" class="title-slide slide level1 center">
+<h1>4D <span class="math inline">SU(3)</span> Results</h1>
+<div id="fig-ridgeplot" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./assets/SU3/logdet_ridgeplot1.svg" alt="ridgeplot1"> <img data-src="./assets/SU3/logdet_ridgeplot2.svg" alt="ridgeplot2"> <img data-src="./assets/SU3/logdet_ridgeplot3.svg" alt="ridgeplot3"> <img data-src="./assets/SU3/logdet_ridgeplot4.svg" alt="ridgeplot4"></p>
+<figcaption>Figure&nbsp;12: <strong>?(caption)</strong></figcaption>
+</figure>
+</div>
+</section>
+
 <section>
 <section id="thank-you" class="title-slide slide level1 center">
 <h1>Thank you!</h1>
@@ -1318,7 +1342,7 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 <figure>
 <iframe data-src="https://nbviewer.org/github/saforem2/l2hmc-qcd/blob/SU3/src/l2hmc/notebooks/l2hmc-2dU1.ipynb" width="100%" height="650" title="l2hmc-qcd">
 </iframe>
-<figcaption>Figure&nbsp;12: Jupyter Notebook</figcaption>
+<figcaption>Figure&nbsp;13: Jupyter Notebook</figcaption>
 </figure>
 </div>
 </section>
@@ -1384,7 +1408,7 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 <div id="fig-continuum" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/static/continuum.svg"></p>
-<figcaption>Figure&nbsp;13: Increasing the physical resolution (<span class="math inline">a \rightarrow 0</span>) allows us to make predictions about numerical values of physical quantities in the continuum limit.</figcaption>
+<figcaption>Figure&nbsp;14: Increasing the physical resolution (<span class="math inline">a \rightarrow 0</span>) allows us to make predictions about numerical values of physical quantities in the continuum limit.</figcaption>
 </figure>
 </div>
 

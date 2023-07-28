@@ -74,7 +74,7 @@
     "href": "index.html#section-1",
     "title": "",
     "section": "",
-    "text": "Figure 12: Jupyter Notebook"
+    "text": "Figure 13: Jupyter Notebook"
   },
   {
     "objectID": "index.html#annealing-schedule",
@@ -109,6 +109,6 @@
     "href": "index.html#physical-quantities",
     "title": "",
     "section": "Physical Quantities",
-    "text": "Physical Quantities\n\nTo estimate physical quantities, we:\n\ncalculate physical observables at increasing spatial resolution\nperform extrapolation to continuum limit\n\n\n\n\n\nFigure 13: Increasing the physical resolution (a \\rightarrow 0) allows us to make predictions about numerical values of physical quantities in the continuum limit."
+    "text": "Physical Quantities\n\nTo estimate physical quantities, we:\n\ncalculate physical observables at increasing spatial resolution\nperform extrapolation to continuum limit\n\n\n\n\n\nFigure 14: Increasing the physical resolution (a \\rightarrow 0) allows us to make predictions about numerical values of physical quantities in the continuum limit."
   }
 ]
