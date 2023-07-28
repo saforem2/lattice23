@@ -318,22 +318,46 @@ $\beta$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets
 
 # Can we do better[^l2hmc]?
 
-- Generalize MD update by introducing 6 functions:
-  - [$x$-update]{style="border-bottom: 1px solid #AE81FF;"}:
-    [$\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$]{.purple-text}
-  - [$v$-update]{style="border-bottom: 1px solid #09B875"}:
-    [$\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{.green-text}
 
-  here [$\psi_{\theta}$]{.purple-text}, [$\varphi_{\theta}$]{.green-text} are NNs,
-  parameterized by weights $\theta$
+:::: {.columns}
 
-&nbsp;<br>
+::: {.column width="50%"}
 
-- Use $\left(s_{k}, t_{k}, q_{k}\right)$, for $k \in \{x, v\}$ in a generalized
-  MD update
-  - [$x'$]{.purple-text} $\gets \Lambda_{\theta}(x, v)$
-  - [$v'$]{.green-text} $\gets \Gamma_{\theta}(x, v)$
+- Introduce two (**invertible NNs**) `vNet` and `xNet`:
+  - [`vNet: ` $(x, F) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{style="font-size:0.9em;"}  
+  - [`xNet: ` $(x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$]{style="font-size:0.9em;"}
+  <!-- - [[$x$]{.purple-text}-update]{style="border-bottom: 2px solid #AE81FF;"}:   -->
+  <!-- - [[$v$]{.green-text}-update]{style="border-bottom: 2px solid #09B875"}:   -->
 
+&nbsp;  
+
+- Use these $\left(s_{k}, t_{k}, q_{k}\right)$, $k \in \{x, v\}$ in the
+_generalized_ MD update:
+<!-- $pink-text: #F06292; -->
+  - [[$\Gamma_{\theta}^{\pm}$]{.pink-text} $: (x, \textcolor{#07B875}{v}) \xrightarrow[]{\textcolor{#F06292}{s_{v}, t_{v}, q_{v}}} (x, \textcolor{#07B875}{v'})$]{}
+  - [[$\Lambda_{\theta}^{\pm}$]{.orange-text} $: (\textcolor{#AE81FF}{x}, v) \xrightarrow[]{\textcolor{#FD971F}{s_{x}, t_{x}, q_{x}}} (\textcolor{#AE81FF}{x'}, v)$]{}
+  <!-- - [[$x$]{.purple-text}-update]{style="border-bottom: 2px solid #AE81FF;"}:   -->
+  <!-- - [[$v$]{.green-text}-update]{style="border-bottom: 2px solid #09B875"}:   -->
+
+
+
+:::
+
+::: {.column width="45%"}
+
+::: {#fig-mdupdate}
+
+![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:70%; text-align:center;"}
+<!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} -->
+
+Generalized MD update where [$\Lambda_{\theta}^{\pm}$]{.orange-text},
+[$\Gamma_{\theta}^{\pm}$]{.pink-text} are **invertible NNs**
+
+:::
+
+:::
+
+::::
 
 [^l2hmc]: [L2HMC: ](https://github.com/saforem2/l2hmc-qcd) {{< fa solid book >}}
 [@Foreman:2021ixr; @Foreman:2021rhs]
@@ -342,26 +366,31 @@ $\beta$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets
 
 :::: {.columns}
 
-::: {.column width="50%"}
+::: {.column width="45%" style="font-size:0.9em;"}
 
-- To ensure ergodicity + reversibility[^direction] [^reverse] we split the $x$ update into sequential (complementary) updates:
+- [To ensure ergodicity + reversibility[^direction] [^reverse], we split the
+[$x$]{.purple-text} update into sequential (complementary)
+updates:]{style="font-size:0.9em;"}
 
   ::: {.callout title="Generalized Update:"}
 
   1. Update $\textcolor{#07B875}{v}$:  
-    [$\textcolor{#07B875}{v'} =$ [$\Gamma^{\pm}$]{.pink-text}$(\textcolor{#AE81FF}{x}, \textcolor{#07B875}{v})$]{style="font-size: 1.2em;"}
+    [$\textcolor{#07B875}{v'} =$ [$\Gamma_{\theta}^{\pm}$]{.pink-text}$(\textcolor{#AE81FF}{x}, \textcolor{#07B875}{v})$]{style="font-size: 1.2em;"}
 
   2. Update **half** of $\textcolor{#AE81FF}{x}$:  
-    [$\textcolor{#AE81FF}{x'} =$ [$x_{A}$]{.red-text}$\,+\,$[$m_{B}$]{.blue-text}$\,\odot\,$ [$\Lambda^{\pm}$]{.orange-text}$($[$x_{B}$]{.blue-text}$, \textcolor{#07B875}{v'})$]{style="font-size: 1.2em;"}
+    [$\textcolor{#AE81FF}{x'} =$ [$x_{A}$]{.red-text}$\,+\,$[$m_{B}$]{.blue-text}$\,\odot\,$ [$\Lambda_{\theta}^{\pm}$]{.orange-text}$($[$x_{B}$]{.blue-text}$, \textcolor{#07B875}{v'})$]{style="font-size: 1.2em;"}
 
   3. Update (other) half of $\textcolor{#AE81FF}{x}$:  
-    [$\textcolor{#AE81FF}{x''} =$ [$x'_{B}$]{.blue-text}$\,+\,$[$m_{A}$]{.red-text}$\,\odot\,$ [$\Lambda^{\pm}$]{.orange-text}$($[$x'_{A}$]{.red-text}$, \textcolor{#07B875}{v'})$]{style="font-size: 1.2em;"}
+    [$\textcolor{#AE81FF}{x''} =$ [$x'_{B}$]{.blue-text}$\,+\,$[$m_{A}$]{.red-text}$\,\odot\,$ [$\Lambda_{\theta}^{\pm}$]{.orange-text}$($[$x'_{A}$]{.red-text}$, \textcolor{#07B875}{v'})$]{style="font-size: 1.2em;"}
 
   4. Update $\textcolor{#07B875}{v}$:  
-    [$\textcolor{#07B875}{v}'' =$ [$\Gamma^{\pm}$]{.pink-text}$(\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v'})$]{style="font-size: 1.2em;"}
-
+    [$\textcolor{#07B875}{v}'' =$ [$\Gamma_{\theta}^{\pm}$]{.pink-text}$(\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v'})$]{style="font-size: 1.2em;"}  
+  
   :::
 
+  - [**Note**: [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"}
+
+<!-- [^updates]: [Here [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"} -->
 [^direction]: [We introduce a directional variable $d \sim \mathcal{U}(\pm)$ that is resampled each trajectory to determine the direction of our update]{style="font-size:0.8em;"}
 [^reverse]: [Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e. $\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)$]{style="font-size:0.8em;"}
 
@@ -374,12 +403,28 @@ $\beta$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets
 ![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:66%; text-align:center;"}
 <!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} -->
 
-Generalized MD update with $\Lambda_{\theta}^{\pm}$, $\Gamma_{\theta}^{\pm}$
+Generalized MD update with [$\Lambda_{\theta}^{\pm}$]{.orange-text}, [$\Gamma_{\theta}^{\pm}$]{.pink-text}
 :::
 
 :::
 
 ::::
+
+# L2HMC: Leapfrog Layer {.centeredslide}
+
+:::: {.columns}
+
+::: {.column width="35%"}
+![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/update_steps.svg){.absolute  top="30" width="40%"}
+:::
+
+::: {.column width="65%"}
+![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/leapfrog_layer_dark2.svg){width="100%"}
+:::
+::::
+
+![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/network_functions.svg){.absolute top=440 width="100%"}
+
 
 # L2HMC Update {style="font-size: 0.775em;"}
 
@@ -389,25 +434,26 @@ Generalized MD update with $\Lambda_{\theta}^{\pm}$, $\Gamma_{\theta}^{\pm}$
 
 ::: {.callout title="Algorithm"}
 
-1. `input`: $\mathbf{x}$  
+1. `input`: [$x$]{.purple-text}
 
     - Resample: $\textcolor{#07B875}{v} \sim \mathcal{N}(0, \mathbb{1})$; $\,\,{d\sim\mathcal{U}(\pm)}$
     - Construct initial state:
-     $\textcolor{#FF67FF}{\xi} =(\textcolor{#AE81FF}{x}, \textcolor{#07B875}{v}, {\pm})$
+     $\textcolor{#939393}{\xi} =(\textcolor{#AE81FF}{x}, \textcolor{#07B875}{v}, {\pm})$
 
 2. `forward`: Generate [proposal $\xi'$]{style="color:#f8f8f8"} by passing [initial $\xi$]{style="color:#939393"} through $N_{\mathrm{LF}}$ leapfrog layers  
 $$\textcolor{#939393} \xi \hspace{1pt}\xrightarrow[]{\tiny{\mathrm{LF} \text{ layer}}}\xi_{1} \longrightarrow\cdots \longrightarrow \xi_{N_{\mathrm{LF}}} = \textcolor{#f8f8f8}{\xi'} := (\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v''})$$
 
-    - Compute the Metropolis-Hastings (MH) acceptance (with Jacobian $\mathcal{J}$)
-      $$\begin{equation}
+    - Accept / Reject:
+      $$\begin{equation*}
       A({\textcolor{#f8f8f8}{\xi'}}|{\textcolor{#939393}{\xi}})=
       \mathrm{min}\left\{1,
       \frac{\pi(\textcolor{#f8f8f8}{\xi'})}{\pi(\textcolor{#939393}{\xi})} \left| \mathcal{J}\left(\textcolor{#f8f8f8}{\xi'},\textcolor{#939393}{\xi}\right)\right| \right\}
-      \end{equation}$$
+      \end{equation*}$$
 
 5. `backward` (if training):  
     - Evaluate the **loss function**[^loss] $\mathcal{L}\gets \mathcal{L}_{\theta}(\textcolor{#f8f8f8}{\xi'}, \textcolor{#939393}{\xi})$ and backprop
-6. `return`: Evaluate MH criteria $(1)$ and return accepted config, $\textcolor{#AE81FF}{x}_{i+1}$
+6. `return`: $\textcolor{#AE81FF}{x}_{i+1}$  
+  Evaluate MH criteria $(1)$ and return accepted config, 
   $$\textcolor{#AE81FF}{{x}_{i+1}}\gets
   \begin{cases}
   \textcolor{#f8f8f8}{\textcolor{#AE81FF}{x''}} \small{\text{ w/ prob }} A(\textcolor{#f8f8f8}{\xi''}|\textcolor{#939393}{\xi}) \hspace{26pt} ✅ \\
@@ -435,22 +481,6 @@ $$\textcolor{#939393} \xi \hspace{1pt}\xrightarrow[]{\tiny{\mathrm{LF} \text{ la
 [^loss]: 
     For simple $\mathbf{x} \in \mathbb{R}^{2}$ example, $\mathcal{L}_{\theta} =
     A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}$
-
-
-# L2HMC: Leapfrog Layer {.centeredslide}
-
-:::: {.columns}
-
-::: {.column width="35%"}
-![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/update_steps.svg){.absolute  top="30" width="40%"}
-:::
-
-::: {.column width="65%"}
-![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/leapfrog_layer_dark2.svg){width="100%"}
-:::
-::::
-
-![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/network_functions.svg){.absolute top=440 width="100%"}
 
 
 # 4D $SU(3)$ Model {.centeredslide style="font-size: 0.9em;"}
@@ -617,6 +647,16 @@ Again, we can express the updates in terms of the operators
 
 ::: {.column width="54%" style="font-size:0.9em;"}
 
+- link variables: 
+  - $U_{\mu}(x) \in SU(3)$,
+  - \+ conjugate momenta:
+    - $P_{\mu}(x) \in \mathfrak{su}(3)$
+- We maintain a batch of `Nb` lattices, all updated in parallel
+  - `lattice.shape`:
+    - [`[4, Nt, Nx, Ny, Nz, 3, 3]`]{style="font-size: 0.9em;"}
+  - `batch.shape`:
+    - [`[Nb, *lattice.shape]`]{style="font-size: 0.9em;"}
+
 - Stack gauge links as  
 
   [`shape`$\left(U_{\mu}\right)$` = [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]` $\in \mathbb{C}$]{style="font-size:0.85em;"}
@@ -698,7 +738,7 @@ Again, we can express the updates in terms of the operators
 
 # $P$-update (pt. 2) {style="font-size:0.9em;"}
 
-- `output`[^lambda]: $(s_{P}, t_{P}, q_{P})$
+- `output`[^lambda]: $(s_{P}, t_{P}, q_{P})$ [$\hspace{10pt}\longleftarrow$ outputs from NN]{.dim-text}
   $$s_{P} = \lambda_{s} \tanh\left(w_{s}\, h_{n} + b_{s}\right), \quad
   t_{P} = w_{t} h_{n} + b_{t}, \quad
   q_{P} = \lambda_{q}\tanh\left(w_{q} h_{n} + b_{q}\right)$$
@@ -874,8 +914,6 @@ trained model [@fig-eval] vs. HMC [@fig-hmc]
 $\log|\mathcal{J}|$ vs. $N_{\mathrm{LF}}$ after `100`, `500`, and `1000` training iterations
 :::
 
-
-
 # Thank you!
 
 ::: {style="text-align:left;"}
@@ -940,6 +978,30 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 :::
 
 # Extras
+
+## $v$-Update[^reverse]
+
+- [forward]{style="color:#FF5252"} $(d = \textcolor{#FF5252}{+})$:  
+<!-- $\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v'$ -->
+
+$$\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v' \coloneqq v \cdot e^{\frac{\varepsilon}{2} s_{v}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]$$
+
+- [backward]{style="color:#1A8FFF;"} $(d = \textcolor{#1A8FFF}{-})$:
+
+$$\Gamma^{\textcolor{#1A8FFF}{-}}: (x, v) \rightarrow v' \coloneqq e^{-\frac{\varepsilon}{2} s_{v}} \left\{v + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]\right\}$$
+
+[^reverse]: [Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e. $\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)$]{style="font-size:0.8em;"}
+
+## $x$-Update
+
+- [forward]{style="color:#FF5252"} $(d = \textcolor{#FF5252}{+})$:
+
+$$\Lambda^{\textcolor{#FF5252}{+}}(x, v) = x \cdot e^{\frac{\varepsilon}{2} s_{x}} - \frac{\varepsilon}{2}\left[ v \cdot e^{\varepsilon q_{x}} + t_{x} \right]$$
+
+- [backward]{style="color:#1A8FFF;"} $(d = \textcolor{#1A8FFF}{-})$:
+
+$$\Lambda^{\textcolor{#1A8FFF}{-}}(x, v) = e^{-\frac{\varepsilon}{2} s_{x}} \left\{x + \frac{\varepsilon}{2}\left[ v \cdot e^{\varepsilon q_{x}} + t_{x} \right]\right\}$$
+
 
 ## Lattice Gauge Theory (2D $U(1)$) {.centeredslide}
 

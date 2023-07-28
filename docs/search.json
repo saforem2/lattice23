@@ -11,35 +11,35 @@
     "href": "index.html#integrated-autocorrelation-time",
     "title": "",
     "section": "Integrated Autocorrelation Time",
-    "text": "Integrated Autocorrelation Time\n\nFigure 7: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale)."
+    "text": "Integrated Autocorrelation Time\n\nFigure 8: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale)."
   },
   {
     "objectID": "index.html#interpretation",
     "href": "index.html#interpretation",
     "title": "",
     "section": "Interpretation",
-    "text": "Interpretation\n\n\nDeviation in x_{P}\n\nTopological charge mixing\n\nArtificial influx of energy\n\n\n\nFigure 8: Illustration of how different observables evolve over a single L2HMC trajectory."
+    "text": "Interpretation\n\n\nDeviation in x_{P}\n\nTopological charge mixing\n\nArtificial influx of energy\n\n\n\nFigure 9: Illustration of how different observables evolve over a single L2HMC trajectory."
   },
   {
     "objectID": "index.html#interpretation-1",
     "href": "index.html#interpretation-1",
     "title": "",
     "section": "Interpretation",
-    "text": "Interpretation\n\n\n\n\n\n\n\nAverage plaquette: \\langle x_{P}\\rangle vs LF step\n\n\n\n\n\n\n\nAverage energy: H - \\sum\\log|\\mathcal{J}|\n\n\n\n\nFigure 9: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors."
+    "text": "Interpretation\n\n\n\n\n\n\n\nAverage plaquette: \\langle x_{P}\\rangle vs LF step\n\n\n\n\n\n\n\nAverage energy: H - \\sum\\log|\\mathcal{J}|\n\n\n\n\nFigure 10: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors."
   },
   {
     "objectID": "index.html#plaquette-analysis-x_p",
     "href": "index.html#plaquette-analysis-x_p",
     "title": "",
     "section": "Plaquette analysis: x_{P}",
-    "text": "Plaquette analysis: x_{P}\n\n\nDeviation from V\\rightarrow\\infty limit, x_{P}^{\\ast}\n\nAverage \\langle x_{P}\\rangle, with x_{P}^{\\ast} (dotted-lines)\n\n\n\nFigure 10: Plot showing how average plaquette, \\left\\langle x_{P}\\right\\rangle varies over a single trajectory for models trained at different \\beta, with varying trajectory lengths N_{\\mathrm{LF}}"
+    "text": "Plaquette analysis: x_{P}\n\n\nDeviation from V\\rightarrow\\infty limit, x_{P}^{\\ast}\n\nAverage \\langle x_{P}\\rangle, with x_{P}^{\\ast} (dotted-lines)\n\n\n\nFigure 11: Plot showing how average plaquette, \\left\\langle x_{P}\\right\\rangle varies over a single trajectory for models trained at different \\beta, with varying trajectory lengths N_{\\mathrm{LF}}"
   },
   {
     "objectID": "index.html#comparison",
     "href": "index.html#comparison",
     "title": "",
     "section": "Comparison",
-    "text": "Comparison\n\n\n\n\n\n\n\n(a) Trained model\n\n\n\n\n\n\n\n(b) Generic HMC\n\n\n\n\nFigure 11: Comparison of \\langle \\delta Q\\rangle = \\frac{1}{N}\\sum_{i=k}^{N} \\delta Q_{i} for the trained model Figure 11 (a) vs. HMC Figure 11 (b)"
+    "text": "Comparison\n\n\n\n\n\n\n\n(a) Trained model\n\n\n\n\n\n\n\n(b) Generic HMC\n\n\n\n\nFigure 12: Comparison of \\langle \\delta Q\\rangle = \\frac{1}{N}\\sum_{i=k}^{N} \\delta Q_{i} for the trained model Figure 12 (a) vs. HMC Figure 12 (b)"
   },
   {
     "objectID": "index.html#acknowledgements",
@@ -63,6 +63,20 @@
     "text": "References\n\n\nBoyda, Denis et al. 2022. “Applications of Machine Learning to Lattice Quantum Field Theory.” In Snowmass 2021. https://arxiv.org/abs/2202.05838.\n\n\nForeman, Sam, Taku Izubuchi, Luchang Jin, Xiao-Yong Jin, James C. Osborn, and Akio Tomiya. 2022. “HMC with Normalizing Flows.” PoS LATTICE2021: 073. https://doi.org/10.22323/1.396.0073.\n\n\nForeman, Sam, Xiao-Yong Jin, and James C. Osborn. 2021. “Deep Learning Hamiltonian Monte Carlo.” In 9th International Conference on Learning Representations. https://arxiv.org/abs/2105.03418.\n\n\n———. 2022. “LeapfrogLayers: A Trainable Framework for Effective Topological Sampling.” PoS LATTICE2021: 508. https://doi.org/10.22323/1.396.0508.\n\n\nShanahan, Phiala et al. 2022. “Snowmass 2021 Computational Frontier CompF03 Topical Group Report: Machine Learning,” September. https://arxiv.org/abs/2209.07559."
   },
   {
+    "objectID": "index.html#v-updatereverse",
+    "href": "index.html#v-updatereverse",
+    "title": "",
+    "section": "v-Update1",
+    "text": "v-Update1\n\nforward (d = \\textcolor{#FF5252}{+}):\n\n\n\\Gamma^{\\textcolor{#FF5252}{+}}: (x, v) \\rightarrow v' \\coloneqq v \\cdot e^{\\frac{\\varepsilon}{2} s_{v}} - \\frac{\\varepsilon}{2}\\left[ F \\cdot e^{\\varepsilon q_{v}} + t_{v} \\right]\n\nbackward (d = \\textcolor{#1A8FFF}{-}):\n\n\\Gamma^{\\textcolor{#1A8FFF}{-}}: (x, v) \\rightarrow v' \\coloneqq e^{-\\frac{\\varepsilon}{2} s_{v}} \\left\\{v + \\frac{\\varepsilon}{2}\\left[ F \\cdot e^{\\varepsilon q_{v}} + t_{v} \\right]\\right\\}\nNote that \\left(\\Gamma^{+}\\right)^{-1} = \\Gamma^{-}, i.e. \\Gamma^{+}\\left[\\Gamma^{-}(x, v)\\right] = \\Gamma^{-}\\left[\\Gamma^{+}(x, v)\\right] = (x, v)"
+  },
+  {
+    "objectID": "index.html#x-update",
+    "href": "index.html#x-update",
+    "title": "",
+    "section": "x-Update",
+    "text": "x-Update\n\nforward (d = \\textcolor{#FF5252}{+}):\n\n\\Lambda^{\\textcolor{#FF5252}{+}}(x, v) = x \\cdot e^{\\frac{\\varepsilon}{2} s_{x}} - \\frac{\\varepsilon}{2}\\left[ v \\cdot e^{\\varepsilon q_{x}} + t_{x} \\right]\n\nbackward (d = \\textcolor{#1A8FFF}{-}):\n\n\\Lambda^{\\textcolor{#1A8FFF}{-}}(x, v) = e^{-\\frac{\\varepsilon}{2} s_{x}} \\left\\{x + \\frac{\\varepsilon}{2}\\left[ v \\cdot e^{\\varepsilon q_{x}} + t_{x} \\right]\\right\\}"
+  },
+  {
     "objectID": "index.html#lattice-gauge-theory-2d-u1",
     "href": "index.html#lattice-gauge-theory-2d-u1",
     "title": "",
@@ -74,7 +88,7 @@
     "href": "index.html#section-1",
     "title": "",
     "section": "",
-    "text": "Figure 13: Jupyter Notebook"
+    "text": "Figure 14: Jupyter Notebook"
   },
   {
     "objectID": "index.html#annealing-schedule",
@@ -109,6 +123,6 @@
     "href": "index.html#physical-quantities",
     "title": "",
     "section": "Physical Quantities",
-    "text": "Physical Quantities\n\nTo estimate physical quantities, we:\n\ncalculate physical observables at increasing spatial resolution\nperform extrapolation to continuum limit\n\n\n\n\n\nFigure 14: Increasing the physical resolution (a \\rightarrow 0) allows us to make predictions about numerical values of physical quantities in the continuum limit."
+    "text": "Physical Quantities\n\nTo estimate physical quantities, we:\n\ncalculate physical observables at increasing spatial resolution\nperform extrapolation to continuum limit\n\n\n\n\n\nFigure 15: Increasing the physical resolution (a \\rightarrow 0) allows us to make predictions about numerical values of physical quantities in the continuum limit."
   }
 ]
