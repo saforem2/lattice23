@@ -352,17 +352,17 @@ $\beta$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets
     [$\textcolor{#07B875}{v'} =$ [$\Gamma^{\pm}$]{.pink-text}$(\textcolor{#AE81FF}{x}, \textcolor{#07B875}{v})$]{style="font-size: 1.2em;"}
 
   2. Update **half** of $\textcolor{#AE81FF}{x}$:  
-    [$\textcolor{#AE81FF}{x'} =$ [$x_{A}$]{.blue-text}$\,+\,$[$m_{B}$]{.red-text}$\,\odot\,$ [$\Lambda^{\pm}$]{.orange-text}$($[$x_{B}$]{.red-text}$, \textcolor{#07B875}{v})$]{style="font-size: 1.2em;"}
+    [$\textcolor{#AE81FF}{x'} =$ [$x_{A}$]{.red-text}$\,+\,$[$m_{B}$]{.blue-text}$\,\odot\,$ [$\Lambda^{\pm}$]{.orange-text}$($[$x_{B}$]{.blue-text}$, \textcolor{#07B875}{v'})$]{style="font-size: 1.2em;"}
 
   3. Update (other) half of $\textcolor{#AE81FF}{x}$:  
-    [$\textcolor{#AE81FF}{x''} =$ [$x_{B}$]{.red-text}$\,+\,$[$m_{A}$]{.blue-text}$\,\odot\,$ [$\Lambda^{\pm}$]{.orange-text}$($[$x_{A}$]{.blue-text}$, \textcolor{#07B875}{v})$]{style="font-size: 1.2em;"}
+    [$\textcolor{#AE81FF}{x''} =$ [$x'_{B}$]{.blue-text}$\,+\,$[$m_{A}$]{.red-text}$\,\odot\,$ [$\Lambda^{\pm}$]{.orange-text}$($[$x'_{A}$]{.red-text}$, \textcolor{#07B875}{v'})$]{style="font-size: 1.2em;"}
 
   4. Update $\textcolor{#07B875}{v}$:  
     [$\textcolor{#07B875}{v}'' =$ [$\Gamma^{\pm}$]{.pink-text}$(\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v'})$]{style="font-size: 1.2em;"}
 
   :::
 
-[^direction]: [We introduce a directional variable $d \sim \mathcal{U}(\pm)$ that is _resampled each trajectory_ to determine the direction of our update]{style="font-size:0.8em;"}
+[^direction]: [We introduce a directional variable $d \sim \mathcal{U}(\pm)$ that is resampled each trajectory to determine the direction of our update]{style="font-size:0.8em;"}
 [^reverse]: [Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e. $\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)$]{style="font-size:0.8em;"}
 
 :::
@@ -867,11 +867,11 @@ trained model [@fig-eval] vs. HMC [@fig-hmc]
 
 ::: {#fig-ridgeplot layout-valign="top"}
 
-![ridgeplot1](./assets/SU3/logdet_ridgeplot1.svg)
-![ridgeplot2](./assets/SU3/logdet_ridgeplot2.svg)
-![ridgeplot3](./assets/SU3/logdet_ridgeplot3.svg)
-![ridgeplot4](./assets/SU3/logdet_ridgeplot4.svg)
+![`100`](./assets/SU3/logdet_ridgeplot1.svg)
+![`500`](./assets/SU3/logdet_ridgeplot2.svg)
+![`1000`](./assets/SU3/logdet_ridgeplot3.svg)
 
+$\log|\mathcal{J}|$ vs. $N_{\mathrm{LF}}$ after `100`, `500`, and `1000` training iterations
 :::
 
 

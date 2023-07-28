@@ -729,9 +729,9 @@ here <span class="purple-text"><span class="math inline">\psi_{\theta}</span></s
 <li><p>Update <span class="math inline">\textcolor{#07B875}{v}</span>:<br>
 <span style="font-size: 1.2em;"><span class="math inline">\textcolor{#07B875}{v'} =</span> <span class="pink-text"><span class="math inline">\Gamma^{\pm}</span></span><span class="math inline">(\textcolor{#AE81FF}{x}, \textcolor{#07B875}{v})</span></span></p></li>
 <li><p>Update <strong>half</strong> of <span class="math inline">\textcolor{#AE81FF}{x}</span>:<br>
-<span style="font-size: 1.2em;"><span class="math inline">\textcolor{#AE81FF}{x'} =</span> <span class="blue-text"><span class="math inline">x_{A}</span></span><span class="math inline">\,+\,</span><span class="red-text"><span class="math inline">m_{B}</span></span><span class="math inline">\,\odot\,</span> <span class="orange-text"><span class="math inline">\Lambda^{\pm}</span></span><span class="math inline">(</span><span class="red-text"><span class="math inline">x_{B}</span></span><span class="math inline">, \textcolor{#07B875}{v})</span></span></p></li>
+<span style="font-size: 1.2em;"><span class="math inline">\textcolor{#AE81FF}{x'} =</span> <span class="red-text"><span class="math inline">x_{A}</span></span><span class="math inline">\,+\,</span><span class="blue-text"><span class="math inline">m_{B}</span></span><span class="math inline">\,\odot\,</span> <span class="orange-text"><span class="math inline">\Lambda^{\pm}</span></span><span class="math inline">(</span><span class="blue-text"><span class="math inline">x_{B}</span></span><span class="math inline">, \textcolor{#07B875}{v'})</span></span></p></li>
 <li><p>Update (other) half of <span class="math inline">\textcolor{#AE81FF}{x}</span>:<br>
-<span style="font-size: 1.2em;"><span class="math inline">\textcolor{#AE81FF}{x''} =</span> <span class="red-text"><span class="math inline">x_{B}</span></span><span class="math inline">\,+\,</span><span class="blue-text"><span class="math inline">m_{A}</span></span><span class="math inline">\,\odot\,</span> <span class="orange-text"><span class="math inline">\Lambda^{\pm}</span></span><span class="math inline">(</span><span class="blue-text"><span class="math inline">x_{A}</span></span><span class="math inline">, \textcolor{#07B875}{v})</span></span></p></li>
+<span style="font-size: 1.2em;"><span class="math inline">\textcolor{#AE81FF}{x''} =</span> <span class="blue-text"><span class="math inline">x'_{B}</span></span><span class="math inline">\,+\,</span><span class="red-text"><span class="math inline">m_{A}</span></span><span class="math inline">\,\odot\,</span> <span class="orange-text"><span class="math inline">\Lambda^{\pm}</span></span><span class="math inline">(</span><span class="red-text"><span class="math inline">x'_{A}</span></span><span class="math inline">, \textcolor{#07B875}{v'})</span></span></p></li>
 <li><p>Update <span class="math inline">\textcolor{#07B875}{v}</span>:<br>
 <span style="font-size: 1.2em;"><span class="math inline">\textcolor{#07B875}{v}'' =</span> <span class="pink-text"><span class="math inline">\Gamma^{\pm}</span></span><span class="math inline">(\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v'})</span></span></p></li>
 </ol>
@@ -748,7 +748,7 @@ here <span class="purple-text"><span class="math inline">\psi_{\theta}</span></s
 </div>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn5"><p><span style="font-size:0.8em;">We introduce a directional variable <span class="math inline">d \sim \mathcal{U}(\pm)</span> that is <em>resampled each trajectory</em> to determine the direction of our update</span></p></li><li id="fn6"><p><span style="font-size:0.8em;">Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)</span></span></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn5"><p><span style="font-size:0.8em;">We introduce a directional variable <span class="math inline">d \sim \mathcal{U}(\pm)</span> that is resampled each trajectory to determine the direction of our update</span></p></li><li id="fn6"><p><span style="font-size:0.8em;">Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)</span></span></p></li></ol></aside></section>
 
 
 <section id="l2hmc-update" class="title-slide slide level1 center" style="font-size: 0.775em;">
@@ -1186,8 +1186,8 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 <h1>4D <span class="math inline">SU(3)</span> Results</h1>
 <div id="fig-ridgeplot" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="./assets/SU3/logdet_ridgeplot1.svg" alt="ridgeplot1"> <img data-src="./assets/SU3/logdet_ridgeplot2.svg" alt="ridgeplot2"> <img data-src="./assets/SU3/logdet_ridgeplot3.svg" alt="ridgeplot3"> <img data-src="./assets/SU3/logdet_ridgeplot4.svg" alt="ridgeplot4"></p>
-<figcaption>Figure&nbsp;12: <strong>?(caption)</strong></figcaption>
+<p><img data-src="./assets/SU3/logdet_ridgeplot1.svg" alt="100"> <img data-src="./assets/SU3/logdet_ridgeplot2.svg" alt="500"> <img data-src="./assets/SU3/logdet_ridgeplot3.svg" alt="1000"></p>
+<figcaption>Figure&nbsp;12: <span class="math inline">\log|\mathcal{J}|</span> vs.&nbsp;<span class="math inline">N_{\mathrm{LF}}</span> after <code>100</code>, <code>500</code>, and <code>1000</code> training iterations</figcaption>
 </figure>
 </div>
 </section>
