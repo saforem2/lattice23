@@ -865,11 +865,11 @@ sectors.
 
 ::: {#fig-ridgeplot layout-ncol=3 layout-valign="top"}
 
-![`100` train iters](./assets/SU3/logdet_ridgeplot1.svg){#fig-ridgeplot1}
+![`100` train iters](./assets/SU3/logdet_ridgeplot1.svg){#fig-ridgeplot1 width="33%"}
 
-![`500` train iters](./assets/SU3/logdet_ridgeplot2.svg){#fig-ridgeplot2}
+![`500` train iters](./assets/SU3/logdet_ridgeplot2.svg){#fig-ridgeplot2 width="33%"}
 
-![`1000` train iters](./assets/SU3/logdet_ridgeplot3.svg){#fig-ridgeplot3}
+![`1000` train iters](./assets/SU3/logdet_ridgeplot3.svg){#fig-ridgeplot3 width="33%"}
 
 $\log|\mathcal{J}|$ vs. $N_{\mathrm{LF}}$ during training
 :::
@@ -895,6 +895,23 @@ The difference in the average plaquette $\left|\delta U_{\mu\nu}\right|^{2}$
 between the trained model and HMC
 
 :::
+
+
+# Next Steps
+
+- Further code development
+  - {{< fa brands github >}} [`saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
+
+- Continue to use / test different network architectures
+  - Gauge equivariant NNs for $U_{\mu}(x)$ update
+
+- Continue to test different loss functions for training
+
+- Scaling:
+  - Lattice volume
+  - Network size
+  - Batch size
+  - \# of GPUs
 
 
 # Thank you!
