@@ -7,39 +7,18 @@
     "text": "Integrated Autocorrelation time: \\tau_{\\mathrm{int}}\n\n\n\n\n\n\n\n\n\n\nImprovement\n\n\nWe can measure the performance by comparing \\tau_{\\mathrm{int}} for the trained model vs. HMC.\nNote: lower is better"
   },
   {
-    "objectID": "index.html#integrated-autocorrelation-time",
-    "href": "index.html#integrated-autocorrelation-time",
-    "title": "",
-    "section": "Integrated Autocorrelation Time",
-    "text": "Integrated Autocorrelation Time\n\nFigure 8: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale)."
-  },
-  {
     "objectID": "index.html#interpretation",
     "href": "index.html#interpretation",
     "title": "",
     "section": "Interpretation",
-    "text": "Interpretation\n\n\nDeviation in x_{P}\n\nTopological charge mixing\n\nArtificial influx of energy\n\n\n\nFigure 9: Illustration of how different observables evolve over a single L2HMC trajectory."
+    "text": "Interpretation\n\n\nDeviation in x_{P}\n\nTopological charge mixing\n\nArtificial influx of energy\n\n\n\nFigure 8: Illustration of how different observables evolve over a single L2HMC trajectory."
   },
   {
     "objectID": "index.html#interpretation-1",
     "href": "index.html#interpretation-1",
     "title": "",
     "section": "Interpretation",
-    "text": "Interpretation\n\n\n\n\n\n\n\nAverage plaquette: \\langle x_{P}\\rangle vs LF step\n\n\n\n\n\n\n\nAverage energy: H - \\sum\\log|\\mathcal{J}|\n\n\n\n\nFigure 10: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors."
-  },
-  {
-    "objectID": "index.html#plaquette-analysis-x_p",
-    "href": "index.html#plaquette-analysis-x_p",
-    "title": "",
-    "section": "Plaquette analysis: x_{P}",
-    "text": "Plaquette analysis: x_{P}\n\n\nDeviation from V\\rightarrow\\infty limit, x_{P}^{\\ast}\n\nAverage \\langle x_{P}\\rangle, with x_{P}^{\\ast} (dotted-lines)\n\n\n\nFigure 11: Plot showing how average plaquette, \\left\\langle x_{P}\\right\\rangle varies over a single trajectory for models trained at different \\beta, with varying trajectory lengths N_{\\mathrm{LF}}"
-  },
-  {
-    "objectID": "index.html#comparison",
-    "href": "index.html#comparison",
-    "title": "",
-    "section": "Comparison",
-    "text": "Comparison\n\n\n\n\n\n\n\n(a) Trained model\n\n\n\n\n\n\n\n(b) Generic HMC\n\n\n\n\nFigure 12: Comparison of \\langle \\delta Q\\rangle = \\frac{1}{N}\\sum_{i=k}^{N} \\delta Q_{i} for the trained model Figure 12 (a) vs. HMC Figure 12 (b)"
+    "text": "Interpretation\n\n\n\n\n\n\n\nAverage plaquette: \\langle x_{P}\\rangle vs LF step\n\n\n\n\n\n\n\nAverage energy: H - \\sum\\log|\\mathcal{J}|\n\n\n\n\nFigure 9: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors."
   },
   {
     "objectID": "index.html#acknowledgements",
@@ -61,6 +40,34 @@
     "title": "",
     "section": "References",
     "text": "References\n\n\nBoyda, Denis et al. 2022. “Applications of Machine Learning to Lattice Quantum Field Theory.” In Snowmass 2021. https://arxiv.org/abs/2202.05838.\n\n\nForeman, Sam, Taku Izubuchi, Luchang Jin, Xiao-Yong Jin, James C. Osborn, and Akio Tomiya. 2022. “HMC with Normalizing Flows.” PoS LATTICE2021: 073. https://doi.org/10.22323/1.396.0073.\n\n\nForeman, Sam, Xiao-Yong Jin, and James C. Osborn. 2021. “Deep Learning Hamiltonian Monte Carlo.” In 9th International Conference on Learning Representations. https://arxiv.org/abs/2105.03418.\n\n\n———. 2022. “LeapfrogLayers: A Trainable Framework for Effective Topological Sampling.” PoS LATTICE2021: 508. https://doi.org/10.22323/1.396.0508.\n\n\nShanahan, Phiala et al. 2022. “Snowmass 2021 Computational Frontier CompF03 Topical Group Report: Machine Learning,” September. https://arxiv.org/abs/2209.07559."
+  },
+  {
+    "objectID": "index.html#integrated-autocorrelation-time",
+    "href": "index.html#integrated-autocorrelation-time",
+    "title": "",
+    "section": "Integrated Autocorrelation Time",
+    "text": "Integrated Autocorrelation Time\n\nFigure 13: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale)."
+  },
+  {
+    "objectID": "index.html#comparison",
+    "href": "index.html#comparison",
+    "title": "",
+    "section": "Comparison",
+    "text": "Comparison\n\n\n\n\n\n\n\n(a) Trained model\n\n\n\n\n\n\n\n(b) Generic HMC\n\n\n\n\nFigure 14: Comparison of \\langle \\delta Q\\rangle = \\frac{1}{N}\\sum_{i=k}^{N} \\delta Q_{i} for the trained model Figure 14 (a) vs. HMC Figure 14 (b)"
+  },
+  {
+    "objectID": "index.html#plaquette-analysis-x_p",
+    "href": "index.html#plaquette-analysis-x_p",
+    "title": "",
+    "section": "Plaquette analysis: x_{P}",
+    "text": "Plaquette analysis: x_{P}\n\n\nDeviation from V\\rightarrow\\infty limit, x_{P}^{\\ast}\n\nAverage \\langle x_{P}\\rangle, with x_{P}^{\\ast} (dotted-lines)\n\n\n\nFigure 15: Plot showing how average plaquette, \\left\\langle x_{P}\\right\\rangle varies over a single trajectory for models trained at different \\beta, with varying trajectory lengths N_{\\mathrm{LF}}"
+  },
+  {
+    "objectID": "index.html#loss-function",
+    "href": "index.html#loss-function",
+    "title": "",
+    "section": "Loss Function",
+    "text": "Loss Function\n\nWant to maximize the expected squared charge difference1: \\begin{equation*}\n\\mathcal{L}_{\\theta}\\left(\\xi^{\\ast}, \\xi\\right) =\n{\\mathbb{E}_{p(\\xi)}}\\big[-\\textcolor{#FA5252}{{\\delta Q}}^{2}\n\\left(\\xi^{\\ast}, \\xi \\right)\\cdot A(\\xi^{\\ast}|\\xi)\\big]\n\\end{equation*}\nWhere:\n\n\\delta Q is the tunneling rate: \\begin{equation*}\n\\textcolor{#FA5252}{\\delta Q}(\\xi^{\\ast},\\xi)=\\left|Q^{\\ast} - Q\\right|\n\\end{equation*}\nA(\\xi^{\\ast}|\\xi) is the probability2 of accepting the proposal \\xi^{\\ast}: \\begin{equation*}\nA(\\xi^{\\ast}|\\xi) = \\mathrm{min}\\left( 1,\n\\frac{p(\\xi^{\\ast})}{p(\\xi)}\\left|\\frac{\\partial \\xi^{\\ast}}{\\partial\n\\xi^{T}}\\right|\\right)\n\\end{equation*}\n\n\nWhere \\xi^{\\ast} is the proposed configuration (prior to Accept / Reject)And \\left|\\frac{\\partial \\xi^{\\ast}}{\\partial \\xi^{T}}\\right| is the Jacobian of the transformation from \\xi \\rightarrow \\xi^{\\ast}"
   },
   {
     "objectID": "index.html#v-updatereverse",
@@ -88,7 +95,7 @@
     "href": "index.html#section-1",
     "title": "",
     "section": "",
-    "text": "Figure 14: Jupyter Notebook"
+    "text": "Figure 16: Jupyter Notebook"
   },
   {
     "objectID": "index.html#annealing-schedule",
@@ -123,6 +130,6 @@
     "href": "index.html#physical-quantities",
     "title": "",
     "section": "Physical Quantities",
-    "text": "Physical Quantities\n\nTo estimate physical quantities, we:\n\ncalculate physical observables at increasing spatial resolution\nperform extrapolation to continuum limit\n\n\n\n\n\nFigure 15: Increasing the physical resolution (a \\rightarrow 0) allows us to make predictions about numerical values of physical quantities in the continuum limit."
+    "text": "Physical Quantities\n\nTo estimate physical quantities, we:\n\ncalculate physical observables at increasing spatial resolution\nperform extrapolation to continuum limit\n\n\n\n\n\nFigure 17: Increasing the physical resolution (a \\rightarrow 0) allows us to make predictions about numerical values of physical quantities in the continuum limit."
   }
 ]

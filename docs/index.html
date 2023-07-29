@@ -692,12 +692,12 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </div>
 </section>
 
-<section id="can-we-do-betterl2hmc" class="title-slide slide level1 center">
-<h1>Can we do better<sup>1</sup>?</h1>
+<section id="can-we-do-better" class="title-slide slide level1 center">
+<h1>Can we do better?</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li>Introduce two (<strong>invertible NNs</strong>) <code>vNet</code> and <code>xNet</code>:
+<li>Introduce two (<strong>invertible NNs</strong>) <code>vNet</code> and <code>xNet</code><sup>1</sup>:
 <ul>
 <li><span style="font-size:0.9em;"><code>vNet:</code> <span class="math inline">(x, F) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)</span></span><br>
 </li>
@@ -705,10 +705,11 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </ul></li>
 </ul>
 <p>&nbsp;</p>
+<!-- $\left(s_{k}, t_{k}, q_{k}\right)$, $k \in \{x, v\}$ in the -->
 <ul>
-<li>Use these <span class="math inline">\left(s_{k}, t_{k}, q_{k}\right)</span>, <span class="math inline">k \in \{x, v\}</span> in the <em>generalized</em> MD update: <!-- $pink-text: #F06292; -->
+<li>Use these <span class="math inline">(s, t, q)</span> in the <em>generalized</em> MD update:
 <ul>
-<li><span><span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span> <span class="math inline">: (x, \textcolor{#07B875}{v}) \xrightarrow[]{\textcolor{#F06292}{s_{v}, t_{v}, q_{v}}} (x, \textcolor{#07B875}{v'})</span></span></li>
+<li><span><span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span> <span class="math inline">: ({x}, \textcolor{#07B875}{v}) \xrightarrow[]{\textcolor{#F06292}{s_{v}, t_{v}, q_{v}}} (x, \textcolor{#07B875}{v'})</span></span></li>
 <li><span><span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span> <span class="math inline">: (\textcolor{#AE81FF}{x}, v) \xrightarrow[]{\textcolor{#FD971F}{s_{x}, t_{x}, q_{x}}} (\textcolor{#AE81FF}{x'}, v)</span></span> <!-- - [[$x$]{.purple-text}-update]{style="border-bottom: 2px solid #AE81FF;"}:   --> <!-- - [[$v$]{.green-text}-update]{style="border-bottom: 2px solid #09B875"}:   --></li>
 </ul></li>
 </ul>
@@ -724,46 +725,42 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 <aside><ol class="aside-footnotes"><li id="fn4"><p><a href="https://github.com/saforem2/l2hmc-qcd">L2HMC:</a> <i class="fa-solid fa-book" aria-label="book"></i> <span class="citation" data-cites="Foreman:2021ixr Foreman:2021rhs">(<a href="#/references" role="doc-biblioref" onclick="">Foreman, Jin, and Osborn 2021</a>, <a href="#/references" role="doc-biblioref" onclick="">2022</a>)</span></p></li></ol></aside></section>
 
 
-<section id="generalizing-the-md-update" class="title-slide slide level1 centeredslide center">
-<h1>Generalizing the MD Update</h1>
+<section id="l2hmc-generalizing-the-md-update" class="title-slide slide level1 centeredslide center">
+<h1>L2HMC: Generalizing the MD Update</h1>
 <div class="columns">
-<div class="column" style="font-size:0.9em;">
-<ul>
-<li><p><span style="font-size:0.9em;">To ensure ergodicity + reversibility<sup>1</sup> <sup>2</sup>, we split the <span class="purple-text"><span class="math inline">x</span></span> update into sequential (complementary) updates:</span></p>
+<div class="column" style="width:50%;">
+<p>&nbsp;<br></p>
 <div class="callout callout-none no-icon callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
-<p><strong>Generalized Update:</strong></p>
+<p><strong>L2HMC Update</strong></p>
 </div>
 <div class="callout-content">
+<ul>
+<li><span>Introduce <span class="math inline">d \sim \mathcal{U}(\pm)</span> to determine the direction<sup>1</sup> of our update</span></li>
+</ul>
 <ol type="1">
-<li><p>Update <span class="math inline">\textcolor{#07B875}{v}</span>:<br>
-<span style="font-size: 1.2em;"><span class="math inline">\textcolor{#07B875}{v'} =</span> <span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span><span class="math inline">(\textcolor{#AE81FF}{x}, \textcolor{#07B875}{v})</span></span></p></li>
-<li><p>Update <strong>half</strong> of <span class="math inline">\textcolor{#AE81FF}{x}</span>:<br>
-<span style="font-size: 1.2em;"><span class="math inline">\textcolor{#AE81FF}{x'} =</span> <span class="red-text"><span class="math inline">x_{A}</span></span><span class="math inline">\,+\,</span><span class="blue-text"><span class="math inline">m_{B}</span></span><span class="math inline">\,\odot\,</span> <span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span><span class="math inline">(</span><span class="blue-text"><span class="math inline">x_{B}</span></span><span class="math inline">, \textcolor{#07B875}{v'})</span></span></p></li>
-<li><p>Update (other) half of <span class="math inline">\textcolor{#AE81FF}{x}</span>:<br>
-<span style="font-size: 1.2em;"><span class="math inline">\textcolor{#AE81FF}{x''} =</span> <span class="blue-text"><span class="math inline">x'_{B}</span></span><span class="math inline">\,+\,</span><span class="red-text"><span class="math inline">m_{A}</span></span><span class="math inline">\,\odot\,</span> <span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span><span class="math inline">(</span><span class="red-text"><span class="math inline">x'_{A}</span></span><span class="math inline">, \textcolor{#07B875}{v'})</span></span></p></li>
-<li><p>Update <span class="math inline">\textcolor{#07B875}{v}</span>:<br>
-<span style="font-size: 1.2em;"><span class="math inline">\textcolor{#07B875}{v}'' =</span> <span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span><span class="math inline">(\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v'})</span></span></p></li>
+<li><p><span><span class="math inline">\textcolor{#07B875}{v'} =</span> <span class="pink-text"><span class="math inline">\Gamma^{\pm}</span></span><span class="math inline">({x}, \textcolor{#07B875}{v})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{46pt}</span> update <span class="math inline">v</span></span></p></li>
+<li><p><span><span class="math inline">\textcolor{#AE81FF}{x'} =</span> <span class="blue-text"><span class="math inline">x_{B}</span></span><span class="math inline">\,+\,</span><span class="orange-text"><span class="math inline">\Lambda^{\pm}</span></span><span class="math inline">(</span><span class="red-text"><span class="math inline">x_{A}</span></span><span class="math inline">, {v'})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{10pt}</span> update first <strong>half</strong>: <span class="math inline">x_{A}</span></span></p></li>
+<li><p><span><span class="math inline">\textcolor{#AE81FF}{x''} =</span> <span class="red-text"><span class="math inline">x'_{A}</span></span><span class="math inline">\,+\,</span><span class="orange-text"><span class="math inline">\Lambda^{\pm}</span></span><span class="math inline">(</span><span class="blue-text"><span class="math inline">x'_{B}</span></span><span class="math inline">, {v'})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{8pt}</span> update other half: <span class="math inline">x_{B}</span></span></p></li>
+<li><p><span><span class="math inline">\textcolor{#07B875}{v''} =</span> <span class="pink-text"><span class="math inline">\Gamma^{\pm}</span></span><span class="math inline">(\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v'})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{36pt}</span> update <span class="math inline">v</span></span></p></li>
 </ol>
 </div>
 </div>
 </div>
-<ul>
-<li><span style="font-size:0.8em;"><strong>Note</strong>: <span class="pink-text"><span class="math inline">\Gamma^{\pm}</span></span> and <span class="orange-text"><span class="math inline">\Lambda^{\pm}</span></span> are invertible NNs</span></li>
-</ul></li>
-</ul>
+<p>&nbsp;<br></p>
+<!-- - [**Note**: [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"} -->
 <!-- [^updates]: [Here [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"} -->
 </div><div class="column" style="width:50%;">
 <div id="fig-mdupdate" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:66%; text-align:center;"> <!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} --></p>
-<figcaption>Figure&nbsp;5: Generalized MD update with <span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span>, <span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span></figcaption>
+<figcaption>Figure&nbsp;5: Generalized MD update with <span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span>, <span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span> <strong>invertible NNs</strong></figcaption>
 </figure>
 </div>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn5"><p><span style="font-size:0.8em;">We introduce a directional variable <span class="math inline">d \sim \mathcal{U}(\pm)</span> that is resampled each trajectory to determine the direction of our update</span></p></li><li id="fn6"><p><span style="font-size:0.8em;">Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)</span></span></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn5"><p><span class="math inline">d</span> resampled at start of each trajectory, to ensure reversibility</p></li></ol></aside></section>
 
 
 <section id="l2hmc-leapfrog-layer" class="title-slide slide level1 centeredslide center">
@@ -826,7 +823,7 @@ Evaluate MH criteria <span class="math inline">(1)</span> and return accepted co
 </div>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn7"><p>For simple <span class="math inline">\mathbf{x} \in \mathbb{R}^{2}</span> example, <span class="math inline">\mathcal{L}_{\theta} = A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}</span></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn6"><p>For simple <span class="math inline">\mathbf{x} \in \mathbb{R}^{2}</span> example, <span class="math inline">\mathcal{L}_{\theta} = A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}</span></p></li></ol></aside></section>
 
 
 <section id="d-su3-model" class="title-slide slide level1 centeredslide center" style="font-size: 0.9em;">
@@ -848,7 +845,7 @@ Evaluate MH criteria <span class="math inline">(1)</span> and return accepted co
 U_{\mu}(x) &amp;= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)} \lambda^{k}}\right]\\
 &amp;= e^{i \textcolor{#AE81FF}{Q}},\quad \text{with} \quad \textcolor{#AE81FF}{Q} \in \mathfrak{su}(3)
 \end{align*}</span></p>
-<p>where <span class="purple-text"><span class="math inline">\omega^{k}_{\mu}(x) \in \mathbb{R}</span></span>, and <span class="math inline">\lambda^{k}</span> are the generators of <span class="math inline">SU(3)</span></p></li>
+<p><span style="font-size:0.9em;">where <span class="purple-text"><span class="math inline">\omega^{k}_{\mu}(x)</span></span> <span class="math inline">\in \mathbb{R}</span>, and <span class="math inline">\lambda^{k}</span> are the generators of <span class="math inline">SU(3)</span></span></p></li>
 </ul>
 </div>
 </div>
@@ -863,7 +860,7 @@ U_{\mu}(x) &amp;= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)
 </div>
 <div class="callout-content">
 <ul>
-<li>Introduce momenta <span class="green-text"><span class="math inline">P_{\mu}(x) = P^{k}_{\mu}(x) \lambda^{k}</span></span> conjugate to the <strong>real fields</strong> <span class="purple-text"><span class="math inline">\omega^{k}_{\mu}(x)</span></span></li>
+<li>Introduce <span class="green-text"><span class="math inline">P_{\mu}(x) = P^{k}_{\mu}(x) \lambda^{k}</span></span> conjugate to <span class="purple-text"><span class="math inline">\omega^{k}_{\mu}(x)</span></span></li>
 </ul>
 </div>
 </div>
@@ -907,7 +904,9 @@ U_{\mu}(x) &amp;= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)
 <li><span style="border-bottom: 2px solid #AE81FF;"><span class="math inline">U</span> update</span>: <span class="purple-text" style="font-size:1.5em;"><span class="math inline">\frac{d\omega^{k}}{dt} = \frac{\partial H}{\partial P^{k}}</span></span> <span class="math display">\frac{d\omega^{k}}{dt}\lambda^{k} = P^{k}\lambda^{k} \Longrightarrow \frac{dQ}{dt} = P</span> <span class="math display">\begin{align*}
 Q(\textcolor{#FFEE58}{\varepsilon}) &amp;= Q(0) + \textcolor{#FFEE58}{\varepsilon} P(0)\Longrightarrow\\
 -i\, \log U(\textcolor{#FFEE58}{\varepsilon}) &amp;= -i\, \log U(0) + \textcolor{#FFEE58}{\varepsilon} P(0) \\
-U(\textcolor{#FFEE58}{\varepsilon}) &amp;= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(0)} U(0)
+U(\textcolor{#FFEE58}{\varepsilon}) &amp;= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(0)} U(0)\Longrightarrow \\
+&amp;\hspace{1pt}\\
+\textcolor{#FD971F}{\Lambda}:\,\, U \longrightarrow U' &amp;\coloneqq e^{i\varepsilon P'} U
 \end{align*}</span></li>
 </ul>
 </div>
@@ -924,7 +923,9 @@ U(\textcolor{#FFEE58}{\varepsilon}) &amp;= e^{i\,\textcolor{#FFEE58}{\varepsilon
 <li><span style="border-bottom: 2px solid #07B875;"><span class="math inline">P</span> update</span>: <span class="green-text" style="font-size:1.5em;"><span class="math inline">\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}</span></span> <span class="math display">\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}
 = -\frac{\partial H}{\partial Q} = -\frac{dS}{dQ}\Longrightarrow</span> <span class="math display">\begin{align*}
 P(\textcolor{#FFEE58}{\varepsilon}) &amp;= P(0) - \textcolor{#FFEE58}{\varepsilon} \left.\frac{dS}{dQ}\right|_{t=0} \\
-&amp;= P(0) - \textcolor{#FFEE58}{\varepsilon} \,\textcolor{#E599F7}{F[U]}
+&amp;= P(0) - \textcolor{#FFEE58}{\varepsilon} \,\textcolor{#E599F7}{F[U]} \\
+&amp;\hspace{1pt}\\
+\textcolor{#F06292}{\Gamma}:\,\, P \longrightarrow P' &amp;\coloneqq P - \frac{\varepsilon}{2} F[U]
 \end{align*}</span></li>
 </ul>
 </div>
@@ -941,171 +942,133 @@ P(\textcolor{#FFEE58}{\varepsilon}) &amp;= P(0) - \textcolor{#FFEE58}{\varepsilo
 <h1>HMC: 4D <span class="math inline">SU(3)</span></h1>
 <div class="columns">
 <div class="column" style="text-align:left;">
-<p>Again, we can express the updates in terms of the operators</p>
 <ul>
 <li><p><span style="border-bottom: 2px solid #F06292;">Momentum Update</span>: <span class="math display">\textcolor{#F06292}{\Gamma}: P \longrightarrow P' := P - \frac{\varepsilon}{2} F[U]</span></p></li>
 <li><p><span style="border-bottom: 2px solid #FD971F;">Link Update</span>: <span class="math display">\textcolor{#FD971F}{\Lambda}: U \longrightarrow U' := e^{i\varepsilon P'} U\quad\quad</span></p></li>
+<li><p>We maintain a batch of <code>Nb</code> lattices, all updated in parallel</p>
+<ul>
+<li><span class="math inline">U</span><code>.dtype = complex128</code> <!-- - `shape`$\left(U\right)$:   --></li>
+<li><span class="math inline">U</span><code>.shape</code><br>
+<span style="font-size: 0.95em;"><code>= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]</code></span></li>
+</ul></li>
 </ul>
 </div><div class="column" style="text-align:right;">
 <p><img data-src="./assets/hmc/hmc-update-light.svg" style="width:60.0%"></p>
 </div>
 </div>
+<!-- # 4D $SU(3)$ Model {.centeredslide} -->
+<!---->
+<!-- :::: {.columns} -->
+<!---->
+<!-- ::: {.column width="45%" style="font-size:0.9em;"} -->
+<!---->
+<!-- - link variables:  -->
+<!--     - $U_{\mu}(x) \in SU(3)$, -->
+<!-- - \+ conjugate momenta: -->
+<!--     - $P_{\mu}(x) \in \mathfrak{su}(3)$ -->
+<!-- - We maintain a batch of `Nb` lattices, all updated in parallel -->
+<!--     - `lattice.shape`: -->
+<!--         - [`[4, Nt, Nx, Ny, Nz, 3, 3]`]{style="font-size: 0.9em;"} -->
+<!--     - `batch.shape`: -->
+<!--         - [`[Nb, *lattice.shape]`]{style="font-size: 0.9em;"} -->
+<!-- ::: -->
+<!---->
+<!-- ::: {.column width="45%"} -->
+<!---->
+<!-- ![](./assets/leapfrog-layer-4D-SU3-vertical.light.svg) -->
+<!---->
+<!-- ::: -->
+<!---->
+<!-- :::: -->
 </section>
 
-<section id="d-su3-model-1" class="title-slide slide level1 centeredslide center">
-<h1>4D <span class="math inline">SU(3)</span> Model</h1>
+<section id="networks-4d-su3" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">Networks 4D <span class="math inline">SU(3)</span></h1>
 <div class="columns">
 <div class="column" style="font-size:0.9em;">
-<ul>
-<li>link variables:
-<ul>
-<li><span class="math inline">U_{\mu}(x) \in SU(3)</span>,</li>
-</ul></li>
-<li>+ conjugate momenta:
-<ul>
-<li><span class="math inline">P_{\mu}(x) \in \mathfrak{su}(3)</span></li>
-</ul></li>
-<li>We maintain a batch of <code>Nb</code> lattices, all updated in parallel
-<ul>
-<li><code>lattice.shape</code>:
-<ul>
-<li><span style="font-size: 0.9em;"><code>[4, Nt, Nx, Ny, Nz, 3, 3]</code></span></li>
-</ul></li>
-<li><code>batch.shape</code>:
-<ul>
-<li><span style="font-size: 0.9em;"><code>[Nb, *lattice.shape]</code></span></li>
-</ul></li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:45%;">
-<p><img data-src="./assets/leapfrog-layer-4D-SU3-vertical.light.svg"></p>
+<p>&nbsp;<br></p>
+<p>&nbsp;<br></p>
+<p><span class="purple-text"><span class="math inline">U</span></span>-Network:</p>
+<p><span style="font-size:0.9em;"><code>UNet:</code> <span class="math inline">(U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)</span></span></p>
+<p>&nbsp;<br></p>
+<div style="border-radius: 6px; padding:1%;">
+<p><span class="green-text"><span class="math inline">P</span></span>-Network:</p>
+<p><span style="font-size:0.9em;"><code>PNet:</code> <span class="math inline">(U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)</span></span></p>
 </div>
-</div>
-</section>
-
-<section id="networks-4d-su3" class="title-slide slide level1 center">
-<h1>Networks 4D <span class="math inline">SU(3)</span></h1>
-<div class="columns">
-<div class="column" style="font-size:0.9em;">
-<ul>
-<li><p>link variables:</p>
-<ul>
-<li><span class="math inline">U_{\mu}(x) \in SU(3)</span>,</li>
-<li>+ conjugate momenta:
-<ul>
-<li><span class="math inline">P_{\mu}(x) \in \mathfrak{su}(3)</span></li>
-</ul></li>
-</ul></li>
-<li><p>We maintain a batch of <code>Nb</code> lattices, all updated in parallel</p>
-<ul>
-<li><code>lattice.shape</code>:
-<ul>
-<li><span style="font-size: 0.9em;"><code>[4, Nt, Nx, Ny, Nz, 3, 3]</code></span></li>
-</ul></li>
-<li><code>batch.shape</code>:
-<ul>
-<li><span style="font-size: 0.9em;"><code>[Nb, *lattice.shape]</code></span></li>
-</ul></li>
-</ul></li>
-<li><p>Stack gauge links as</p>
-<p><span style="font-size:0.85em;"><code>shape</code><span class="math inline">\left(U_{\mu}\right)</span><code>= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]</code> <span class="math inline">\in \mathbb{C}</span></span></p>
-<!-- with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$ --></li>
-<li><p><span class="math inline">U</span>-Network:</p>
-<ul>
-<li><span class="purple-text" style="padding:0.2em; border-radius: 6px"><span class="math inline">\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)</span></span> <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ --></li>
-</ul></li>
-<li><p><span class="math inline">v</span>-Network:</p>
-<ul>
-<li><span class="green-text" style="padding:0.2em; border-radius: 6px;"><span class="math inline">\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)</span></span> <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ --></li>
-</ul></li>
-</ul>
 </div><div class="column" style="text-align:right;">
 <p><img data-src="./assets/leapfrog-layer-4D-SU3-vertical.light.svg" style="width:80.0%"></p>
 </div>
 </div>
 </section>
 
-<section id="networks-4d-su3-1" class="title-slide slide level1 center">
-<h1>Networks 4D <span class="math inline">SU(3)</span></h1>
+<section id="networks-4d-su3-1" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<h1 data-id="quarto-animate-title">Networks 4D <span class="math inline">SU(3)</span></h1>
 <div class="columns">
 <div class="column" style="font-size:0.9em;">
-<ul>
-<li><p>Stack gauge links as</p>
-<p><span style="font-size:0.85em;"><code>shape</code><span class="math inline">\left(U_{\mu}\right)</span><code>= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]</code> <span class="math inline">\in \mathbb{C}</span></span></p>
-<!-- with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$ --></li>
-<li><p><span class="math inline">U</span>-Network:</p>
-<ul>
-<li><span class="purple-text" style="padding:0.2em; border-radius: 6px"><span class="math inline">\psi_{\theta}: (U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)</span></span> <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ --></li>
-</ul></li>
-<li><p><span class="math inline">v</span>-Network:</p>
-<ul>
-<li><span class="green-text" style="border:1px solid #666666; padding:0.2em; border-radius: 6px;"><span class="math inline">\varphi_{\theta}: (U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)</span></span><br>
-<span class="dim-text"><span class="math inline">\hspace{50pt}\uparrow</span></span><br>
-<span class="dim-text" style="padding-top: 0.5em!important;"><span class="math inline">\hspace{30pt}</span> let’s look at this</span> <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ --></li>
-</ul></li>
-</ul>
+<p>&nbsp;<br></p>
+<p>&nbsp;<br></p>
+<p><span class="purple-text"><span class="math inline">U</span></span>-Network:</p>
+<p><span style="font-size:0.9em;"><code>UNet:</code> <span class="math inline">(U, P) \longrightarrow \left(s_{U},\, t_{U},\, q_{U}\right)</span></span></p>
+<p>&nbsp;<br></p>
+<div style="border: 1px solid #07B875; border-radius: 6px; padding:1%;">
+<p><span class="green-text"><span class="math inline">P</span></span>-Network:</p>
+<p><span style="font-size:0.9em;"><code>PNet:</code> <span class="math inline">(U, P) \longrightarrow \left(s_{P},\, t_{P},\, q_{P}\right)</span></span></p>
+</div>
+<p><span class="dim-text"><span class="math inline">\hspace{0pt}\uparrow</span></span><br>
+<span class="dim-text" style="padding-top: 0.5em!important;"><span class="math inline">\hspace{0pt}</span> let’s look at this</span></p>
 </div><div class="column" style="text-align:right;">
 <p><img data-src="./assets/leapfrog-layer-4D-SU3-vertical.light.svg" style="width:80.0%"></p>
 </div>
 </div>
 </section>
 
-<section id="p-update-pt.-1" class="title-slide slide level1 center" style="font-size:0.95em;">
-<h1><span class="math inline">P</span>-update (pt.&nbsp;1)</h1>
-<!-- - `v-network`[^sigma]: $\left(x, \partial_{x} S(x)\right) \coloneqq \left(x, F \right)\rightarrow (s_{v}, t_{v}, q_{v})$ -->
+<section id="p-network-pt.-1" class="title-slide slide level1 center" style="font-size:0.95em;">
+<h1><span class="math inline">P</span>-<code>Network</code> (pt.&nbsp;1)</h1>
+<div style="text-align:center;">
+<p><img data-src="./assets/SU3/PNetwork.light.svg"></p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li><code>input</code><sup>1</sup>: <span class="math inline">\hspace{7pt}\left(U, \frac{dS_{G}}{dQ}\right) \coloneqq (e^{i Q}, F[U]) \longrightarrow</span> <span class="math display">\begin{align*}
+<li><span style="border-bottom: 2px solid rgba(131, 131, 131, 0.493);"><code>input</code><sup>1</sup>: <span class="math inline">\hspace{7pt}\left(U, F\right) \coloneqq (e^{i Q}, F)</span></span> <span class="math display">\begin{align*}
 h_{0} &amp;= \sigma\left( w_{Q} Q + w_{F} F + b \right) \\
 h_{1} &amp;= \sigma\left( w_{1} h_{0} + b_{1} \right) \\
 &amp;\vdots \\
-h_{n} &amp;= \sigma\left(w_{n} h_{n-1} + b_{n}\right) \longrightarrow \\
-\end{align*}</span> <span class="math display">
-\begin{align*}
-&amp; \underbrace{s_{P} = \lambda_{s} \tanh\left(w_{s} h_{n} + b_{s}\right)\, ; \quad
-t_{P} = w_{t} z + b_{t}\, ; \quad q_{P} = \lambda_{q}\tanh\left(w_{q} z + b_{q}\right)} \\
-\end{align*}
-</span> <!-- &\textcolor{#ff67ff}{\texttt{output:}}\hspace{74pt} (s_{v}, t_{v}, q_{v}) --></li>
-<li><code>output</code><sup>2</sup>: <span class="math inline">\hspace{92pt}(s_{P}, t_{P}, q_{P})</span></li>
+h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
+\textcolor{#FF5252}{z} &amp; \coloneqq \sigma\left(w_{n} h_{n-1} + b_{n}\right) \longrightarrow \\
+\end{align*}</span></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn8"><p><span class="math inline">\sigma(\cdot)</span> denotes an activation function</p></li><li id="fn9"><p><span class="math inline">\lambda_{s},\, \lambda_{q} \in \mathbb{R}</span> are trainable parameters</p></li></ol></aside></section>
-
-
-<section id="p-update-pt.-2" class="title-slide slide level1 center" style="font-size:0.9em;">
-<h1><span class="math inline">P</span>-update (pt.&nbsp;2)</h1>
+</div><div class="column" style="width:50%;">
 <ul>
-<li><p><code>output</code><sup>1</sup>: <span class="math inline">(s_{P}, t_{P}, q_{P})</span> <span class="dim-text"><span class="math inline">\hspace{10pt}\longleftarrow</span> outputs from NN</span> <span class="math display">s_{P} = \lambda_{s} \tanh\left(w_{s}\, h_{n} + b_{s}\right), \quad
-t_{P} = w_{t} h_{n} + b_{t}, \quad
-q_{P} = \lambda_{q}\tanh\left(w_{q} h_{n} + b_{q}\right)</span></p></li>
-<li><p>Use these to update <span class="math inline">\Gamma^{\pm}: (U, P) \rightarrow \left(U, P_{\pm}\right)</span><sup>2</sup>:</p>
+<li><p><span style="border-bottom: 2px solid rgba(131, 131, 131, 0.5);"><code>output</code><sup>2</sup>: <span class="math inline">\hspace{7pt} (s_{P}, t_{P}, q_{P})</span></span></p>
+<ul>
+<li><span class="math inline">s_{P} = \lambda_{s} \tanh(w_s \textcolor{#FF5252}{z} + b_s)</span></li>
+<li><span class="math inline">t_{P} = w_{t} \textcolor{#FF5252}{z} + b_{t}</span></li>
+<li><span class="math inline">q_{P} = \lambda_{q} \tanh(w_{q} \textcolor{#FF5252}{z} + b_{q})</span></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<aside><ol class="aside-footnotes"><li id="fn7"><p><span class="math inline">\sigma(\cdot)</span> denotes an activation function</p></li><li id="fn8"><p><span class="math inline">\lambda_{s},\, \lambda_{q} \in \mathbb{R}</span> are trainable parameters</p></li></ol></aside></section>
+
+
+<section id="p-network-pt.-2" class="title-slide slide level1 center" style="font-size:0.9em;">
+<h1><span class="math inline">P</span>-<code>Network</code> (pt.&nbsp;2)</h1>
+<!-- - `output`[^lambda]: $(s_{P}, t_{P}, q_{P})$ [$\hspace{10pt}\longleftarrow$ outputs from NN]{.dim-text} -->
+<!--   $$s_{P} = \lambda_{s} \tanh\left(w_{s}\, z + b_{s}\right), \quad -->
+<!--   t_{P} = w_{t} z + b_{t}, \quad -->
+<!--   q_{P} = \lambda_{q}\tanh\left(w_{q} z + b_{q}\right)$$ -->
+<div style="text-align:center;">
+<p><img data-src="./assets/SU3/PNetwork.light.svg"></p>
+</div>
+<ul>
+<li><p>Use <span class="math inline">(s_{P}, t_{P}, q_{P})</span> to update <span class="math inline">\Gamma^{\pm}: (U, P) \rightarrow \left(U, P_{\pm}\right)</span><sup>1</sup>:</p>
 <ul>
 <li><p><span style="color:#FF5252">forward</span> <span class="math inline">(d = \textcolor{#FF5252}{+})</span>: <span class="math display">\Gamma^{\textcolor{#FF5252}{+}}(U, P) \coloneqq P_{\textcolor{#FF5252}{+}} = P \cdot e^{\frac{\varepsilon}{2} s_{P}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]</span></p></li>
 <li><p><span style="color:#1A8FFF;">backward</span> <span class="math inline">(d = \textcolor{#1A8FFF}{-})</span>: <span class="math display">\Gamma^{\textcolor{#1A8FFF}{-}}(U, P) \coloneqq P_{\textcolor{#1A8FFF}{-}} = e^{-\frac{\varepsilon}{2} s_{P}} \left\{P + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]\right\}</span></p></li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn10"><p><span class="math inline">\lambda_{s},\, \lambda_{q} \in \mathbb{R}</span> are trainable parameters</p></li><li id="fn11"><p>Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(U, P)\right] = \Gamma^{-}\left[\Gamma^{+}(U, P)\right] = (U, P)</span></p></li></ol></aside></section>
-
-
-<section id="loss-function" class="title-slide slide level1 center">
-<h1>Loss Function</h1>
-<ul>
-<li><p>Want to maximize the <em>expected</em> squared charge difference<sup>1</sup>: <span class="math display">\begin{equation*}
-\mathcal{L}_{\theta}\left(\xi^{\ast}, \xi\right) =
-{\mathbb{E}_{p(\xi)}}\big[-\textcolor{#FA5252}{{\delta Q}}^{2}
-\left(\xi^{\ast}, \xi \right)\cdot A(\xi^{\ast}|\xi)\big]
-\end{equation*}</span></p></li>
-<li><p>Where:</p>
-<ul>
-<li><p><span class="math inline">\delta Q</span> is the <em>tunneling rate</em>: <span class="math display">\begin{equation*}
-\textcolor{#FA5252}{\delta Q}(\xi^{\ast},\xi)=\left|Q^{\ast} - Q\right|
-\end{equation*}</span></p></li>
-<li><p><span class="math inline">A(\xi^{\ast}|\xi)</span> is the probability<sup>2</sup> of accepting the proposal <span class="math inline">\xi^{\ast}</span>: <span class="math display">\begin{equation*}
-A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
-\frac{p(\xi^{\ast})}{p(\xi)}\left|\frac{\partial \xi^{\ast}}{\partial
-\xi^{T}}\right|\right)
-\end{equation*}</span></p></li>
-</ul></li>
-</ul>
-<aside><ol class="aside-footnotes"><li id="fn12"><p>Where <span class="math inline">\xi^{\ast}</span> is the <em>proposed</em> configuration (prior to Accept / Reject)</p></li><li id="fn13"><p>And <span class="math inline">\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|</span> is the Jacobian of the transformation from <span class="math inline">\xi \rightarrow \xi^{\ast}</span></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn9"><p>Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(U, P)\right] = \Gamma^{-}\left[\Gamma^{+}(U, P)\right] = (U, P)</span></p></li></ol></aside></section>
 
 
 <section>
@@ -1137,10 +1100,6 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </div>
 <p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/charge_histories.svg" class="absolute" style="margin-bottom: 1em;margin-top: 1em;top: 400px; left: 0px; width: 100%; "></p>
 </section>
-<section id="integrated-autocorrelation-time" class="slide level2 centeredslide center">
-<h2>Integrated Autocorrelation Time</h2>
-
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/tint1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;8: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale).</p></section>
 <section id="interpretation" class="slide level2 centeredslide center">
 <h2>Interpretation</h2>
 <div class="columns" style="margin-left:1pt;">
@@ -1153,7 +1112,7 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </div>
 </div>
 
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/ridgeplots.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;9: Illustration of how different observables evolve over a single L2HMC trajectory.</p></section>
+<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/ridgeplots.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;8: Illustration of how different observables evolve over a single L2HMC trajectory.</p></section>
 <section id="interpretation-1" class="slide level2 centeredslide center">
 <h2>Interpretation</h2>
 <div id="fig-energy-ridgeplot" class="quarto-layout-panel">
@@ -1176,56 +1135,54 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </div>
 </div>
 </div>
-<p></p><figcaption>Figure&nbsp;10: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors.</figcaption><p></p>
-</figure>
-</div>
-</section>
-<section id="plaquette-analysis-x_p" class="slide level2 centeredslide center">
-<h2>Plaquette analysis: <span class="math inline">x_{P}</span></h2>
-<div class="columns">
-<div class="column" style="width:55%;">
-<p><span class="dim-text" style="text-align:center; font-size:0.9em;">Deviation from <span class="math inline">V\rightarrow\infty</span> limit, <span class="math inline">x_{P}^{\ast}</span></span></p>
-</div><div class="column" style="width:45%;">
-<p><span class="dim-text" style="text-align:right!important; font-size:0.9em;">Average <span class="math inline">\langle x_{P}\rangle</span>, with <span class="math inline">x_{P}^{\ast}</span> (dotted-lines)</span></p>
-</div>
-</div>
-
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_vs_lf_step1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;11: Plot showing how <strong>average plaquette</strong>, <span class="math inline">\left\langle x_{P}\right\rangle</span> varies over a single trajectory for models trained at different <span class="math inline">\beta</span>, with varying trajectory lengths <span class="math inline">N_{\mathrm{LF}}</span></p></section>
-<section id="comparison" class="slide level2 center">
-<h2>Comparison</h2>
-<div id="fig-comparison" class="quarto-layout-panel">
-<figure>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-eval" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://saforem2.github.io/anl-job-talk/assets/dQint_eval.svg" data-ref-parent="fig-comparison"></p>
-<figcaption>(a) Trained model</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-hmc" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://saforem2.github.io/anl-job-talk/assets/dQint_hmc.svg" data-ref-parent="fig-comparison"></p>
-<figcaption>(b) Generic HMC</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p></p><figcaption>Figure&nbsp;12: Comparison of <span class="math inline">\langle \delta Q\rangle = \frac{1}{N}\sum_{i=k}^{N} \delta Q_{i}</span> for the trained model <a href="#/comparison">Figure&nbsp;12 (a)</a> vs.&nbsp;HMC <a href="#/comparison">Figure&nbsp;12 (b)</a></figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;9: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors.</figcaption><p></p>
 </figure>
 </div>
 </section></section>
 <section id="d-su3-results" class="title-slide slide level1 center">
 <h1>4D <span class="math inline">SU(3)</span> Results</h1>
-<div id="fig-ridgeplot" class="quarto-figure quarto-figure-center">
+<div id="fig-ridgeplot" class="quarto-layout-panel">
 <figure>
-<p><img data-src="./assets/SU3/logdet_ridgeplot1.svg" alt="100"> <img data-src="./assets/SU3/logdet_ridgeplot2.svg" alt="500"> <img data-src="./assets/SU3/logdet_ridgeplot3.svg" alt="1000"></p>
-<figcaption>Figure&nbsp;13: <span class="math inline">\log|\mathcal{J}|</span> vs.&nbsp;<span class="math inline">N_{\mathrm{LF}}</span> after <code>100</code>, <code>500</code>, and <code>1000</code> training iterations</figcaption>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-ridgeplot1" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./assets/SU3/logdet_ridgeplot1.svg" data-ref-parent="fig-ridgeplot"></p>
+<figcaption>(a) <code>100</code> train iters</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-ridgeplot2" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./assets/SU3/logdet_ridgeplot2.svg" data-ref-parent="fig-ridgeplot"></p>
+<figcaption>(b) <code>500</code> train iters</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
+<div id="fig-ridgeplot3" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./assets/SU3/logdet_ridgeplot3.svg" data-ref-parent="fig-ridgeplot"></p>
+<figcaption>(c) <code>1000</code> train iters</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption>Figure&nbsp;10: <span class="math inline">\log|\mathcal{J}|</span> vs.&nbsp;<span class="math inline">N_{\mathrm{LF}}</span> during training</figcaption><p></p>
 </figure>
 </div>
 </section>
+
+<section id="d-su3-results-delta-u_munu" class="title-slide slide level1 center">
+<h1>4D <span class="math inline">SU(3)</span> Results: <span class="math inline">\delta U_{\mu\nu}</span></h1>
+
+<img data-src="./assets/SU3/pdiff.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;11: The difference in the average plaquette <span class="math inline">\left|\delta U_{\mu\nu}\right|^{2}</span> between the trained model and HMC</p></section>
+
+<section id="d-su3-results-delta-u_munu-1" class="title-slide slide level1 center">
+<h1>4D <span class="math inline">SU(3)</span> Results: <span class="math inline">\delta U_{\mu\nu}</span></h1>
+
+<img data-src="./assets/SU3/pdiff-robust.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;12: The difference in the average plaquette <span class="math inline">\left|\delta U_{\mu\nu}\right|^{2}</span> between the trained model and HMC</p></section>
 
 <section>
 <section id="thank-you" class="title-slide slide level1 center">
@@ -1324,6 +1281,69 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 <h1>Extras</h1>
 
 </section>
+<section id="integrated-autocorrelation-time" class="slide level2 centeredslide center">
+<h2>Integrated Autocorrelation Time</h2>
+
+<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/tint1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;13: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale).</p></section>
+<section id="comparison" class="slide level2 center">
+<h2>Comparison</h2>
+<div id="fig-comparison" class="quarto-layout-panel">
+<figure>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-eval" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://saforem2.github.io/anl-job-talk/assets/dQint_eval.svg" data-ref-parent="fig-comparison"></p>
+<figcaption>(a) Trained model</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
+<div id="fig-hmc" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://saforem2.github.io/anl-job-talk/assets/dQint_hmc.svg" data-ref-parent="fig-comparison"></p>
+<figcaption>(b) Generic HMC</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p></p><figcaption>Figure&nbsp;14: Comparison of <span class="math inline">\langle \delta Q\rangle = \frac{1}{N}\sum_{i=k}^{N} \delta Q_{i}</span> for the trained model <a href="#/comparison">Figure&nbsp;14 (a)</a> vs.&nbsp;HMC <a href="#/comparison">Figure&nbsp;14 (b)</a></figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="plaquette-analysis-x_p" class="slide level2 centeredslide center">
+<h2>Plaquette analysis: <span class="math inline">x_{P}</span></h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><span class="dim-text" style="text-align:center; font-size:0.9em;">Deviation from <span class="math inline">V\rightarrow\infty</span> limit, <span class="math inline">x_{P}^{\ast}</span></span></p>
+</div><div class="column" style="width:45%;">
+<p><span class="dim-text" style="text-align:right!important; font-size:0.9em;">Average <span class="math inline">\langle x_{P}\rangle</span>, with <span class="math inline">x_{P}^{\ast}</span> (dotted-lines)</span></p>
+</div>
+</div>
+
+<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_vs_lf_step1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;15: Plot showing how <strong>average plaquette</strong>, <span class="math inline">\left\langle x_{P}\right\rangle</span> varies over a single trajectory for models trained at different <span class="math inline">\beta</span>, with varying trajectory lengths <span class="math inline">N_{\mathrm{LF}}</span></p></section>
+<section id="loss-function" class="slide level2 center">
+<h2>Loss Function</h2>
+<ul>
+<li><p>Want to maximize the <em>expected</em> squared charge difference<sup>1</sup>: <span class="math display">\begin{equation*}
+\mathcal{L}_{\theta}\left(\xi^{\ast}, \xi\right) =
+{\mathbb{E}_{p(\xi)}}\big[-\textcolor{#FA5252}{{\delta Q}}^{2}
+\left(\xi^{\ast}, \xi \right)\cdot A(\xi^{\ast}|\xi)\big]
+\end{equation*}</span></p></li>
+<li><p>Where:</p>
+<ul>
+<li><p><span class="math inline">\delta Q</span> is the <em>tunneling rate</em>: <span class="math display">\begin{equation*}
+\textcolor{#FA5252}{\delta Q}(\xi^{\ast},\xi)=\left|Q^{\ast} - Q\right|
+\end{equation*}</span></p></li>
+<li><p><span class="math inline">A(\xi^{\ast}|\xi)</span> is the probability<sup>2</sup> of accepting the proposal <span class="math inline">\xi^{\ast}</span>: <span class="math display">\begin{equation*}
+A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
+\frac{p(\xi^{\ast})}{p(\xi)}\left|\frac{\partial \xi^{\ast}}{\partial
+\xi^{T}}\right|\right)
+\end{equation*}</span></p></li>
+</ul></li>
+</ul>
+<aside><ol class="aside-footnotes"><li id="fn10"><p>Where <span class="math inline">\xi^{\ast}</span> is the <em>proposed</em> configuration (prior to Accept / Reject)</p></li><li id="fn11"><p>And <span class="math inline">\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|</span> is the Jacobian of the transformation from <span class="math inline">\xi \rightarrow \xi^{\ast}</span></p></li></ol></aside></section>
+
 <section id="v-updatereverse" class="slide level2 center">
 <h2><span class="math inline">v</span>-Update<sup>1</sup></h2>
 <ul>
@@ -1335,7 +1355,7 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 <li><span style="color:#1A8FFF;">backward</span> <span class="math inline">(d = \textcolor{#1A8FFF}{-})</span>:</li>
 </ul>
 <p><span class="math display">\Gamma^{\textcolor{#1A8FFF}{-}}: (x, v) \rightarrow v' \coloneqq e^{-\frac{\varepsilon}{2} s_{v}} \left\{v + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]\right\}</span></p>
-<aside><ol class="aside-footnotes"><li id="fn14"><p><span style="font-size:0.8em;">Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)</span></span></p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn12"><p><span style="font-size:0.8em;">Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)</span></span></p></li></ol></aside></section>
 
 <section id="x-update" class="slide level2 center">
 <h2><span class="math inline">x</span>-Update</h2>
@@ -1401,7 +1421,7 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 <figure>
 <iframe data-src="https://nbviewer.org/github/saforem2/l2hmc-qcd/blob/SU3/src/l2hmc/notebooks/l2hmc-2dU1.ipynb" width="100%" height="650" title="l2hmc-qcd">
 </iframe>
-<figcaption>Figure&nbsp;14: Jupyter Notebook</figcaption>
+<figcaption>Figure&nbsp;16: Jupyter Notebook</figcaption>
 </figure>
 </div>
 </section>
@@ -1467,7 +1487,7 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 <div id="fig-continuum" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/static/continuum.svg"></p>
-<figcaption>Figure&nbsp;15: Increasing the physical resolution (<span class="math inline">a \rightarrow 0</span>) allows us to make predictions about numerical values of physical quantities in the continuum limit.</figcaption>
+<figcaption>Figure&nbsp;17: Increasing the physical resolution (<span class="math inline">a \rightarrow 0</span>) allows us to make predictions about numerical values of physical quantities in the continuum limit.</figcaption>
 </figure>
 </div>
 
@@ -1529,7 +1549,7 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: 'c',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
