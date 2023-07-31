@@ -114,7 +114,7 @@ If these were <span style="color:#00CCFF;">independent</span>, we could approxim
 [{{< fa brands github >}} `saforem2/lattice23`](https://saforem2.github.io/lattice23)
 :::
 
-## Markov Chain Monte Carlo (MCMC) {.centeredslide}
+# Markov Chain Monte Carlo (MCMC) {.centeredslide}
 
 :::: {.columns}
 
