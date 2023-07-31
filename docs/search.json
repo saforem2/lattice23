@@ -137,7 +137,7 @@
     "href": "index.html#sec-references",
     "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Links + References",
-    "text": "Links + References\n\nThis talk:  saforem2/lattice23\nCode repo  saforem2/l2hmc-qcd\nSlides  saforem2.github.io/lattice23\nTitle Slide Background (worms) animation"
+    "text": "Links + References\n\nCode repo  saforem2/l2hmc-qcd\nThis talk:  saforem2/lattice23\n\nSlides [📊 saforem2.github.io/lattice23]\n\nTitle Slide Background (worms) animation"
   },
   {
     "objectID": "index.html#references",
@@ -196,8 +196,8 @@
     "text": "Lattice Gauge Theory (2D U(1))\n\n\n\n\n\n\n\n\n\nLink Variables\n\n\nU_{\\mu}(n) = e^{i x_{\\mu}(n)}\\in \\mathbb{C},\\quad \\text{where}\\quad x_{\\mu}(n) \\in [-\\pi,\\pi)\n\n\n\n\n\n\n\n\n\n\nWilson Action\n\n\nS_{\\beta}(x) = \\beta\\sum_{P} \\cos \\textcolor{#00CCFF}{x_{P}},\n\\textcolor{#00CCFF}{x_{P}} = \\left[x_{\\mu}(n) + x_{\\nu}(n+\\hat{\\mu})\n- x_{\\mu}(n+\\hat{\\nu})-x_{\\nu}(n)\\right]\n\n\n\nNote: \\textcolor{#00CCFF}{x_{P}} is the product of links around 1\\times 1 square, called a “plaquette”\n\n\n\n\n\n\n2D Lattice"
   },
   {
-    "objectID": "index.html#section-2",
-    "href": "index.html#section-2",
+    "objectID": "index.html#section-1",
+    "href": "index.html#section-1",
     "title": "MLMC: Machine Learning Monte Carlo",
     "section": "",
     "text": "Figure 16: Jupyter Notebook"

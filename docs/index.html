@@ -367,9 +367,17 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="center">
+<section id="title-slide" class="quarto-title-block center">
   <h1 class="title">MLMC: Machine Learning Monte Carlo</h1>
-  <p class="author">Sam Foreman</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Sam Foreman 
+</div>
+</div>
+</div>
+
   <p class="date">2023-07-31</p>
 </section>
 <section id="section" class="title-slide slide level1 centeredslide center" data-background-iframe="https://saforem2.github.io/grid-worms-animation/" loading="lazy">
@@ -771,7 +779,7 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 <li><p><span><span class="math inline">\textcolor{#07B875}{v'} =</span> <span class="pink-text"><span class="math inline">\Gamma^{\pm}</span></span><span class="math inline">({x}, \textcolor{#07B875}{v})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{46pt}</span> update <span class="math inline">v</span></span></p></li>
 <li><p><span><span class="math inline">\textcolor{#AE81FF}{x'} =</span> <span class="blue-text"><span class="math inline">x_{B}</span></span><span class="math inline">\,+\,</span><span class="orange-text"><span class="math inline">\Lambda^{\pm}</span></span><span class="math inline">(</span><span class="red-text"><span class="math inline">x_{A}</span></span><span class="math inline">, {v'})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{10pt}</span> update first <strong>half</strong>: <span class="math inline">x_{A}</span></span></p></li>
 <li><p><span><span class="math inline">\textcolor{#AE81FF}{x''} =</span> <span class="red-text"><span class="math inline">x'_{A}</span></span><span class="math inline">\,+\,</span><span class="orange-text"><span class="math inline">\Lambda^{\pm}</span></span><span class="math inline">(</span><span class="blue-text"><span class="math inline">x'_{B}</span></span><span class="math inline">, {v'})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{8pt}</span> update other half: <span class="math inline">x_{B}</span></span></p></li>
-<li><p><span><span class="math inline">\textcolor{#07B875}{v''} =</span> <span class="pink-text"><span class="math inline">\Gamma^{\pm}</span></span><span class="math inline">(\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v'})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{36pt}</span> update <span class="math inline">v</span></span></p></li>
+<li><p><span><span class="math inline">\textcolor{#07B875}{v''} =</span> <span class="pink-text"><span class="math inline">\Gamma^{\pm}</span></span><span class="math inline">({x''}, \textcolor{#07B875}{v'})</span></span> <span class="dim-text" style="font-size:0.9em;"><span class="math inline">\hspace{36pt}</span> update <span class="math inline">v</span></span></p></li>
 </ol>
 </div>
 </div>
@@ -1241,7 +1249,7 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 </div>
 </div>
 </section>
-<section id="section-1" class="slide level2 center">
+<section id="sec-l2hmc-gh" class="slide level2 center">
 <h2></h2>
 <div style="text-align:center;">
 <div class="quarto-figure quarto-figure-center">
@@ -1310,9 +1318,11 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 <section id="sec-references" class="slide level2 center">
 <h2>Links + References</h2>
 <ul>
-<li>This talk: <a href="https://github.com/saforem2/lattice23"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/lattice23</code></a></li>
 <li>Code repo <a href="https://github.com/saforem2/l2hmc-qcd"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/l2hmc-qcd</code></a></li>
-<li>Slides <a href="https://saforem2.github.io/lattice23"><i class="fa-solid fa-presentation" aria-label="presentation"></i> saforem2.github.io/lattice23</a></li>
+<li>This talk: <a href="https://github.com/saforem2/lattice23"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/lattice23</code></a>
+<ul>
+<li>Slides [📊 <a href="https://saforem2.github.io/lattice23">saforem2.github.io/lattice23</a>]</li>
+</ul></li>
 <li><a href="https://saforem2.github.io/grid-worms-animation/">Title Slide Background (worms) animation</a></li>
 </ul>
 </section>
@@ -1475,7 +1485,7 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </div>
 </div>
 </section>
-<section id="section-2" class="slide level2 center" data-background-color="white">
+<section id="section-1" class="slide level2 center" data-background-color="white">
 <h2></h2>
 <div id="fig-notebook" class="quarto-figure quarto-figure-center">
 <figure>

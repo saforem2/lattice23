@@ -12,7 +12,7 @@ format:
   revealjs:
     title-block-style: none
     slide-number: c
-    title-slide-style: pandoc
+    title-slide-style: default
     chalkboard:
       buttons: false
     auto-animate: true
@@ -410,7 +410,7 @@ Generalized MD update where [$\Lambda_{\theta}^{\pm}$]{.orange-text},
 
 3. [$\textcolor{#AE81FF}{x''} =$ [$x'_{A}$]{.red-text}$\,+\,$[$\Lambda^{\pm}$]{.orange-text}$($[$x'_{B}$]{.blue-text}$, {v'})$]{} [$\hspace{8pt}$ update other half: $x_{B}$]{.dim-text style="font-size:0.9em;"}
 
-4. [$\textcolor{#07B875}{v''} =$ [$\Gamma^{\pm}$]{.pink-text}$(\textcolor{#AE81FF}{x''}, \textcolor{#07B875}{v'})$]{} [$\hspace{36pt}$ update $v$]{.dim-text style="font-size:0.9em;"}
+4. [$\textcolor{#07B875}{v''} =$ [$\Gamma^{\pm}$]{.pink-text}$({x''}, \textcolor{#07B875}{v'})$]{} [$\hspace{36pt}$ update $v$]{.dim-text style="font-size:0.9em;"}
 
 :::
 
@@ -954,7 +954,7 @@ between the trained model and HMC
 
 :::
 
-## {}
+## {#sec-l2hmc-gh}
 
 ::: {style="text-align:center;"}
 
@@ -1017,9 +1017,9 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 
 ## Links + References {#sec-references}
 
-- This talk: [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
 - Code repo [{{< fa brands github >}} `saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
-- Slides [{{< fa solid presentation >}} saforem2.github.io/lattice23](https://saforem2.github.io/lattice23)
+- This talk: [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
+  - Slides [📊 [saforem2.github.io/lattice23](https://saforem2.github.io/lattice23)]
 - [Title Slide Background (worms) animation](https://saforem2.github.io/grid-worms-animation/)
 
 ## References {style="line-height:1.2em;"}
