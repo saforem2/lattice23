@@ -28,8 +28,8 @@
     "text": "Hamiltonian Monte Carlo (HMC)\n\n\n\nIdea: Evolve the (\\dot{x}, \\dot{v}) system to get new states \\{x_{i}\\}❗\nWrite the joint distribution p(x, v): \np(x, v) \\propto e^{-S[x]} e^{-\\frac{1}{2}v^{T} v} = e^{-H(x, v)}\n\n\n\n\n\n\n\n\n\nHamiltonian Dynamics\n\n\nH = S[x] + \\frac{1}{2} v^{T} v \\Longrightarrow \\dot{x} = +\\partial_{v} H,\n\\,\\,\\dot{v} = -\\partial_{x} H\n\n\n\n\n\n\nFigure 1: Overview of HMC algorithm"
   },
   {
-    "objectID": "index.html#leapfrog-integrator-hmc",
-    "href": "index.html#leapfrog-integrator-hmc",
+    "objectID": "index.html#sec-leapfrog",
+    "href": "index.html#sec-leapfrog",
     "title": "",
     "section": "Leapfrog Integrator (HMC)",
     "text": "Leapfrog Integrator (HMC)\n\n\n\n\n\n\n\n\nHamiltonian Dynamics\n\n\n\\left(\\dot{x}, \\dot{v}\\right) = \\left(\\partial_{v} H, -\\partial_{x} H\\right)\n\n\n\n\n\n\n\n\n\nLeapfrog Step\n\n\ninput \\,\\left(x, v\\right) \\rightarrow \\left(x', v'\\right)\\, output\n\\begin{align*}\n\\tilde{v} &:= \\textcolor{#F06292}{\\Gamma}(x, v)\\hspace{2.2pt} = v - \\frac{\\varepsilon}{2} \\partial_{x} S(x) \\\\\nx' &:= \\textcolor{#FD971F}{\\Lambda}(x, \\tilde{v}) \\, =  x + \\varepsilon \\, \\tilde{v} \\\\\nv' &:= \\textcolor{#F06292}{\\Gamma}(x', \\tilde{v}) = \\tilde{v} - \\frac{\\varepsilon}{2} \\partial_{x} S(x')\n\\end{align*}\n\n\n\n\n\n\n\n\n\nWarning!\n\n\nResample v_{0} \\sim \\mathcal{N}(0, \\mathbb{1})\nat the beginning of each trajectory\n\n\n\n\nNote: \\partial_{x} S(x) is the force"
@@ -63,15 +63,15 @@
     "text": "L2HMC Update\n\n\n\n\n\nAlgorithm\n\n\n\ninput: x\n\nResample: \\textcolor{#07B875}{v} \\sim \\mathcal{N}(0, \\mathbb{1}); \\,\\,{d\\sim\\mathcal{U}(\\pm)}\nConstruct initial state: \\textcolor{#939393}{\\xi} =(\\textcolor{#AE81FF}{x}, \\textcolor{#07B875}{v}, {\\pm})\n\nforward: Generate proposal \\xi' by passing initial \\xi through N_{\\mathrm{LF}} leapfrog layers\n\\textcolor{#939393} \\xi \\hspace{1pt}\\xrightarrow[]{\\tiny{\\mathrm{LF} \\text{ layer}}}\\xi_{1} \\longrightarrow\\cdots \\longrightarrow \\xi_{N_{\\mathrm{LF}}} = \\textcolor{#f8f8f8}{\\xi'} := (\\textcolor{#AE81FF}{x''}, \\textcolor{#07B875}{v''})\n\nAccept / Reject: \\begin{equation*}\nA({\\textcolor{#f8f8f8}{\\xi'}}|{\\textcolor{#939393}{\\xi}})=\n\\mathrm{min}\\left\\{1,\n\\frac{\\pi(\\textcolor{#f8f8f8}{\\xi'})}{\\pi(\\textcolor{#939393}{\\xi})} \\left| \\mathcal{J}\\left(\\textcolor{#f8f8f8}{\\xi'},\\textcolor{#939393}{\\xi}\\right)\\right| \\right\\}\n\\end{equation*}\n\nbackward (if training):\n\nEvaluate the loss function1 \\mathcal{L}\\gets \\mathcal{L}_{\\theta}(\\textcolor{#f8f8f8}{\\xi'}, \\textcolor{#939393}{\\xi}) and backprop\n\nreturn: \\textcolor{#AE81FF}{x}_{i+1}\nEvaluate MH criteria (1) and return accepted config, \\textcolor{#AE81FF}{{x}_{i+1}}\\gets\n  \\begin{cases}\n  \\textcolor{#f8f8f8}{\\textcolor{#AE81FF}{x''}} \\small{\\text{ w/ prob }} A(\\textcolor{#f8f8f8}{\\xi''}|\\textcolor{#939393}{\\xi}) \\hspace{26pt} ✅ \\\\\n  \\textcolor{#939393}{\\textcolor{#AE81FF}{x}} \\hspace{5pt}\\small{\\text{ w/ prob }} 1 - A(\\textcolor{#f8f8f8}{\\xi''}|{\\textcolor{#939393}{\\xi}}) \\hspace{10pt} 🚫\n  \\end{cases}\n\n\n\n\n\n\n\n \nFigure 6: Leapfrog Layer used in generalized MD update\n\n\n\n\nFor simple \\mathbf{x} \\in \\mathbb{R}^{2} example, \\mathcal{L}_{\\theta} = A(\\xi^{\\ast}|\\xi)\\cdot \\left(\\mathbf{x}^{\\ast} - \\mathbf{x}\\right)^{2}"
   },
   {
-    "objectID": "index.html#hmc-4d-su3",
-    "href": "index.html#hmc-4d-su3",
+    "objectID": "index.html#sec-hmcsu3",
+    "href": "index.html#sec-hmcsu3",
     "title": "",
     "section": "HMC: 4D SU(3)",
     "text": "HMC: 4D SU(3)\nHamiltonian: H[P, U] = \\frac{1}{2} P^{2} + S[U] \\Longrightarrow\n\n\n\n\n\n\nU update: \\frac{d\\omega^{k}}{dt} = \\frac{\\partial H}{\\partial P^{k}} \\frac{d\\omega^{k}}{dt}\\lambda^{k} = P^{k}\\lambda^{k} \\Longrightarrow \\frac{dQ}{dt} = P \\begin{align*}\nQ(\\textcolor{#FFEE58}{\\varepsilon}) &= Q(0) + \\textcolor{#FFEE58}{\\varepsilon} P(0)\\Longrightarrow\\\\\n-i\\, \\log U(\\textcolor{#FFEE58}{\\varepsilon}) &= -i\\, \\log U(0) + \\textcolor{#FFEE58}{\\varepsilon} P(0) \\\\\nU(\\textcolor{#FFEE58}{\\varepsilon}) &= e^{i\\,\\textcolor{#FFEE58}{\\varepsilon} P(0)} U(0)\\Longrightarrow \\\\\n&\\hspace{1pt}\\\\\n\\textcolor{#FD971F}{\\Lambda}:\\,\\, U \\longrightarrow U' &\\coloneqq e^{i\\varepsilon P'} U\n\\end{align*}\n\n\n\n\n\n\\textcolor{#FFEE58}{\\varepsilon} is the step size\n\n\n\n\n\n\nP update: \\frac{dP^{k}}{dt} = - \\frac{\\partial H}{\\partial \\omega^{k}} \\frac{dP^{k}}{dt} = - \\frac{\\partial H}{\\partial \\omega^{k}}\n= -\\frac{\\partial H}{\\partial Q} = -\\frac{dS}{dQ}\\Longrightarrow \\begin{align*}\nP(\\textcolor{#FFEE58}{\\varepsilon}) &= P(0) - \\textcolor{#FFEE58}{\\varepsilon} \\left.\\frac{dS}{dQ}\\right|_{t=0} \\\\\n&= P(0) - \\textcolor{#FFEE58}{\\varepsilon} \\,\\textcolor{#E599F7}{F[U]} \\\\\n&\\hspace{1pt}\\\\\n\\textcolor{#F06292}{\\Gamma}:\\,\\, P \\longrightarrow P' &\\coloneqq P - \\frac{\\varepsilon}{2} F[U]\n\\end{align*}\n\n\n\n\n\n\\textcolor{#E599F7}{F[U]} is the force term"
   },
   {
-    "objectID": "index.html#hmc-4d-su3-1",
-    "href": "index.html#hmc-4d-su3-1",
+    "objectID": "index.html#hmc-4d-su3",
+    "href": "index.html#hmc-4d-su3",
     "title": "",
     "section": "HMC: 4D SU(3)",
     "text": "HMC: 4D SU(3)\n\n\n\nMomentum Update: \\textcolor{#F06292}{\\Gamma}: P \\longrightarrow P' := P - \\frac{\\varepsilon}{2} F[U]\nLink Update: \\textcolor{#FD971F}{\\Lambda}: U \\longrightarrow U' := e^{i\\varepsilon P'} U\\quad\\quad\nWe maintain a batch of Nb lattices, all updated in parallel\n\nU.dtype = complex128 \nU.shape\n= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]"
@@ -91,15 +91,15 @@
     "text": "P-Network (pt. 2)\n\n\n\n\n\n\n\n\nUse (s_{P}, t_{P}, q_{P}) to update \\Gamma^{\\pm}: (U, P) \\rightarrow \\left(U, P_{\\pm}\\right)1:\n\nforward (d = \\textcolor{#FF5252}{+}): \\Gamma^{\\textcolor{#FF5252}{+}}(U, P) \\coloneqq P_{\\textcolor{#FF5252}{+}} = P \\cdot e^{\\frac{\\varepsilon}{2} s_{P}} - \\frac{\\varepsilon}{2}\\left[ F \\cdot e^{\\varepsilon q_{P}} + t_{P} \\right]\nbackward (d = \\textcolor{#1A8FFF}{-}): \\Gamma^{\\textcolor{#1A8FFF}{-}}(U, P) \\coloneqq P_{\\textcolor{#1A8FFF}{-}} = e^{-\\frac{\\varepsilon}{2} s_{P}} \\left\\{P + \\frac{\\varepsilon}{2}\\left[ F \\cdot e^{\\varepsilon q_{P}} + t_{P} \\right]\\right\\}\n\n\nNote that \\left(\\Gamma^{+}\\right)^{-1} = \\Gamma^{-}, i.e. \\Gamma^{+}\\left[\\Gamma^{-}(U, P)\\right] = \\Gamma^{-}\\left[\\Gamma^{+}(U, P)\\right] = (U, P)"
   },
   {
-    "objectID": "index.html#interpretation",
-    "href": "index.html#interpretation",
+    "objectID": "index.html#sec-interpretation",
+    "href": "index.html#sec-interpretation",
     "title": "",
     "section": "Interpretation",
     "text": "Interpretation\n\n\nDeviation in x_{P}\n\nTopological charge mixing\n\nArtificial influx of energy\n\n\n\nFigure 8: Illustration of how different observables evolve over a single L2HMC trajectory."
   },
   {
-    "objectID": "index.html#interpretation-1",
-    "href": "index.html#interpretation-1",
+    "objectID": "index.html#interpretation",
+    "href": "index.html#interpretation",
     "title": "",
     "section": "Interpretation",
     "text": "Interpretation\n\n\n\n\n\n\n\nAverage plaquette: \\langle x_{P}\\rangle vs LF step\n\n\n\n\n\n\n\nAverage energy: H - \\sum\\log|\\mathcal{J}|\n\n\n\n\nFigure 9: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors."
@@ -119,22 +119,22 @@
     "text": "4D SU(3) Results: \\delta U_{\\mu\\nu}\n\nFigure 12: The difference in the average plaquette \\left|\\delta U_{\\mu\\nu}\\right|^{2} between the trained model and HMC"
   },
   {
-    "objectID": "index.html#thank-you",
-    "href": "index.html#thank-you",
+    "objectID": "index.html#sec-thank-you",
+    "href": "index.html#sec-thank-you",
     "title": "",
     "section": "Thank you!",
     "text": "Thank you!\n \n\n\n\n samforeman.me\n\n\n saforem2\n\n\n @saforem2\n\n\n foremans@anl.gov"
   },
   {
-    "objectID": "index.html#acknowledgements",
-    "href": "index.html#acknowledgements",
+    "objectID": "index.html#sec-acknowledgements",
+    "href": "index.html#sec-acknowledgements",
     "title": "",
     "section": "Acknowledgements",
     "text": "Acknowledgements\n\n\n\nLinks:\n\n Link to github\n reach out!\n\nReferences:\n\nLink to HMC demo\nLink to slides\n\n link to github with slides\n\n (Foreman et al. 2022; Foreman, Jin, and Osborn 2022, 2021)\n (Boyda et al. 2022; Shanahan et al. 2022)\n\n\n\n\nHuge thank you to:\n\nYannick Meurice\nNorman Christ\nAkio Tomiya\nLuchang Jin\nChulwoo Jung\nPeter Boyle\nTaku Izubuchi\nECP-CSD group\nALCF Staff + Datascience Group\n\n\n\n\n\n\n\n\n\n\nAcknowledgements\n\n\nThis research used resources of the Argonne Leadership Computing Facility,\nwhich is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357."
   },
   {
-    "objectID": "index.html#links-references",
-    "href": "index.html#links-references",
+    "objectID": "index.html#sec-references",
+    "href": "index.html#sec-references",
     "title": "",
     "section": "Links + References",
     "text": "Links + References\n\nThis talk:  saforem2/lattice23\nCode repo  saforem2/l2hmc-qcd\nSlides  saforem2.github.io/lattice23\nTitle Slide Background (worms) animation"

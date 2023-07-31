@@ -377,11 +377,31 @@
 <span style="padding-bottom: 0.5rem;"><br>&nbsp;</span><br>
 <a href="https://samforeman.me"><i class="fa-solid fa-home" aria-label="home"></i></a> Sam Foreman<br>
 <span class="dim-text" style="font-size:0.8em;">Xiao-Yong Jin, James C. Osborn</span><br>
-<span style="font-size:0.8em;"><a href="https://github.io/saforem2/lattice23"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/lattice23</code></a></span></p>
+<span style="font-size:0.8em;"><a href="https://saforem2.github.io/lattice23"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/lattice23</code></a></span></p>
 </div>
 <div class="footer">
 <p><span class="dim-text" style="&quot;text-align:left;'">2023-07-31 @ <a href="https://indico.fnal.gov/event/57249/contributions/271305/">Lattice 2023</a></span></p>
 </div>
+</section>
+
+<section id="overview" class="title-slide slide level1 center">
+<h1>Overview</h1>
+<ol type="1">
+<li><p><a href="#/markov-chain-monte-carlo-mcmc-centeredslide">Background: <code>{MCMC,HMC}</code></a></p>
+<ul>
+<li><a href="#/leapfrog-integrator-hmc-centeredslide">Leapfrog Integrator</a></li>
+<li><a href="#/sec-issues-with-hmc">Issues with HMC</a></li>
+<li><a href="#/sec-can-we-do-better">Can we do better?</a></li>
+</ul></li>
+<li><p><a href="#/sec-l2hmc">L2HMC: Generalizing MD</a></p>
+<ul>
+<li><a href="#/sec-su3">4D <span class="math inline">SU(3)</span> Model</a></li>
+<li><a href="#/sec-results">Results</a></li>
+</ul></li>
+<li><p><a href="#/sec-references">References</a></p></li>
+<li><p><a href="#/sec-extras">Extras</a></p>
+<p><!-- - [HMC Update](#sec-hmcsu3) --> <!-- - [Networks](#sec-su3networks) --> <!-- - [Interpretation](#sec-interpretation) --> <!-- - [Next Steps](#sec-next-steps) --> <!-- 4. [[Acknwowledgements](#sec-acknowledgements)]{style="font-size:1.1em;"} --></p></li>
+</ol>
 </section>
 
 <section>
@@ -418,7 +438,7 @@
 <span class="math display">\sigma_{\mathcal{O}}^{2} = \frac{1}{N}\mathrm{Var}{\left[\mathcal{O} (x)
   \right]}\Longrightarrow \sigma_{\mathcal{O}} \propto \frac{1}{\sqrt{N}}</span></p>
 <div class="footer">
-<p><a href="https://github.com/saforem2/lattice23"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/lattice23</code></a></p>
+<p><a href="https://saforem2.github.io/lattice23"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/lattice23</code></a></p>
 </div>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>Here, <span class="math inline">\sim</span> means “is distributed according to”</p></li></ol></aside></section>
 
@@ -519,7 +539,7 @@ p(x, v) \propto e^{-S[x]} e^{-\frac{1}{2}v^{T} v} = e^{-H(x, v)}
 </div>
 
 <img data-src="https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/hmc1.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;1: Overview of HMC algorithm</p></section>
-<section id="leapfrog-integrator-hmc" class="slide level2 centeredslide center">
+<section id="sec-leapfrog" class="slide level2 centeredslide center">
 <h2>Leapfrog Integrator (HMC)</h2>
 <div class="columns" style="text-align:center;">
 <div class="column" style="width:48%;">
@@ -612,7 +632,7 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </figure>
 </div>
 </section></section>
-<section id="issues-with-hmc" class="title-slide slide level1 center" style="font-size:0.9em;">
+<section id="sec-issues" class="title-slide slide level1 center" style="font-size:0.9em;">
 <h1>Issues with HMC</h1>
 <ul>
 <li>What do we want in a good sampler?
@@ -695,7 +715,7 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </div>
 </section>
 
-<section id="can-we-do-better" class="title-slide slide level1 center">
+<section id="sec-can-we-do-better" class="title-slide slide level1 center">
 <h1>Can we do better?</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -729,7 +749,7 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 
 
 <section>
-<section id="l2hmc-generalizing-the-md-update" class="title-slide slide level1 centeredslide center">
+<section id="sec-l2hmc" class="title-slide slide level1 centeredslide center">
 <h1>L2HMC: Generalizing the MD Update</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -828,7 +848,7 @@ Evaluate MH criteria <span class="math inline">(1)</span> and return accepted co
 <aside><ol class="aside-footnotes"><li id="fn6"><p>For simple <span class="math inline">\mathbf{x} \in \mathbb{R}^{2}</span> example, <span class="math inline">\mathcal{L}_{\theta} = A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}</span></p></li></ol></aside></section>
 </section>
 <section>
-<section id="d-su3-model" class="title-slide slide level1 centeredslide center" style="font-size: 0.9em;">
+<section id="sec-su3" class="title-slide slide level1 centeredslide center" style="font-size: 0.9em;">
 <h1>4D <span class="math inline">SU(3)</span> Model</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -893,7 +913,7 @@ U_{\mu}(x) &amp;= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)
 </div>
 </div>
 </section>
-<section id="hmc-4d-su3" class="slide level2 center">
+<section id="sec-hmcsu3" class="slide level2 center">
 <h2>HMC: 4D <span class="math inline">SU(3)</span></h2>
 <p>Hamiltonian: <span class="math inline">H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow</span></p>
 <div class="columns">
@@ -938,7 +958,7 @@ P(\textcolor{#FFEE58}{\varepsilon}) &amp;= P(0) - \textcolor{#FFEE58}{\varepsilo
 </div>
 </div>
 </section>
-<section id="hmc-4d-su3-1" class="slide level2 centeredslide center">
+<section id="hmc-4d-su3" class="slide level2 centeredslide center">
 <h2>HMC: 4D <span class="math inline">SU(3)</span></h2>
 <div class="columns">
 <div class="column" style="text-align:left;">
@@ -981,7 +1001,7 @@ P(\textcolor{#FFEE58}{\varepsilon}) &amp;= P(0) - \textcolor{#FFEE58}{\varepsilo
 <!---->
 <!-- :::: -->
 </section></section>
-<section id="networks-4d-su3" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<section id="sec-su3networks" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title">Networks 4D <span class="math inline">SU(3)</span></h1>
 <div class="columns">
 <div class="column" style="font-size:0.9em;">
@@ -1001,7 +1021,7 @@ P(\textcolor{#FFEE58}{\varepsilon}) &amp;= P(0) - \textcolor{#FFEE58}{\varepsilo
 </section>
 
 <section>
-<section id="networks-4d-su3-1" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
+<section id="networks-4d-su3" class="title-slide slide level1 centeredslide center" data-auto-animate="true">
 <h1 data-id="quarto-animate-title">Networks 4D <span class="math inline">SU(3)</span></h1>
 <div class="columns">
 <div class="column" style="font-size:0.9em;">
@@ -1069,8 +1089,8 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 <aside><ol class="aside-footnotes"><li id="fn9"><p>Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(U, P)\right] = \Gamma^{-}\left[\Gamma^{+}(U, P)\right] = (U, P)</span></p></li></ol></aside></section>
 </section>
 <section>
-<section id="d-u1-integrated-autocorrelation-time-tau_mathrmint" class="title-slide slide level1 centeredslide center">
-<h1>2D <span class="math inline">U(1)</span>: Integrated Autocorrelation time: <span class="math inline">\tau_{\mathrm{int}}</span></h1>
+<section id="sec-results" class="title-slide slide level1 centeredslide center">
+<h1>Results: 2D <span class="math inline">U(1)</span></h1>
 <div class="columns">
 <div class="column" style="align:top;">
 <p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/autocorr_new.svg" style="width:90.0%"></p>
@@ -1093,7 +1113,7 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 </div>
 <p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/charge_histories.svg" class="absolute" style="margin-bottom: 1em;margin-top: 1em;top: 400px; left: 0px; width: 100%; "></p>
 </section>
-<section id="interpretation" class="slide level2 centeredslide center">
+<section id="sec-interpretation" class="slide level2 centeredslide center">
 <h2>Interpretation</h2>
 <div class="columns" style="margin-left:1pt;">
 <div class="column" style="width:36%;">
@@ -1106,7 +1126,7 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 </div>
 
 <img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/ridgeplots.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;8: Illustration of how different observables evolve over a single L2HMC trajectory.</p></section>
-<section id="interpretation-1" class="slide level2 centeredslide center">
+<section id="interpretation" class="slide level2 centeredslide center">
 <h2>Interpretation</h2>
 <div id="fig-energy-ridgeplot" class="quarto-layout-panel">
 <figure>
@@ -1133,7 +1153,7 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 </div>
 </section></section>
 <section>
-<section id="d-su3-results" class="title-slide slide level1 center">
+<section id="sec-su3results" class="title-slide slide level1 center">
 <h1>4D <span class="math inline">SU(3)</span> Results</h1>
 <div id="fig-ridgeplot" class="quarto-layout-panel">
 <figure>
@@ -1176,7 +1196,7 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 
 <img data-src="./assets/SU3/pdiff-robust.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;12: The difference in the average plaquette <span class="math inline">\left|\delta U_{\mu\nu}\right|^{2}</span> between the trained model and HMC</p></section></section>
 <section>
-<section id="next-steps" class="title-slide slide level1 center">
+<section id="sec-next-steps" class="title-slide slide level1 center">
 <h1>Next Steps</h1>
 <ul>
 <li><p>Further code development</p>
@@ -1197,7 +1217,7 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 </ul></li>
 </ul>
 </section>
-<section id="thank-you" class="slide level2 center">
+<section id="sec-thank-you" class="slide level2 center">
 <h2>Thank you!</h2>
 <p>&nbsp;<br></p>
 <div class="quarto-layout-panel" style="text-align:left;">
@@ -1230,7 +1250,7 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 <p><a href="https://hydra.cc"><img alt="hydra" src="https://img.shields.io/badge/Config-Hydra-89b8cd"></a> <a href="https://pytorch.org/get-started/locally/"><img alt="pyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&amp;logoColor=white"></a> <a href="https://www.tensorflow.org"><img alt="tensorflow" src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?&amp;logo=TensorFlow&amp;logoColor=white"></a> <a href="https://wandb.ai/l2hmc-qcd/l2hmc-qcd"><img src="https://raw.githubusercontent.com/wandb/assets/main/wandb-github-badge-28.svg" alt="Weights &amp; Biases monitoring" height="20"></a></p>
 </div>
 </section>
-<section id="acknowledgements" class="slide level2 center">
+<section id="sec-acknowledgements" class="slide level2 center">
 <h2>Acknowledgements</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
@@ -1283,7 +1303,7 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 </div>
 </div>
 </section>
-<section id="links-references" class="slide level2 center">
+<section id="sec-references" class="slide level2 center">
 <h2>Links + References</h2>
 <ul>
 <li>This talk: <a href="https://github.com/saforem2/lattice23"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/lattice23</code></a></li>
@@ -1313,7 +1333,7 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 </div>
 </section></section>
 <section>
-<section id="extras" class="title-slide slide level1 center">
+<section id="sec-extras" class="title-slide slide level1 center">
 <h1>Extras</h1>
 
 </section>

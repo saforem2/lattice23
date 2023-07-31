@@ -45,7 +45,7 @@ format:
 [<br>&nbsp;]{style="padding-bottom: 0.5rem;"}  
 [{{< fa solid home >}}](https://samforeman.me) Sam Foreman  
 [Xiao-Yong Jin, James C. Osborn]{.dim-text style="font-size:0.8em;"}  
-[[{{< fa brands github >}} `saforem2/lattice23`](https://github.io/saforem2/lattice23)]{style="font-size:0.8em;"}
+[[{{< fa brands github >}} `saforem2/lattice23`](https://saforem2.github.io/lattice23)]{style="font-size:0.8em;"}
 
 :::
 
@@ -54,6 +54,25 @@ format:
 [2023-07-31 @ [Lattice 2023](https://indico.fnal.gov/event/57249/contributions/271305/)]{.dim-text style="text-align:left;'}
 
 :::
+
+# Overview
+
+1. [Background: `{MCMC,HMC}`](#markov-chain-monte-carlo-mcmc-centeredslide)
+    - [Leapfrog Integrator](#leapfrog-integrator-hmc-centeredslide)
+    - [Issues with HMC](#sec-issues-with-hmc)
+    - [Can we do better?](#sec-can-we-do-better)
+2. [L2HMC: Generalizing MD](#sec-l2hmc)
+    - [4D $SU(3)$ Model](#sec-su3)
+    - [Results](#sec-results)
+3. [References](#sec-references)
+4. [Extras](#sec-extras)
+
+    <!-- - [HMC Update](#sec-hmcsu3) -->
+    <!-- - [Networks](#sec-su3networks) -->
+    <!-- - [Interpretation](#sec-interpretation) -->
+    <!-- - [Next Steps](#sec-next-steps) -->
+<!-- 4. [[Acknwowledgements](#sec-acknowledgements)]{style="font-size:1.1em;"} -->
+
 
 # Background: MCMC
 
@@ -88,7 +107,7 @@ If these were <span style="color:#00CCFF;">independent</span>, we could approxim
 [^notation]: Here, $\sim$ means "is distributed according to"
 
 ::: footer
-[{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
+[{{< fa brands github >}} `saforem2/lattice23`](https://saforem2.github.io/lattice23)
 :::
 
 ## Markov Chain Monte Carlo (MCMC) {.centeredslide}
@@ -180,7 +199,7 @@ $$\dot{x} = +\partial_{v} H,
 Overview of HMC algorithm
 :::
 
-## Leapfrog Integrator (HMC) {.centeredslide}
+## Leapfrog Integrator (HMC) {#sec-leapfrog .centeredslide}
 
 :::: {.columns style="text-align:center;"}
 
@@ -267,7 +286,7 @@ $$\begin{align*}
 HMC Demo
 :::
 
-# Issues with HMC {style="font-size:0.9em;"}
+# Issues with HMC {#sec-issues style="font-size:0.9em;"}
 
 - What do we want in a good sampler?
   - **Fast mixing** (small autocorrelations)
@@ -322,7 +341,7 @@ $\beta$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets
 
 ::::
 
-# Can we do better?
+# Can we do better? {#sec-can-we-do-better}
 
 :::: {.columns}
 
@@ -367,7 +386,7 @@ Generalized MD update where [$\Lambda_{\theta}^{\pm}$]{.orange-text},
 [^l2hmc]: [L2HMC: ](https://github.com/saforem2/l2hmc-qcd) {{< fa solid book >}}
 [@Foreman:2021ixr; @Foreman:2021rhs]
 
-# L2HMC: Generalizing the MD Update {.centeredslide}
+# L2HMC: Generalizing the MD Update {#sec-l2hmc .centeredslide}
 
 :::: {.columns}
 
@@ -488,7 +507,7 @@ $$\textcolor{#939393} \xi \hspace{1pt}\xrightarrow[]{\tiny{\mathrm{LF} \text{ la
     A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}$
 
 
-# 4D $SU(3)$ Model {.centeredslide style="font-size: 0.9em;"}
+# 4D $SU(3)$ Model {#sec-su3 .centeredslide style="font-size: 0.9em;"}
 
 :::: {.columns}
 
@@ -542,7 +561,7 @@ Illustration of the lattice
 
 ::::
 
-## HMC: 4D $SU(3)$
+## HMC: 4D $SU(3)$ {#sec-hmcsu3}
 
 Hamiltonian: $H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow$
 
@@ -654,7 +673,7 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 <!---->
 <!-- :::: -->
 
-# Networks 4D $SU(3)$ {.centeredslide auto-animate="true"}
+# Networks 4D $SU(3)$ {#sec-su3networks .centeredslide auto-animate="true"}
 
 :::: {.columns}
 
@@ -790,7 +809,7 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 [^lambda]: $\lambda_{s},\, \lambda_{q} \in \mathbb{R}$ are trainable parameters
 [^inverse]: Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e. $\Gamma^{+}\left[\Gamma^{-}(U, P)\right] = \Gamma^{-}\left[\Gamma^{+}(U, P)\right] = (U, P)$
 
-# 2D $U(1)$: Integrated Autocorrelation time: $\tau_{\mathrm{int}}$ {.centeredslide}
+# Results: 2D $U(1)$ {#sec-results .centeredslide}
 
 :::: {.columns}
 
@@ -815,7 +834,7 @@ We can measure the performance by comparing $\tau_{\mathrm{int}}$ for the
 ![](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/charge_histories.svg){.absolute top=400 left=0 width="100%" style="margin-bottom: 1em;margin-top: 1em;"}
 
 
-## Interpretation {.centeredslide}
+## Interpretation {#sec-interpretation .centeredslide}
 
 :::: {.columns style="margin-left:1pt;"}
 
@@ -862,7 +881,7 @@ sectors.
 :::
 
 
-# 4D $SU(3)$ Results
+# 4D $SU(3)$ Results {#sec-su3results}
 
 ::: {#fig-ridgeplot layout-ncol=3 layout-valign="top"}
 
@@ -897,7 +916,7 @@ between the trained model and HMC
 
 :::
 
-# Next Steps
+# Next Steps {#sec-next-steps}
 
 - Further code development
   - {{< fa brands github >}} [`saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
@@ -913,7 +932,7 @@ between the trained model and HMC
   - Batch size
   - \# of GPUs
 
-## Thank you!
+## Thank you! {#sec-thank-you}
 
 &nbsp;<br>  
 
@@ -946,7 +965,7 @@ between the trained model and HMC
 :::
 
 
-## Acknowledgements
+## Acknowledgements {#sec-acknowledgements}
 
 :::: {.columns}
 
@@ -990,7 +1009,7 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 
 :::
 
-## Links + References
+## Links + References {#sec-references}
 
 - This talk: [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
 - Code repo [{{< fa brands github >}} `saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
@@ -1002,7 +1021,7 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 ::: {#refs}
 :::
 
-# Extras
+# Extras {#sec-extras}
 
 ## Integrated Autocorrelation Time {.centeredslide}
 
