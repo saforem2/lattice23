@@ -1,26 +1,5 @@
 [
   {
-    "objectID": "index.html#markov-chain-monte-carlo-mcmc",
-    "href": "index.html#markov-chain-monte-carlo-mcmc",
-    "title": "MLMC: Machine Learning Monte Carlo",
-    "section": "Markov Chain Monte Carlo (MCMC)",
-    "text": "Markov Chain Monte Carlo (MCMC)\n\n\n\n\n\n\n\n\nGoal\n\n\nGenerate independent samples \\{x_{i}\\}, such that1 \\{x_{i}\\} \\sim p(x) \\propto e^{-S(x)} where S(x) is the action (or potential energy)\n\n\n\n\nWant to calculate observables \\mathcal{O}:\n\\left\\langle \\mathcal{O}\\right\\rangle \\propto \\int \\left[\\mathcal{D}x\\right]\\hspace{4pt} {\\mathcal{O}(x)\\, p(x)}\n\n\n\n\n\nIf these were independent, we could approximate: \\left\\langle\\mathcal{O}\\right\\rangle \\simeq \\frac{1}{N}\\sum^{N}_{n=1}\\mathcal{O}(x_{n})\n\\sigma_{\\mathcal{O}}^{2} = \\frac{1}{N}\\mathrm{Var}{\\left[\\mathcal{O} (x)\n  \\right]}\\Longrightarrow \\sigma_{\\mathcal{O}} \\propto \\frac{1}{\\sqrt{N}}\n\n saforem2/lattice23\n\nHere, \\sim means “is distributed according to”"
-  },
-  {
-    "objectID": "index.html#markov-chain-monte-carlo-mcmc-1",
-    "href": "index.html#markov-chain-monte-carlo-mcmc-1",
-    "title": "MLMC: Machine Learning Monte Carlo",
-    "section": "Markov Chain Monte Carlo (MCMC)",
-    "text": "Markov Chain Monte Carlo (MCMC)\n\n\n\n\n\n\n\n\nGoal\n\n\nGenerate independent samples \\{x_{i}\\}, such that1 \\{x_{i}\\} \\sim p(x) \\propto e^{-S(x)} where S(x) is the action (or potential energy)\n\n\n\n\nWant to calculate observables \\mathcal{O}:\n\\left\\langle \\mathcal{O}\\right\\rangle \\propto \\int \\left[\\mathcal{D}x\\right]\\hspace{4pt} {\\mathcal{O}(x)\\, p(x)}\n\n\n\n\n\nInstead, nearby configs are correlated, and we incur a factor of \\textcolor{#FF5252}{\\tau^{\\mathcal{O}}_{\\mathrm{int}}}: \\sigma_{\\mathcal{O}}^{2} =\n  \\frac{\\textcolor{#FF5252}{\\tau^{\\mathcal{O}}_{\\mathrm{int}}}}{N}\\mathrm{Var}{\\left[\\mathcal{O}\n  (x) \\right]}\n\n saforem2/lattice23\n\nHere, \\sim means “is distributed according to”"
-  },
-  {
-    "objectID": "index.html#hamiltonian-monte-carlo-hmc",
-    "href": "index.html#hamiltonian-monte-carlo-hmc",
-    "title": "MLMC: Machine Learning Monte Carlo",
-    "section": "Hamiltonian Monte Carlo (HMC)",
-    "text": "Hamiltonian Monte Carlo (HMC)\n\nWant to (sequentially) construct a chain of states: x_{0} \\rightarrow x_{1} \\rightarrow x_{i} \\rightarrow \\cdots \\rightarrow x_{N}\\hspace{10pt}\nsuch that, as N \\rightarrow \\infty: \\left\\{x_{i}, x_{i+1}, x_{i+2}, \\cdots, x_{N} \\right\\} \\xrightarrow[]{N\\rightarrow\\infty} p(x)\n\\propto e^{-S(x)}\n\n\n\n\n\n\n\nTrick\n\n\n\nIntroduce fictitious momentum v \\sim \\mathcal{N}(0, \\mathbb{1})\n\nNormally distributed independent of x, i.e. \\begin{align*}\np(x, v) &\\textcolor{#02b875}{=} p(x)\\,p(v) \\propto e^{-S{(x)}} e^{-\\frac{1}{2} v^{T}v}\n= e^{-\\left[S(x) + \\frac{1}{2} v^{T}{v}\\right]}\n\\textcolor{#02b875}{=} e^{-H(x, v)}\n\\end{align*}"
-  },
-  {
     "objectID": "index.html#hamiltonian-monte-carlo-hmc-1",
     "href": "index.html#hamiltonian-monte-carlo-hmc-1",
     "title": "MLMC: Machine Learning Monte Carlo",

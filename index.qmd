@@ -73,11 +73,8 @@ format:
 3. [References](#sec-references)
 4. [Extras](#sec-extras)
 
-    <!-- - [HMC Update](#sec-hmcsu3) -->
-    <!-- - [Networks](#sec-su3networks) -->
-    <!-- - [Interpretation](#sec-interpretation) -->
-    <!-- - [Next Steps](#sec-next-steps) -->
-<!-- 4. [[Acknwowledgements](#sec-acknowledgements)]{style="font-size:1.1em;"} -->
+notes::
+testing
 
 
 # Markov Chain Monte Carlo (MCMC) {.centeredslide}
