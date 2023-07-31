@@ -123,21 +123,21 @@
     "href": "index.html#sec-thank-you",
     "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Thank you!",
-    "text": "Thank you!\n \n\n\n\n samforeman.me\n\n\n saforem2\n\n\n @saforem2\n\n\n foremans@anl.gov"
+    "text": "Thank you!\n \n\n\n\n samforeman.me\n\n\n saforem2\n\n\n @saforem2\n\n\n foremans@anl.gov\n\n\n\n\n\n\n\n\n\nAcknowledgements\n\n\nThis research used resources of the Argonne Leadership Computing Facility,\nwhich is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357."
   },
   {
     "objectID": "index.html#sec-acknowledgements",
     "href": "index.html#sec-acknowledgements",
     "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\n\n\n\nLinks:\n\n Link to github\n reach out!\n\nReferences:\n\nLink to HMC demo\nLink to slides\n\n link to github with slides\n\n (Foreman et al. 2022; Foreman, Jin, and Osborn 2022, 2021)\n (Boyda et al. 2022; Shanahan et al. 2022)\n\n\n\n\nHuge thank you to:\n\nYannick Meurice\nNorman Christ\nAkio Tomiya\nLuchang Jin\nChulwoo Jung\nPeter Boyle\nTaku Izubuchi\nECP-CSD group\nALCF Staff + Datascience Group\n\n\n\n\n\n\n\n\n\n\nAcknowledgements\n\n\nThis research used resources of the Argonne Leadership Computing Facility,\nwhich is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357."
+    "text": "Acknowledgements\n\n\n\nLinks:\n\n Link to github\n reach out!\n\nReferences:\n\nLink to slides\n\n link to github with slides\n\n (Foreman et al. 2022; Foreman, Jin, and Osborn 2022, 2021)\n (Boyda et al. 2022; Shanahan et al. 2022)\n\n\n\n\nHuge thank you to:\n\nYannick Meurice\nNorman Christ\nAkio Tomiya\nNobuyuki Matsumoto\nRichard Brower\nLuchang Jin\nChulwoo Jung\nPeter Boyle\nTaku Izubuchi\nDenis Boyda\nDan Hackett\nECP-CSD group\nALCF Staff + Datascience Group"
   },
   {
     "objectID": "index.html#sec-references",
     "href": "index.html#sec-references",
     "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Links + References",
-    "text": "Links + References\n\nCode repo  saforem2/l2hmc-qcd\nThis talk:  saforem2/lattice23\n\nSlides [📊 saforem2.github.io/lattice23]\n\nTitle Slide Background (worms) animation"
+    "text": "Links + References\n\nThis talk:  saforem2/lattice23\n\nSlides: 📊 saforem2.github.io/lattice23]\n\nCode repo  saforem2/l2hmc-qcd\nTitle Slide Background (worms) animation\nLink to HMC demo"
   },
   {
     "objectID": "index.html#references",

@@ -398,8 +398,6 @@ Generalized MD update where [$\Lambda_{\theta}^{\pm}$]{.orange-text},
 
 ::: {.column width="50%"}
 
-&nbsp;<br>  
-
 ::: {.callout title="L2HMC Update"}
 
 - [Introduce $d \sim \mathcal{U}(\pm)$ to determine the direction[^resampled] of our update]{}
@@ -416,7 +414,7 @@ Generalized MD update where [$\Lambda_{\theta}^{\pm}$]{.orange-text},
 
 &nbsp;<br>  
 
-[^resampled]: $d$ resampled at start of each trajectory, to ensure reversibility
+[^resampled]: Resample both $v\sim \mathcal{N}(0, 1)$, and $d \sim \mathcal{U}(\pm)$ at the beginning of each trajectory
 
 <!-- - [**Note**: [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"} -->
 
@@ -954,6 +952,14 @@ between the trained model and HMC
 
 :::
 
+::: {.callout-note title="Acknowledgements"}
+
+This research used resources of the Argonne Leadership Computing Facility,  
+which is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357.
+
+:::
+
+
 ## {#sec-l2hmc-gh}
 
 ::: {style="text-align:center;"}
@@ -983,7 +989,6 @@ between the trained model and HMC
    - [{{< fa solid paper-plane >}} reach out!](mailto:foremans@anl.gov)
 
 - **References**:
-   - [Link to HMC demo](https://chi-feng.github.io/mcmc-demo/app.html)
     - [Link to slides](https://saforem2.github.io/lattice23/)
         - [{{< fa brands github >}} link to github with slides](https://github.com/saforem2/lattice23)
    - {{< fa solid book >}} [@Foreman:2021ljl; @Foreman:2021rhs; @Foreman:2021ixr]
@@ -997,10 +1002,14 @@ between the trained model and HMC
   - Yannick Meurice
   - Norman Christ
   - Akio Tomiya
+  - Nobuyuki Matsumoto
+  - Richard Brower
   - Luchang Jin
   - Chulwoo Jung
   - Peter Boyle
   - Taku Izubuchi
+  - Denis Boyda
+  - Dan Hackett
   - ECP-CSD group
   - [**ALCF Staff + Datascience Group**]{.red-text}
 
@@ -1008,19 +1017,14 @@ between the trained model and HMC
 
 ::::
 
-::: {.callout-note title="Acknowledgements"}
-
-This research used resources of the Argonne Leadership Computing Facility,  
-which is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357.
-
-:::
 
 ## Links + References {#sec-references}
 
-- Code repo [{{< fa brands github >}} `saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
 - This talk: [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
-  - Slides [📊 [saforem2.github.io/lattice23](https://saforem2.github.io/lattice23)]
+  - Slides: [📊 saforem2.github.io/lattice23](https://saforem2.github.io/lattice23)]
+- Code repo [{{< fa brands github >}} `saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
 - [Title Slide Background (worms) animation](https://saforem2.github.io/grid-worms-animation/)
+- [Link to HMC demo](https://chi-feng.github.io/mcmc-demo/app.html)
 
 ## References {style="line-height:1.2em;"}
 

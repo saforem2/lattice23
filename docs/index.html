@@ -765,7 +765,6 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 <h1>L2HMC: Generalizing the MD Update</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p>&nbsp;<br></p>
 <div class="callout callout-none no-icon callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
@@ -796,7 +795,7 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </div>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn5"><p><span class="math inline">d</span> resampled at start of each trajectory, to ensure reversibility</p></li></ol></aside></section>
+<aside><ol class="aside-footnotes"><li id="fn5"><p>Resample both <span class="math inline">v\sim \mathcal{N}(0, 1)</span>, and <span class="math inline">d \sim \mathcal{U}(\pm)</span> at the beginning of each trajectory</p></li></ol></aside></section>
 <section id="l2hmc-leapfrog-layer" class="slide level2 centeredslide center">
 <h2>L2HMC: Leapfrog Layer</h2>
 <div class="columns">
@@ -1248,6 +1247,20 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 </div>
 </div>
 </div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Acknowledgements</strong></p>
+</div>
+<div class="callout-content">
+<p>This research used resources of the Argonne Leadership Computing Facility,<br>
+which is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="sec-l2hmc-gh" class="slide level2 center">
 <h2></h2>
@@ -1274,7 +1287,6 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 </ul></li>
 <li><strong>References</strong>:
 <ul>
-<li><a href="https://chi-feng.github.io/mcmc-demo/app.html">Link to HMC demo</a></li>
 <li><a href="https://saforem2.github.io/lattice23/">Link to slides</a>
 <ul>
 <li><a href="https://github.com/saforem2/lattice23"><i class="fa-brands fa-github" aria-label="github"></i> link to github with slides</a></li>
@@ -1290,40 +1302,31 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 <li>Yannick Meurice</li>
 <li>Norman Christ</li>
 <li>Akio Tomiya</li>
+<li>Nobuyuki Matsumoto</li>
+<li>Richard Brower</li>
 <li>Luchang Jin</li>
 <li>Chulwoo Jung</li>
 <li>Peter Boyle</li>
 <li>Taku Izubuchi</li>
+<li>Denis Boyda</li>
+<li>Dan Hackett</li>
 <li>ECP-CSD group</li>
 <li><span class="red-text"><strong>ALCF Staff + Datascience Group</strong></span></li>
 </ul></li>
 </ul>
 </div>
 </div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Acknowledgements</strong></p>
-</div>
-<div class="callout-content">
-<p>This research used resources of the Argonne Leadership Computing Facility,<br>
-which is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="sec-references" class="slide level2 center">
 <h2>Links + References</h2>
 <ul>
-<li>Code repo <a href="https://github.com/saforem2/l2hmc-qcd"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/l2hmc-qcd</code></a></li>
 <li>This talk: <a href="https://github.com/saforem2/lattice23"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/lattice23</code></a>
 <ul>
-<li>Slides [📊 <a href="https://saforem2.github.io/lattice23">saforem2.github.io/lattice23</a>]</li>
+<li>Slides: <a href="https://saforem2.github.io/lattice23">📊 saforem2.github.io/lattice23</a>]</li>
 </ul></li>
+<li>Code repo <a href="https://github.com/saforem2/l2hmc-qcd"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/l2hmc-qcd</code></a></li>
 <li><a href="https://saforem2.github.io/grid-worms-animation/">Title Slide Background (worms) animation</a></li>
+<li><a href="https://chi-feng.github.io/mcmc-demo/app.html">Link to HMC demo</a></li>
 </ul>
 </section>
 <section id="references" class="slide level2 smaller scrollable" style="line-height:1.2em;">
