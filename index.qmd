@@ -2,6 +2,7 @@
 author: "Sam Foreman"
 date: today
 bibliography: references.bib
+title: "MLMC: Machine Learning Monte Carlo"
 format:
   revealjs:
     title-block-style: none

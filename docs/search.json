@@ -2,238 +2,238 @@
   {
     "objectID": "index.html#markov-chain-monte-carlo-mcmc",
     "href": "index.html#markov-chain-monte-carlo-mcmc",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Markov Chain Monte Carlo (MCMC)",
     "text": "Markov Chain Monte Carlo (MCMC)\n\n\n\n\n\n\n\n\nGoal\n\n\nGenerate independent samples \\{x_{i}\\}, such that1 \\{x_{i}\\} \\sim p(x) \\propto e^{-S(x)} where S(x) is the action (or potential energy)\n\n\n\n\nWant to calculate observables \\mathcal{O}:\n\\left\\langle \\mathcal{O}\\right\\rangle \\propto \\int \\left[\\mathcal{D}x\\right]\\hspace{4pt} {\\mathcal{O}(x)\\, p(x)}\n\n\n\n\n\nIf these were independent, we could approximate: \\left\\langle\\mathcal{O}\\right\\rangle \\simeq \\frac{1}{N}\\sum^{N}_{n=1}\\mathcal{O}(x_{n})\n\\sigma_{\\mathcal{O}}^{2} = \\frac{1}{N}\\mathrm{Var}{\\left[\\mathcal{O} (x)\n  \\right]}\\Longrightarrow \\sigma_{\\mathcal{O}} \\propto \\frac{1}{\\sqrt{N}}\n\n saforem2/lattice23\n\nHere, \\sim means “is distributed according to”"
   },
   {
     "objectID": "index.html#markov-chain-monte-carlo-mcmc-1",
     "href": "index.html#markov-chain-monte-carlo-mcmc-1",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Markov Chain Monte Carlo (MCMC)",
     "text": "Markov Chain Monte Carlo (MCMC)\n\n\n\n\n\n\n\n\nGoal\n\n\nGenerate independent samples \\{x_{i}\\}, such that1 \\{x_{i}\\} \\sim p(x) \\propto e^{-S(x)} where S(x) is the action (or potential energy)\n\n\n\n\nWant to calculate observables \\mathcal{O}:\n\\left\\langle \\mathcal{O}\\right\\rangle \\propto \\int \\left[\\mathcal{D}x\\right]\\hspace{4pt} {\\mathcal{O}(x)\\, p(x)}\n\n\n\n\n\nInstead, nearby configs are correlated, and we incur a factor of \\textcolor{#FF5252}{\\tau^{\\mathcal{O}}_{\\mathrm{int}}}: \\sigma_{\\mathcal{O}}^{2} =\n  \\frac{\\textcolor{#FF5252}{\\tau^{\\mathcal{O}}_{\\mathrm{int}}}}{N}\\mathrm{Var}{\\left[\\mathcal{O}\n  (x) \\right]}\n\n saforem2/lattice23\n\nHere, \\sim means “is distributed according to”"
   },
   {
     "objectID": "index.html#hamiltonian-monte-carlo-hmc",
     "href": "index.html#hamiltonian-monte-carlo-hmc",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Hamiltonian Monte Carlo (HMC)",
     "text": "Hamiltonian Monte Carlo (HMC)\n\nWant to (sequentially) construct a chain of states: x_{0} \\rightarrow x_{1} \\rightarrow x_{i} \\rightarrow \\cdots \\rightarrow x_{N}\\hspace{10pt}\nsuch that, as N \\rightarrow \\infty: \\left\\{x_{i}, x_{i+1}, x_{i+2}, \\cdots, x_{N} \\right\\} \\xrightarrow[]{N\\rightarrow\\infty} p(x)\n\\propto e^{-S(x)}\n\n\n\n\n\n\n\nTrick\n\n\n\nIntroduce fictitious momentum v \\sim \\mathcal{N}(0, \\mathbb{1})\n\nNormally distributed independent of x, i.e. \\begin{align*}\np(x, v) &\\textcolor{#02b875}{=} p(x)\\,p(v) \\propto e^{-S{(x)}} e^{-\\frac{1}{2} v^{T}v}\n= e^{-\\left[S(x) + \\frac{1}{2} v^{T}{v}\\right]}\n\\textcolor{#02b875}{=} e^{-H(x, v)}\n\\end{align*}"
   },
   {
     "objectID": "index.html#hamiltonian-monte-carlo-hmc-1",
     "href": "index.html#hamiltonian-monte-carlo-hmc-1",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Hamiltonian Monte Carlo (HMC)",
     "text": "Hamiltonian Monte Carlo (HMC)\n\n\n\nIdea: Evolve the (\\dot{x}, \\dot{v}) system to get new states \\{x_{i}\\}❗\nWrite the joint distribution p(x, v): \np(x, v) \\propto e^{-S[x]} e^{-\\frac{1}{2}v^{T} v} = e^{-H(x, v)}\n\n\n\n\n\n\n\n\n\nHamiltonian Dynamics\n\n\nH = S[x] + \\frac{1}{2} v^{T} v \\Longrightarrow \\dot{x} = +\\partial_{v} H,\n\\,\\,\\dot{v} = -\\partial_{x} H\n\n\n\n\n\n\nFigure 1: Overview of HMC algorithm"
   },
   {
     "objectID": "index.html#sec-leapfrog",
     "href": "index.html#sec-leapfrog",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Leapfrog Integrator (HMC)",
     "text": "Leapfrog Integrator (HMC)\n\n\n\n\n\n\n\n\nHamiltonian Dynamics\n\n\n\\left(\\dot{x}, \\dot{v}\\right) = \\left(\\partial_{v} H, -\\partial_{x} H\\right)\n\n\n\n\n\n\n\n\n\nLeapfrog Step\n\n\ninput \\,\\left(x, v\\right) \\rightarrow \\left(x', v'\\right)\\, output\n\\begin{align*}\n\\tilde{v} &:= \\textcolor{#F06292}{\\Gamma}(x, v)\\hspace{2.2pt} = v - \\frac{\\varepsilon}{2} \\partial_{x} S(x) \\\\\nx' &:= \\textcolor{#FD971F}{\\Lambda}(x, \\tilde{v}) \\, =  x + \\varepsilon \\, \\tilde{v} \\\\\nv' &:= \\textcolor{#F06292}{\\Gamma}(x', \\tilde{v}) = \\tilde{v} - \\frac{\\varepsilon}{2} \\partial_{x} S(x')\n\\end{align*}\n\n\n\n\n\n\n\n\n\nWarning!\n\n\nResample v_{0} \\sim \\mathcal{N}(0, \\mathbb{1})\nat the beginning of each trajectory\n\n\n\n\nNote: \\partial_{x} S(x) is the force"
   },
   {
     "objectID": "index.html#hmc-update",
     "href": "index.html#hmc-update",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "HMC Update",
     "text": "HMC Update\n\n\n\nWe build a trajectory of N_{\\mathrm{LF}} leapfrog steps1 \\begin{equation*}\n(x_{0}, v_{0})%\n\\rightarrow (x_{1}, v_{1})\\rightarrow \\cdots%\n\\rightarrow (x', v')\n\\end{equation*}\nAnd propose x' as the next state in our chain   \n\n\\begin{align*}\n  \\textcolor{#F06292}{\\Gamma}: (x, v) \\textcolor{#F06292}{\\rightarrow} v' &:= v - \\frac{\\varepsilon}{2} \\partial_{x} S(x) \\\\\n  \\textcolor{#FD971F}{\\Lambda}: (x, v) \\textcolor{#FD971F}{\\rightarrow} x' &:= x + \\varepsilon v\n\\end{align*}\n\nWe then accept / reject x' using Metropolis-Hastings criteria,\nA(x'|x) = \\min\\left\\{1, \\frac{p(x')}{p(x)}\\left|\\frac{\\partial x'}{\\partial x}\\right|\\right\\}\n\n\n\n\n\nWe always start by resampling the momentum, v_{0} \\sim \\mathcal{N}(0, \\mathbb{1})"
   },
   {
     "objectID": "index.html#hmc-demo",
     "href": "index.html#hmc-demo",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "HMC Demo",
     "text": "HMC Demo\n\n\n\n\nFigure 2: HMC Demo"
   },
   {
     "objectID": "index.html#l2hmc-leapfrog-layer",
     "href": "index.html#l2hmc-leapfrog-layer",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "L2HMC: Leapfrog Layer",
     "text": "L2HMC: Leapfrog Layer"
   },
   {
     "objectID": "index.html#l2hmc-update",
     "href": "index.html#l2hmc-update",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "L2HMC Update",
     "text": "L2HMC Update\n\n\n\n\n\nAlgorithm\n\n\n\ninput: x\n\nResample: \\textcolor{#07B875}{v} \\sim \\mathcal{N}(0, \\mathbb{1}); \\,\\,{d\\sim\\mathcal{U}(\\pm)}\nConstruct initial state: \\textcolor{#939393}{\\xi} =(\\textcolor{#AE81FF}{x}, \\textcolor{#07B875}{v}, {\\pm})\n\nforward: Generate proposal \\xi' by passing initial \\xi through N_{\\mathrm{LF}} leapfrog layers\n\\textcolor{#939393} \\xi \\hspace{1pt}\\xrightarrow[]{\\tiny{\\mathrm{LF} \\text{ layer}}}\\xi_{1} \\longrightarrow\\cdots \\longrightarrow \\xi_{N_{\\mathrm{LF}}} = \\textcolor{#f8f8f8}{\\xi'} := (\\textcolor{#AE81FF}{x''}, \\textcolor{#07B875}{v''})\n\nAccept / Reject: \\begin{equation*}\nA({\\textcolor{#f8f8f8}{\\xi'}}|{\\textcolor{#939393}{\\xi}})=\n\\mathrm{min}\\left\\{1,\n\\frac{\\pi(\\textcolor{#f8f8f8}{\\xi'})}{\\pi(\\textcolor{#939393}{\\xi})} \\left| \\mathcal{J}\\left(\\textcolor{#f8f8f8}{\\xi'},\\textcolor{#939393}{\\xi}\\right)\\right| \\right\\}\n\\end{equation*}\n\nbackward (if training):\n\nEvaluate the loss function1 \\mathcal{L}\\gets \\mathcal{L}_{\\theta}(\\textcolor{#f8f8f8}{\\xi'}, \\textcolor{#939393}{\\xi}) and backprop\n\nreturn: \\textcolor{#AE81FF}{x}_{i+1}\nEvaluate MH criteria (1) and return accepted config, \\textcolor{#AE81FF}{{x}_{i+1}}\\gets\n  \\begin{cases}\n  \\textcolor{#f8f8f8}{\\textcolor{#AE81FF}{x''}} \\small{\\text{ w/ prob }} A(\\textcolor{#f8f8f8}{\\xi''}|\\textcolor{#939393}{\\xi}) \\hspace{26pt} ✅ \\\\\n  \\textcolor{#939393}{\\textcolor{#AE81FF}{x}} \\hspace{5pt}\\small{\\text{ w/ prob }} 1 - A(\\textcolor{#f8f8f8}{\\xi''}|{\\textcolor{#939393}{\\xi}}) \\hspace{10pt} 🚫\n  \\end{cases}\n\n\n\n\n\n\n\n \nFigure 6: Leapfrog Layer used in generalized MD update\n\n\n\n\nFor simple \\mathbf{x} \\in \\mathbb{R}^{2} example, \\mathcal{L}_{\\theta} = A(\\xi^{\\ast}|\\xi)\\cdot \\left(\\mathbf{x}^{\\ast} - \\mathbf{x}\\right)^{2}"
   },
   {
     "objectID": "index.html#sec-hmcsu3",
     "href": "index.html#sec-hmcsu3",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "HMC: 4D SU(3)",
     "text": "HMC: 4D SU(3)\nHamiltonian: H[P, U] = \\frac{1}{2} P^{2} + S[U] \\Longrightarrow\n\n\n\n\n\n\nU update: \\frac{d\\omega^{k}}{dt} = \\frac{\\partial H}{\\partial P^{k}} \\frac{d\\omega^{k}}{dt}\\lambda^{k} = P^{k}\\lambda^{k} \\Longrightarrow \\frac{dQ}{dt} = P \\begin{align*}\nQ(\\textcolor{#FFEE58}{\\varepsilon}) &= Q(0) + \\textcolor{#FFEE58}{\\varepsilon} P(0)\\Longrightarrow\\\\\n-i\\, \\log U(\\textcolor{#FFEE58}{\\varepsilon}) &= -i\\, \\log U(0) + \\textcolor{#FFEE58}{\\varepsilon} P(0) \\\\\nU(\\textcolor{#FFEE58}{\\varepsilon}) &= e^{i\\,\\textcolor{#FFEE58}{\\varepsilon} P(0)} U(0)\\Longrightarrow \\\\\n&\\hspace{1pt}\\\\\n\\textcolor{#FD971F}{\\Lambda}:\\,\\, U \\longrightarrow U' &\\coloneqq e^{i\\varepsilon P'} U\n\\end{align*}\n\n\n\n\n\n\\textcolor{#FFEE58}{\\varepsilon} is the step size\n\n\n\n\n\n\nP update: \\frac{dP^{k}}{dt} = - \\frac{\\partial H}{\\partial \\omega^{k}} \\frac{dP^{k}}{dt} = - \\frac{\\partial H}{\\partial \\omega^{k}}\n= -\\frac{\\partial H}{\\partial Q} = -\\frac{dS}{dQ}\\Longrightarrow \\begin{align*}\nP(\\textcolor{#FFEE58}{\\varepsilon}) &= P(0) - \\textcolor{#FFEE58}{\\varepsilon} \\left.\\frac{dS}{dQ}\\right|_{t=0} \\\\\n&= P(0) - \\textcolor{#FFEE58}{\\varepsilon} \\,\\textcolor{#E599F7}{F[U]} \\\\\n&\\hspace{1pt}\\\\\n\\textcolor{#F06292}{\\Gamma}:\\,\\, P \\longrightarrow P' &\\coloneqq P - \\frac{\\varepsilon}{2} F[U]\n\\end{align*}\n\n\n\n\n\n\\textcolor{#E599F7}{F[U]} is the force term"
   },
   {
     "objectID": "index.html#hmc-4d-su3",
     "href": "index.html#hmc-4d-su3",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "HMC: 4D SU(3)",
     "text": "HMC: 4D SU(3)\n\n\n\nMomentum Update: \\textcolor{#F06292}{\\Gamma}: P \\longrightarrow P' := P - \\frac{\\varepsilon}{2} F[U]\nLink Update: \\textcolor{#FD971F}{\\Lambda}: U \\longrightarrow U' := e^{i\\varepsilon P'} U\\quad\\quad\nWe maintain a batch of Nb lattices, all updated in parallel\n\nU.dtype = complex128 \nU.shape\n= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]"
   },
   {
     "objectID": "index.html#p-network-pt.-1",
     "href": "index.html#p-network-pt.-1",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "P-Network (pt. 1)",
     "text": "P-Network (pt. 1)\n\n\n\n\n\n\ninput1: \\hspace{7pt}\\left(U, F\\right) \\coloneqq (e^{i Q}, F) \\begin{align*}\nh_{0} &= \\sigma\\left( w_{Q} Q + w_{F} F + b \\right) \\\\\nh_{1} &= \\sigma\\left( w_{1} h_{0} + b_{1} \\right) \\\\\n&\\vdots \\\\\nh_{n} &= \\sigma\\left(w_{n-1} h_{n-2} + b_{n}\\right) \\\\\n\\textcolor{#FF5252}{z} & \\coloneqq \\sigma\\left(w_{n} h_{n-1} + b_{n}\\right) \\longrightarrow \\\\\n\\end{align*}\n\n\n\noutput2: \\hspace{7pt} (s_{P}, t_{P}, q_{P})\n\ns_{P} = \\lambda_{s} \\tanh(w_s \\textcolor{#FF5252}{z} + b_s)\nt_{P} = w_{t} \\textcolor{#FF5252}{z} + b_{t}\nq_{P} = \\lambda_{q} \\tanh(w_{q} \\textcolor{#FF5252}{z} + b_{q})\n\n\n\n\n\\sigma(\\cdot) denotes an activation function\\lambda_{s},\\, \\lambda_{q} \\in \\mathbb{R} are trainable parameters"
   },
   {
     "objectID": "index.html#p-network-pt.-2",
     "href": "index.html#p-network-pt.-2",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "P-Network (pt. 2)",
     "text": "P-Network (pt. 2)\n\n\n\n\n\n\n\n\nUse (s_{P}, t_{P}, q_{P}) to update \\Gamma^{\\pm}: (U, P) \\rightarrow \\left(U, P_{\\pm}\\right)1:\n\nforward (d = \\textcolor{#FF5252}{+}): \\Gamma^{\\textcolor{#FF5252}{+}}(U, P) \\coloneqq P_{\\textcolor{#FF5252}{+}} = P \\cdot e^{\\frac{\\varepsilon}{2} s_{P}} - \\frac{\\varepsilon}{2}\\left[ F \\cdot e^{\\varepsilon q_{P}} + t_{P} \\right]\nbackward (d = \\textcolor{#1A8FFF}{-}): \\Gamma^{\\textcolor{#1A8FFF}{-}}(U, P) \\coloneqq P_{\\textcolor{#1A8FFF}{-}} = e^{-\\frac{\\varepsilon}{2} s_{P}} \\left\\{P + \\frac{\\varepsilon}{2}\\left[ F \\cdot e^{\\varepsilon q_{P}} + t_{P} \\right]\\right\\}\n\n\nNote that \\left(\\Gamma^{+}\\right)^{-1} = \\Gamma^{-}, i.e. \\Gamma^{+}\\left[\\Gamma^{-}(U, P)\\right] = \\Gamma^{-}\\left[\\Gamma^{+}(U, P)\\right] = (U, P)"
   },
   {
     "objectID": "index.html#sec-interpretation",
     "href": "index.html#sec-interpretation",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Interpretation",
     "text": "Interpretation\n\n\nDeviation in x_{P}\n\nTopological charge mixing\n\nArtificial influx of energy\n\n\n\nFigure 8: Illustration of how different observables evolve over a single L2HMC trajectory."
   },
   {
     "objectID": "index.html#interpretation",
     "href": "index.html#interpretation",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Interpretation",
     "text": "Interpretation\n\n\n\n\n\n\n\nAverage plaquette: \\langle x_{P}\\rangle vs LF step\n\n\n\n\n\n\n\nAverage energy: H - \\sum\\log|\\mathcal{J}|\n\n\n\n\nFigure 9: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors."
   },
   {
     "objectID": "index.html#d-su3-results-delta-u_munu",
     "href": "index.html#d-su3-results-delta-u_munu",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "4D SU(3) Results: \\delta U_{\\mu\\nu}",
     "text": "4D SU(3) Results: \\delta U_{\\mu\\nu}\n\nFigure 11: The difference in the average plaquette \\left|\\delta U_{\\mu\\nu}\\right|^{2} between the trained model and HMC"
   },
   {
     "objectID": "index.html#d-su3-results-delta-u_munu-1",
     "href": "index.html#d-su3-results-delta-u_munu-1",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "4D SU(3) Results: \\delta U_{\\mu\\nu}",
     "text": "4D SU(3) Results: \\delta U_{\\mu\\nu}\n\nFigure 12: The difference in the average plaquette \\left|\\delta U_{\\mu\\nu}\\right|^{2} between the trained model and HMC"
   },
   {
     "objectID": "index.html#sec-thank-you",
     "href": "index.html#sec-thank-you",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Thank you!",
     "text": "Thank you!\n \n\n\n\n samforeman.me\n\n\n saforem2\n\n\n @saforem2\n\n\n foremans@anl.gov"
   },
   {
     "objectID": "index.html#sec-acknowledgements",
     "href": "index.html#sec-acknowledgements",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Acknowledgements",
     "text": "Acknowledgements\n\n\n\nLinks:\n\n Link to github\n reach out!\n\nReferences:\n\nLink to HMC demo\nLink to slides\n\n link to github with slides\n\n (Foreman et al. 2022; Foreman, Jin, and Osborn 2022, 2021)\n (Boyda et al. 2022; Shanahan et al. 2022)\n\n\n\n\nHuge thank you to:\n\nYannick Meurice\nNorman Christ\nAkio Tomiya\nLuchang Jin\nChulwoo Jung\nPeter Boyle\nTaku Izubuchi\nECP-CSD group\nALCF Staff + Datascience Group\n\n\n\n\n\n\n\n\n\n\nAcknowledgements\n\n\nThis research used resources of the Argonne Leadership Computing Facility,\nwhich is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357."
   },
   {
     "objectID": "index.html#sec-references",
     "href": "index.html#sec-references",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Links + References",
     "text": "Links + References\n\nThis talk:  saforem2/lattice23\nCode repo  saforem2/l2hmc-qcd\nSlides  saforem2.github.io/lattice23\nTitle Slide Background (worms) animation"
   },
   {
     "objectID": "index.html#references",
     "href": "index.html#references",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "References",
     "text": "References\n\n\nBoyda, Denis et al. 2022. “Applications of Machine Learning to Lattice Quantum Field Theory.” In Snowmass 2021. https://arxiv.org/abs/2202.05838.\n\n\nForeman, Sam, Taku Izubuchi, Luchang Jin, Xiao-Yong Jin, James C. Osborn, and Akio Tomiya. 2022. “HMC with Normalizing Flows.” PoS LATTICE2021: 073. https://doi.org/10.22323/1.396.0073.\n\n\nForeman, Sam, Xiao-Yong Jin, and James C. Osborn. 2021. “Deep Learning Hamiltonian Monte Carlo.” In 9th International Conference on Learning Representations. https://arxiv.org/abs/2105.03418.\n\n\n———. 2022. “LeapfrogLayers: A Trainable Framework for Effective Topological Sampling.” PoS LATTICE2021 (May): 508. https://doi.org/10.22323/1.396.0508.\n\n\nShanahan, Phiala et al. 2022. “Snowmass 2021 Computational Frontier CompF03 Topical Group Report: Machine Learning,” September. https://arxiv.org/abs/2209.07559."
   },
   {
     "objectID": "index.html#integrated-autocorrelation-time",
     "href": "index.html#integrated-autocorrelation-time",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Integrated Autocorrelation Time",
     "text": "Integrated Autocorrelation Time\n\nFigure 13: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale)."
   },
   {
     "objectID": "index.html#comparison",
     "href": "index.html#comparison",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Comparison",
     "text": "Comparison\n\n\n\n\n\n\n\n(a) Trained model\n\n\n\n\n\n\n\n(b) Generic HMC\n\n\n\n\nFigure 14: Comparison of \\langle \\delta Q\\rangle = \\frac{1}{N}\\sum_{i=k}^{N} \\delta Q_{i} for the trained model Figure 14 (a) vs. HMC Figure 14 (b)"
   },
   {
     "objectID": "index.html#plaquette-analysis-x_p",
     "href": "index.html#plaquette-analysis-x_p",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Plaquette analysis: x_{P}",
     "text": "Plaquette analysis: x_{P}\n\n\nDeviation from V\\rightarrow\\infty limit, x_{P}^{\\ast}\n\nAverage \\langle x_{P}\\rangle, with x_{P}^{\\ast} (dotted-lines)\n\n\n\nFigure 15: Plot showing how average plaquette, \\left\\langle x_{P}\\right\\rangle varies over a single trajectory for models trained at different \\beta, with varying trajectory lengths N_{\\mathrm{LF}}"
   },
   {
     "objectID": "index.html#loss-function",
     "href": "index.html#loss-function",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Loss Function",
     "text": "Loss Function\n\nWant to maximize the expected squared charge difference1: \\begin{equation*}\n\\mathcal{L}_{\\theta}\\left(\\xi^{\\ast}, \\xi\\right) =\n{\\mathbb{E}_{p(\\xi)}}\\big[-\\textcolor{#FA5252}{{\\delta Q}}^{2}\n\\left(\\xi^{\\ast}, \\xi \\right)\\cdot A(\\xi^{\\ast}|\\xi)\\big]\n\\end{equation*}\nWhere:\n\n\\delta Q is the tunneling rate: \\begin{equation*}\n\\textcolor{#FA5252}{\\delta Q}(\\xi^{\\ast},\\xi)=\\left|Q^{\\ast} - Q\\right|\n\\end{equation*}\nA(\\xi^{\\ast}|\\xi) is the probability2 of accepting the proposal \\xi^{\\ast}: \\begin{equation*}\nA(\\xi^{\\ast}|\\xi) = \\mathrm{min}\\left( 1,\n\\frac{p(\\xi^{\\ast})}{p(\\xi)}\\left|\\frac{\\partial \\xi^{\\ast}}{\\partial\n\\xi^{T}}\\right|\\right)\n\\end{equation*}\n\n\nWhere \\xi^{\\ast} is the proposed configuration (prior to Accept / Reject)And \\left|\\frac{\\partial \\xi^{\\ast}}{\\partial \\xi^{T}}\\right| is the Jacobian of the transformation from \\xi \\rightarrow \\xi^{\\ast}"
   },
   {
     "objectID": "index.html#v-updatereverse",
     "href": "index.html#v-updatereverse",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "v-Update1",
     "text": "v-Update1\n\nforward (d = \\textcolor{#FF5252}{+}):\n\n\n\\Gamma^{\\textcolor{#FF5252}{+}}: (x, v) \\rightarrow v' \\coloneqq v \\cdot e^{\\frac{\\varepsilon}{2} s_{v}} - \\frac{\\varepsilon}{2}\\left[ F \\cdot e^{\\varepsilon q_{v}} + t_{v} \\right]\n\nbackward (d = \\textcolor{#1A8FFF}{-}):\n\n\\Gamma^{\\textcolor{#1A8FFF}{-}}: (x, v) \\rightarrow v' \\coloneqq e^{-\\frac{\\varepsilon}{2} s_{v}} \\left\\{v + \\frac{\\varepsilon}{2}\\left[ F \\cdot e^{\\varepsilon q_{v}} + t_{v} \\right]\\right\\}\nNote that \\left(\\Gamma^{+}\\right)^{-1} = \\Gamma^{-}, i.e. \\Gamma^{+}\\left[\\Gamma^{-}(x, v)\\right] = \\Gamma^{-}\\left[\\Gamma^{+}(x, v)\\right] = (x, v)"
   },
   {
     "objectID": "index.html#x-update",
     "href": "index.html#x-update",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "x-Update",
     "text": "x-Update\n\nforward (d = \\textcolor{#FF5252}{+}):\n\n\\Lambda^{\\textcolor{#FF5252}{+}}(x, v) = x \\cdot e^{\\frac{\\varepsilon}{2} s_{x}} - \\frac{\\varepsilon}{2}\\left[ v \\cdot e^{\\varepsilon q_{x}} + t_{x} \\right]\n\nbackward (d = \\textcolor{#1A8FFF}{-}):\n\n\\Lambda^{\\textcolor{#1A8FFF}{-}}(x, v) = e^{-\\frac{\\varepsilon}{2} s_{x}} \\left\\{x + \\frac{\\varepsilon}{2}\\left[ v \\cdot e^{\\varepsilon q_{x}} + t_{x} \\right]\\right\\}"
   },
   {
     "objectID": "index.html#lattice-gauge-theory-2d-u1",
     "href": "index.html#lattice-gauge-theory-2d-u1",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Lattice Gauge Theory (2D U(1))",
     "text": "Lattice Gauge Theory (2D U(1))\n\n\n\n\n\n\n\n\n\nLink Variables\n\n\nU_{\\mu}(n) = e^{i x_{\\mu}(n)}\\in \\mathbb{C},\\quad \\text{where}\\quad x_{\\mu}(n) \\in [-\\pi,\\pi)\n\n\n\n\n\n\n\n\n\n\nWilson Action\n\n\nS_{\\beta}(x) = \\beta\\sum_{P} \\cos \\textcolor{#00CCFF}{x_{P}},\n\\textcolor{#00CCFF}{x_{P}} = \\left[x_{\\mu}(n) + x_{\\nu}(n+\\hat{\\mu})\n- x_{\\mu}(n+\\hat{\\nu})-x_{\\nu}(n)\\right]\n\n\n\nNote: \\textcolor{#00CCFF}{x_{P}} is the product of links around 1\\times 1 square, called a “plaquette”\n\n\n\n\n\n\n2D Lattice"
   },
   {
     "objectID": "index.html#section-2",
     "href": "index.html#section-2",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "",
     "text": "Figure 16: Jupyter Notebook"
   },
   {
     "objectID": "index.html#annealing-schedule",
     "href": "index.html#annealing-schedule",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Annealing Schedule",
     "text": "Annealing Schedule\n\nIntroduce an annealing schedule during the training phase:\n\\left\\{ \\gamma_{t}  \\right\\}_{t=0}^{N} = \\left\\{\\gamma_{0}, \\gamma_{1},\n\\ldots, \\gamma_{N-1}, \\gamma_{N} \\right\\}\nwhere \\gamma_{0} &lt; \\gamma_{1} &lt; \\cdots &lt; \\gamma_{N} \\equiv 1, and \\left|\\gamma_{t+1} - \\gamma_{t}\\right| \\ll 1\nNote:\n\nfor \\left|\\gamma_{t}\\right| &lt; 1, this rescaling helps to reduce the height of the energy barriers \\Longrightarrow\neasier for our sampler to explore previously inaccessible regions of the phase space"
   },
   {
     "objectID": "index.html#networks-2d-u1",
     "href": "index.html#networks-2d-u1",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Networks 2D U(1)",
     "text": "Networks 2D U(1)\n\nStack gauge links as shape\\left(U_{\\mu}\\right)=[Nb, 2, Nt, Nx] \\in \\mathbb{C}\n x_{\\mu}(n) ≔ \\left[\\cos(x), \\sin(x)\\right]\nwith shape\\left(x_{\\mu}\\right)= [Nb, 2, Nt, Nx, 2] \\in \\mathbb{R}\nx-Network:\n\n\\psi_{\\theta}: (x, v) \\longrightarrow \\left(s_{x},\\, t_{x},\\, q_{x}\\right) \n\nv-Network:\n\n\\varphi_{\\theta}: (x, v) \\longrightarrow \\left(s_{v},\\, t_{v},\\, q_{v}\\right)"
   },
   {
     "objectID": "index.html#networks-2d-u1-1",
     "href": "index.html#networks-2d-u1-1",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Networks 2D U(1)",
     "text": "Networks 2D U(1)\n\nStack gauge links as shape\\left(U_{\\mu}\\right)=[Nb, 2, Nt, Nx] \\in \\mathbb{C}\n x_{\\mu}(n) ≔ \\left[\\cos(x), \\sin(x)\\right]\nwith shape\\left(x_{\\mu}\\right)= [Nb, 2, Nt, Nx, 2] \\in \\mathbb{R}\nx-Network:\n\n\\psi_{\\theta}: (x, v) \\longrightarrow \\left(s_{x},\\, t_{x},\\, q_{x}\\right) \n\nv-Network:\n\n\\varphi_{\\theta}: (x, v) \\longrightarrow \\left(s_{v},\\, t_{v},\\, q_{v}\\right) \\hspace{2pt}\\longleftarrow lets look at this"
   },
   {
     "objectID": "index.html#toy-example-gmm-in-mathbbr2",
     "href": "index.html#toy-example-gmm-in-mathbbr2",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Toy Example: GMM \\in \\mathbb{R}^{2}",
     "text": "Toy Example: GMM \\in \\mathbb{R}^{2}"
   },
   {
     "objectID": "index.html#physical-quantities",
     "href": "index.html#physical-quantities",
-    "title": "",
+    "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Physical Quantities",
     "text": "Physical Quantities\n\nTo estimate physical quantities, we:\n\ncalculate physical observables at increasing spatial resolution\nperform extrapolation to continuum limit\n\n\n\n\n\nFigure 17: Increasing the physical resolution (a \\rightarrow 0) allows us to make predictions about numerical values of physical quantities in the continuum limit."
   }
