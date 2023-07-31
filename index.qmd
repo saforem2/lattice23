@@ -39,13 +39,14 @@ format:
 # {.title-slide .centeredslide background-iframe="https://saforem2.github.io/grid-worms-animation/" loading="lazy"}
 
 <!-- ::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(22,22,22,0.33); border-radius: 10px; text-align:center; box-shadow:RGBA(0, 0, 0, 0.25) 0px 5px 15px; padding-top: 0.25em; padding-bottom: 0.25em;"} -->
-::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.66); background-color: rgba(22,22,22,0.75); border-radius: 10px; text-align:center; box-shadow:RGBA(0, 0, 0, 0.25) 0px 5px 15px; padding: 0px; padding-left: 1.5em; padding-right: 1.5em; max-width: min-content; min-width: max-content; margin-left: auto; margin-right: auto; padding-top: 0.2em; padding-bottom: 0.2em; line-height: 1.5em!important;"}
+::: {style="background-color: rgba(22,22,22,0.75); border-radius: 10px; text-align:center; padding: 0px; padding-left: 1.5em; padding-right: 1.5em; max-width: min-content; min-width: max-content; margin-left: auto; margin-right: auto; padding-top: 0.2em; padding-bottom: 0.2em; line-height: 1.5em!important;"}
 <span style="color:#939393; font-size:1.5em; font-weight: bold;">MLMC: Machine Learning Monte Carlo</span>  
 <span style="color:#777777; font-size:1.2em; font-weight: bold;">for Lattice Gauge Theory</span>  
 [<br>&nbsp;]{style="padding-bottom: 0.5rem;"}  
 [{{< fa solid home >}}](https://samforeman.me) Sam Foreman  
 [Xiao-Yong Jin, James C. Osborn]{.dim-text style="font-size:0.8em;"}  
-[[{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)]{style="font-size:0.8em;"}
+[[{{< fa brands github >}} `saforem2/lattice23`](https://github.io/saforem2/lattice23)]{style="font-size:0.8em;"}
+
 :::
 
 ::: footer
@@ -54,8 +55,9 @@ format:
 
 :::
 
+# Background: MCMC
 
-# Markov Chain Monte Carlo (MCMC) {.centeredslide}
+## Markov Chain Monte Carlo (MCMC) {.centeredslide}
 
 :::: {.columns}
 
@@ -63,12 +65,12 @@ format:
 
 ::: {.callout-note title="Goal" style="text-align:left;!important"}
 Generate **independent** samples $\{x_{i}\}$, such that[^notation]
-$$\{x_{i}\} \sim \pi(x) \propto e^{-S(x)}$$
+$$\{x_{i}\} \sim p(x) \propto e^{-S(x)}$$
 where $S(x)$ is the _action_ (or potential energy)
 :::
 
 - Want to calculate observables $\mathcal{O}$:  
-  $\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, \pi(x)}$
+  $\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, p(x)}$
 
 :::
 
@@ -89,7 +91,7 @@ If these were <span style="color:#00CCFF;">independent</span>, we could approxim
 [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
 :::
 
-# Markov Chain Monte Carlo (MCMC) {.centeredslide}
+## Markov Chain Monte Carlo (MCMC) {.centeredslide}
 
 :::: {.columns}
 
@@ -97,12 +99,12 @@ If these were <span style="color:#00CCFF;">independent</span>, we could approxim
 
 ::: {.callout-note title="Goal" style="text-align:left;!important"}
 Generate **independent** samples $\{x_{i}\}$, such that[^notation]
-$$\{x_{i}\} \sim \pi(x) \propto e^{-S(x)}$$
+$$\{x_{i}\} \sim p(x) \propto e^{-S(x)}$$
 where $S(x)$ is the _action_ (or potential energy)
 :::
 
 - Want to calculate observables $\mathcal{O}$:  
-  $\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, \pi(x)}$
+  $\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, p(x)}$
 
 :::
 
@@ -124,27 +126,28 @@ $\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}$:
 [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
 :::
 
+# Background: HMC
 
-# Hamiltonian Monte Carlo (HMC) {.centeredslide}
+## Hamiltonian Monte Carlo (HMC) {.centeredslide}
 
 - Want to (sequentially) construct a chain of states:
   $$x_{0} \rightarrow x_{1} \rightarrow x_{i} \rightarrow \cdots \rightarrow x_{N}\hspace{10pt}$$
 
   such that, as $N \rightarrow \infty$:
-  $$\left\{x_{i}, x_{i+1}, x_{i+2}, \cdots, x_{N} \right\} \xrightarrow[]{N\rightarrow\infty} \pi(x)
+  $$\left\{x_{i}, x_{i+1}, x_{i+2}, \cdots, x_{N} \right\} \xrightarrow[]{N\rightarrow\infty} p(x)
   \propto e^{-S(x)}$$
 
 ::: {.callout-tip title="Trick" style="display:inline!important;"}
   - Introduce [fictitious]{.green-text} momentum $v \sim \mathcal{N}(0, \mathbb{1})$
     - Normally distributed **independent** of $x$, i.e.
   $$\begin{align*}
-    \pi(x, v) &\textcolor{#02b875}{=} \pi(x)\pi(v) \propto e^{-S{(x)}} e^{-\frac{1}{2} v^{T}v}
+    p(x, v) &\textcolor{#02b875}{=} p(x)\,p(v) \propto e^{-S{(x)}} e^{-\frac{1}{2} v^{T}v}
    	= e^{-\left[S(x) + \frac{1}{2} v^{T}{v}\right]}
    	\textcolor{#02b875}{=} e^{-H(x, v)}
   \end{align*}$$
 :::
 
-# Hamiltonian Monte Carlo (HMC) {.centeredslide}
+## Hamiltonian Monte Carlo (HMC) {.centeredslide}
 
 :::: {.columns}
 
@@ -152,9 +155,9 @@ $\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}$:
 
 - [**Idea**]{.green-text}: Evolve the $(\dot{x}, \dot{v})$ system to get new states $\{x_{i}\}$❗
 
-- Write the **joint distribution** $\pi(x, v)$:
+- Write the **joint distribution** $p(x, v)$:
   $$
-  \pi(x, v) \propto e^{-S[x]} e^{-\frac{1}{2}v^{T} v} = e^{-H(x, v)}
+  p(x, v) \propto e^{-S[x]} e^{-\frac{1}{2}v^{T} v} = e^{-H(x, v)}
   $$
 :::
 
@@ -177,7 +180,7 @@ $$\dot{x} = +\partial_{v} H,
 Overview of HMC algorithm
 :::
 
-# Leapfrog Integrator (HMC) {.centeredslide}
+## Leapfrog Integrator (HMC) {.centeredslide}
 
 :::: {.columns style="text-align:center;"}
 
@@ -210,11 +213,14 @@ v' &:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varepsilo
 :::
 
 ::: {.column width="49%" style="text-align:left; margin-left:2%;"}
+
 ![](./assets/hmc1/hmc-update-light.svg){width=60%}
+
 :::
+
 ::::
 
-# HMC Update
+## HMC Update
 
 :::: {.columns}
 
@@ -237,7 +243,7 @@ $$\begin{align*}
 \end{align*}$$
 
 - We then accept / reject $x'$ using Metropolis-Hastings criteria,  
-  $A(x'|x) = \min\left\{1, \frac{\pi(x')}{\pi(x)}\left|\frac{\partial x'}{\partial x}\right|\right\}$
+  $A(x'|x) = \min\left\{1, \frac{p(x')}{p(x)}\left|\frac{\partial x'}{\partial x}\right|\right\}$
 
 :::
 
@@ -246,13 +252,13 @@ $$\begin{align*}
 ![](./assets/hmc1/hmc-update-light.svg)
 
 :::
+
 ::::
 
 [^v0]: We **always** start by resampling the momentum, $v_{0} \sim
 \mathcal{N}(0, \mathbb{1})$
 
-
-# HMC Demo {.centeredslide}
+## HMC Demo {.centeredslide}
 
 ::: {#fig-hmc-demo}
 
@@ -410,7 +416,7 @@ Generalized MD update with [$\Lambda_{\theta}^{\pm}$]{.orange-text}, [$\Gamma_{\
 
 ::::
 
-# L2HMC: Leapfrog Layer {.centeredslide}
+## L2HMC: Leapfrog Layer {.centeredslide}
 
 :::: {.columns}
 
@@ -425,8 +431,7 @@ Generalized MD update with [$\Lambda_{\theta}^{\pm}$]{.orange-text}, [$\Gamma_{\
 
 ![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/network_functions.svg){.absolute top=440 width="100%"}
 
-
-# L2HMC Update {style="font-size: 0.775em;"}
+## L2HMC Update {style="font-size: 0.775em;"}
 
 :::: {.columns}
 
@@ -537,7 +542,7 @@ Illustration of the lattice
 
 ::::
 
-# HMC: 4D $SU(3)$
+## HMC: 4D $SU(3)$
 
 Hamiltonian: $H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow$
 
@@ -596,7 +601,7 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 
 ::::
 
-# HMC: 4D $SU(3)$ {.centeredslide}
+## HMC: 4D $SU(3)$ {.centeredslide}
 
 :::: {.columns}
 
@@ -666,7 +671,7 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 
 &nbsp;<br>  
 
-::: {style="border-radius: 6px; padding:1%;"}
+::: {style="border: 1px solid #1c1c1c; border-radius: 6px; padding:1%;"}
 
 [$P$]{.green-text}-Network:
 
@@ -708,8 +713,8 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 
 :::
 
-[$\hspace{0pt}\uparrow$]{.dim-text}  
-[$\hspace{0pt}$ let's look at this]{.dim-text style="padding-top: 0.5em!important;"}
+[$\uparrow$]{.dim-text}  
+[let's look at this]{.dim-text style="padding-top: 0.5em!important;"}
 
 :::
 
@@ -721,7 +726,7 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 
 ::::
 
-# $P$-`Network` (pt. 1) {style="font-size:0.95em;"}
+## $P$-`Network` (pt. 1) {style="font-size:0.95em;"}
 
 ::: {style="text-align:center;"}
 
@@ -759,7 +764,7 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 [^sigma]: $\sigma(\cdot)$ denotes an activation function
 [^lambda]: $\lambda_{s}, \lambda_{q} \in \mathbb{R}$, trainable parameters
 
-# $P$-`Network` (pt. 2) {style="font-size:0.9em;"}
+## $P$-`Network` (pt. 2) {style="font-size:0.9em;"}
 
 <!-- - `output`[^lambda]: $(s_{P}, t_{P}, q_{P})$ [$\hspace{10pt}\longleftarrow$ outputs from NN]{.dim-text} -->
 <!--   $$s_{P} = \lambda_{s} \tanh\left(w_{s}\, z + b_{s}\right), \quad -->
@@ -785,10 +790,7 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 [^lambda]: $\lambda_{s},\, \lambda_{q} \in \mathbb{R}$ are trainable parameters
 [^inverse]: Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e. $\Gamma^{+}\left[\Gamma^{-}(U, P)\right] = \Gamma^{-}\left[\Gamma^{+}(U, P)\right] = (U, P)$
 
-
-# 2D $U(1)$ Results
-
-## Integrated Autocorrelation time: $\tau_{\mathrm{int}}$ {.centeredslide}
+# 2D $U(1)$: Integrated Autocorrelation time: $\tau_{\mathrm{int}}$ {.centeredslide}
 
 :::: {.columns}
 
@@ -862,7 +864,6 @@ sectors.
 
 # 4D $SU(3)$ Results
 
-
 ::: {#fig-ridgeplot layout-ncol=3 layout-valign="top"}
 
 ![`100` train iters](./assets/SU3/logdet_ridgeplot1.svg){#fig-ridgeplot1 width="33%"}
@@ -874,7 +875,7 @@ sectors.
 $\log|\mathcal{J}|$ vs. $N_{\mathrm{LF}}$ during training
 :::
 
-# 4D $SU(3)$ Results: $\delta U_{\mu\nu}$
+## 4D $SU(3)$ Results: $\delta U_{\mu\nu}$
 
 ::: {#fig-pdiff}
 
@@ -885,7 +886,7 @@ between the trained model and HMC
 
 :::
 
-# 4D $SU(3)$ Results: $\delta U_{\mu\nu}$
+## 4D $SU(3)$ Results: $\delta U_{\mu\nu}$
 
 ::: {#fig-pdiff-robust}
 
@@ -895,7 +896,6 @@ The difference in the average plaquette $\left|\delta U_{\mu\nu}\right|^{2}$
 between the trained model and HMC
 
 :::
-
 
 # Next Steps
 
@@ -913,20 +913,38 @@ between the trained model and HMC
   - Batch size
   - \# of GPUs
 
+## Thank you!
 
-# Thank you!
+&nbsp;<br>  
 
-::: {style="text-align:left;"}
-[{{< fa solid home >}} `samforeman.me`](https://samforeman.me)  
-[{{< fa brands github >}} `saforem2`](https://github.com/saforem2)  
-[{{< fa brands twitter >}} `@saforem2`](https://www.twitter.com/saforem2)  
-[{{< fa regular paper-plane >}} `foremans@anl.gov`](mailto:///foremans@anl.gov)
+::: {layout-ncol=4 style="text-align:left;"}
+
+[[{{< fa solid home >}} `samforeman.me`](https://samforeman.me)]{style="font-size:0.8em;"}
+
+[[{{< fa brands github >}} `saforem2`](https://github.com/saforem2)]{style="font-size:0.8em;"}
+
+[[{{< fa brands twitter >}} `@saforem2`](https://www.twitter.com/saforem2)]{style="font-size:0.8em;"}
+
+[[{{< fa regular paper-plane >}} `foremans@anl.gov`](mailto:///foremans@anl.gov)]{style="font-size:0.8em;"}
+
 :::
 
-::: {.callout-note title="Acknowledgements"}
-This research used resources of the Argonne Leadership Computing Facility,  
-which is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357.
+## {}
+
+::: {style="text-align:center;"}
+
+[![](https://raw.githubusercontent.com/saforem2/l2hmc-qcd/main/assets/logo-small.svg)](https://github.com/saforem2/l2hmc-qcd)
+
+<a href="https://hits.seeyoufarm.com"><img alt="hits" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsaforem2%2Fl2hmc-qcd&count_bg=%2300CCFF&title_bg=%23555555&icon=&icon_color=%23111111&title=👋&edge_flat=false"></a>
+<a href="https://github.com/saforem2/l2hmc-qcd/"><img alt="l2hmc-qcd" src="https://img.shields.io/badge/-l2hmc--qcd-252525?style=flat&logo=github&labelColor=gray"></a> <a href="https://www.codefactor.io/repository/github/saforem2/l2hmc-qcd"><img alt="codefactor" src="https://www.codefactor.io/repository/github/saforem2/l2hmc-qcd/badge"></a>  
+
+<a href="https://arxiv.org/abs/2112.01582"><img alt="arxiv" src="http://img.shields.io/badge/arXiv-2112.01582-B31B1B.svg"></a> <a href="https://arxiv.org/abs/2105.03418"><img alt="arxiv" src="http://img.shields.io/badge/arXiv-2105.03418-B31B1B.svg"></a>  
+
+<a href="https://hydra.cc"><img alt="hydra" src="https://img.shields.io/badge/Config-Hydra-89b8cd"></a> <a href="https://pytorch.org/get-started/locally/"><img alt="pyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white"></a> <a href="https://www.tensorflow.org"><img alt="tensorflow" src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?&logo=TensorFlow&logoColor=white"></a> 
+[<img src="https://raw.githubusercontent.com/wandb/assets/main/wandb-github-badge-28.svg" alt="Weights & Biases monitoring" height=20>](https://wandb.ai/l2hmc-qcd/l2hmc-qcd)
+
 :::
+
 
 ## Acknowledgements
 
@@ -964,6 +982,13 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 :::
 
 ::::
+
+::: {.callout-note title="Acknowledgements"}
+
+This research used resources of the Argonne Leadership Computing Facility,  
+which is a DOE Office of Science User Facility supported under Contract DE-AC02-06CH11357.
+
+:::
 
 ## Links + References
 

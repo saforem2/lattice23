@@ -13,7 +13,7 @@
   /* padding-left: 2pt; */
   /* padding-right: 2pt; */
   background-color: #1c1c1c;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
   /* max-width: min-content + 20px; */
   /* min-width: max-content; */
   margin-left: auto;
@@ -51,7 +51,7 @@
     /* border-top: none; */
     /* border-bottom: none; */
     display: -webkit-inline-flex;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     /* box-shadow: rgba(0, 0, 0, 0.12) 0 1px 2px rgba(0,0,0,0.24); */
 }
 .reveal .callout.callout-style-simple:hover {
