@@ -80,9 +80,7 @@ format:
 <!-- 4. [[Acknwowledgements](#sec-acknowledgements)]{style="font-size:1.1em;"} -->
 
 
-# Background: MCMC
-
-## Markov Chain Monte Carlo (MCMC) {.centeredslide}
+# Markov Chain Monte Carlo (MCMC) {.centeredslide}
 
 :::: {.columns}
 
@@ -151,9 +149,7 @@ $\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}$:
 [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
 :::
 
-# Background: HMC
-
-## Hamiltonian Monte Carlo (HMC) {.centeredslide}
+# Hamiltonian Monte Carlo (HMC) {.centeredslide}
 
 - Want to (sequentially) construct a chain of states:
   $$x_{0} \rightarrow x_{1} \rightarrow x_{i} \rightarrow \cdots \rightarrow x_{N}\hspace{10pt}$$
