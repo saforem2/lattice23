@@ -73,9 +73,6 @@ format:
 3. [References](#sec-references)
 4. [Extras](#sec-extras)
 
-notes::
-testing
-
 
 # Markov Chain Monte Carlo (MCMC) {.centeredslide}
 
