@@ -389,7 +389,7 @@ Sam Foreman
 <span style="padding-bottom: 0.5rem;"><br>&nbsp;</span><br>
 <a href="https://samforeman.me"><i class="fa-solid fa-home" aria-label="home"></i></a> Sam Foreman<br>
 <span class="dim-text" style="font-size:0.8em;">Xiao-Yong Jin, James C. Osborn</span><br>
-<span style="font-size:0.8em;"><a href="https://github.com/saforem2/lattice23"><i class="fa-brands fa-github" aria-label="github"></i></a> <a href="https://saforem2.github.io/lattice23"><code>saforem2/lattice23</code></a></span></p>
+<span style="font-size:0.8em;"><span style="border-bottom: 0.5px solid #00ccff;"><a href="https://github.com/saforem2/"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/</code></a></span><code>{</code><span style="border-bottom: 0.5px solid #00ccff;"><a href="https://github.com/saforem2/lattice23"><code>lattice23</code></a></span>, <span style="border-bottom: 0.5px solid #00ccff;"><a href="https://github.com/saforem2/l2hmc-qcd"><code>l2hmc-qcd</code></a></span><code>}</code></span></p>
 </div>
 <div class="footer">
 <p><span class="dim-text" style="&quot;text-align:left;'">2023-07-31 @ <a href="https://indico.fnal.gov/event/57249/contributions/271305/">Lattice 2023</a></span></p>
@@ -1223,7 +1223,7 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 <section id="sec-thank-you" class="slide level2 center">
 <h2>Thank you!</h2>
 <p>&nbsp;<br></p>
-<div class="quarto-layout-panel" style="text-align:left;">
+<div class="quarto-layout-panel" style="text-align:left; font-size:0.8em;">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
 <p><span style="font-size:0.8em;"><a href="https://samforeman.me"><i class="fa-solid fa-home" aria-label="home"></i> <code>samforeman.me</code></a></span></p>
@@ -1409,6 +1409,22 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </ul>
 <aside><ol class="aside-footnotes"><li id="fn10"><p>Where <span class="math inline">\xi^{\ast}</span> is the <em>proposed</em> configuration (prior to Accept / Reject)</p></li><li id="fn11"><p>And <span class="math inline">\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|</span> is the Jacobian of the transformation from <span class="math inline">\xi \rightarrow \xi^{\ast}</span></p></li></ol></aside></section>
 
+<section id="networks-2d-u1" class="slide level2 center" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Networks 2D <span class="math inline">U(1)</span></h2>
+<ul>
+<li><p>Stack gauge links as <code>shape</code><span class="math inline">\left(U_{\mu}\right)</span><code>=[Nb, 2, Nt, Nx]</code> <span class="math inline">\in \mathbb{C}</span></p>
+<p><span class="math display"> x_{\mu}(n) ≔ \left[\cos(x), \sin(x)\right]</span></p>
+<p>with <code>shape</code><span class="math inline">\left(x_{\mu}\right)</span><code>= [Nb, 2, Nt, Nx, 2]</code> <span class="math inline">\in \mathbb{R}</span></p></li>
+<li><p><span class="math inline">x</span>-Network:</p>
+<ul>
+<li><span class="purple-text"><span class="math inline">\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)</span></span> <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ --></li>
+</ul></li>
+<li><p><span class="math inline">v</span>-Network:</p>
+<ul>
+<li><span class="green-text"><span class="math inline">\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)</span></span> <span class="dim-text"><span class="math inline">\hspace{2pt}\longleftarrow</span> lets look at this</span> <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ --></li>
+</ul></li>
+</ul>
+</section>
 <section id="v-updatereverse" class="slide level2 center">
 <h2><span class="math inline">v</span>-Update<sup>1</sup></h2>
 <ul>
@@ -1504,7 +1520,7 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </ul></li>
 </ul>
 </section>
-<section id="networks-2d-u1" class="slide level2 center">
+<section id="networks-2d-u1-1" class="slide level2 center">
 <h2>Networks 2D <span class="math inline">U(1)</span></h2>
 <ul>
 <li><p>Stack gauge links as <code>shape</code><span class="math inline">\left(U_{\mu}\right)</span><code>=[Nb, 2, Nt, Nx]</code> <span class="math inline">\in \mathbb{C}</span></p>
@@ -1520,22 +1536,6 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </ul></li>
 </ul>
 </section>
-<section id="networks-2d-u1-1" class="slide level2 center" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Networks 2D <span class="math inline">U(1)</span></h2>
-<ul>
-<li><p>Stack gauge links as <code>shape</code><span class="math inline">\left(U_{\mu}\right)</span><code>=[Nb, 2, Nt, Nx]</code> <span class="math inline">\in \mathbb{C}</span></p>
-<p><span class="math display"> x_{\mu}(n) ≔ \left[\cos(x), \sin(x)\right]</span></p>
-<p>with <code>shape</code><span class="math inline">\left(x_{\mu}\right)</span><code>= [Nb, 2, Nt, Nx, 2]</code> <span class="math inline">\in \mathbb{R}</span></p></li>
-<li><p><span class="math inline">x</span>-Network:</p>
-<ul>
-<li><span class="purple-text"><span class="math inline">\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)</span></span> <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ --></li>
-</ul></li>
-<li><p><span class="math inline">v</span>-Network:</p>
-<ul>
-<li><span class="green-text"><span class="math inline">\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)</span></span> <span class="dim-text"><span class="math inline">\hspace{2pt}\longleftarrow</span> lets look at this</span> <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ --></li>
-</ul></li>
-</ul>
-</section>
 <section id="toy-example-gmm-in-mathbbr2" class="slide level2 centeredslide center">
 <h2>Toy Example: GMM <span class="math inline">\in \mathbb{R}^{2}</span></h2>
 <img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/iso_gmm_chains.svg" id="fig-gmm" class="r-stretch">
@@ -1545,8 +1545,8 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 <ul>
 <li>To estimate physical quantities, we:
 <ul>
-<li>calculate physical observables at <strong>increasing</strong> spatial resolution</li>
-<li>perform extrapolation to continuum limit</li>
+<li>Calculate physical observables at <strong>increasing</strong> spatial resolution</li>
+<li>Perform extrapolation to continuum limit</li>
 </ul></li>
 </ul>
 <div id="fig-continuum" class="quarto-figure quarto-figure-center">

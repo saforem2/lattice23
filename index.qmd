@@ -51,7 +51,7 @@ format:
 [<br>&nbsp;]{style="padding-bottom: 0.5rem;"}  
 [{{< fa solid home >}}](https://samforeman.me) Sam Foreman  
 [Xiao-Yong Jin, James C. Osborn]{.dim-text style="font-size:0.8em;"}  
-[[{{< fa brands github >}}](https://github.com/saforem2/lattice23) [`saforem2/lattice23`](https://saforem2.github.io/lattice23)]{style="font-size:0.8em;"}
+[[[{{< fa brands github >}} `saforem2/`](https://github.com/saforem2/)]{style="border-bottom: 0.5px solid #00ccff;"}`{`[[`lattice23`](https://github.com/saforem2/lattice23)]{style="border-bottom: 0.5px solid #00ccff;"}, [[`l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)]{style="border-bottom: 0.5px solid #00ccff;"}`}`]{style="font-size:0.8em;"}
 
 :::
 
@@ -930,7 +930,7 @@ between the trained model and HMC
 
 &nbsp;<br>  
 
-::: {layout-ncol=4 style="text-align:left;"}
+::: {layout-ncol=4 style="text-align:left; font-size:0.8em;"}
 
 [[{{< fa solid home >}} `samforeman.me`](https://samforeman.me)]{style="font-size:0.8em;"}
 
@@ -1096,6 +1096,22 @@ Accept / Reject)
 [^jacobian]: And $\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|$ is the
 Jacobian of the transformation from $\xi \rightarrow \xi^{\ast}$
 
+## Networks 2D $U(1)$ {auto-animate=true}
+
+- Stack gauge links as `shape`$\left(U_{\mu}\right)$` =[Nb, 2, Nt, Nx]` $\in \mathbb{C}$
+
+  $$ x_{\mu}(n) ≔ \left[\cos(x), \sin(x)\right]$$
+
+  with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$
+
+- $x$-Network:
+    - [$\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$]{.purple-text}
+    <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
+
+- $v$-Network:
+  - [$\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{.green-text} [$\hspace{2pt}\longleftarrow$ lets look at this]{.dim-text}
+    <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
+
 ## $v$-Update[^reverse]
 
 - [forward]{style="color:#FF5252"} $(d = \textcolor{#FF5252}{+})$:  
@@ -1200,23 +1216,6 @@ Jupyter Notebook
     - [$\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{.green-text}
     <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
 
-## Networks 2D $U(1)$ {auto-animate=true}
-
-- Stack gauge links as `shape`$\left(U_{\mu}\right)$` =[Nb, 2, Nt, Nx]` $\in \mathbb{C}$
-
-  $$ x_{\mu}(n) ≔ \left[\cos(x), \sin(x)\right]$$
-
-  with `shape`$\left(x_{\mu}\right)$` = [Nb, 2, Nt, Nx, 2]` $\in \mathbb{R}$
-
-- $x$-Network:
-    - [$\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$]{.purple-text}
-    <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
-
-- $v$-Network:
-  - [$\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{.green-text} [$\hspace{2pt}\longleftarrow$ lets look at this]{.dim-text}
-    <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
-
-
 ## Toy Example: GMM $\in \mathbb{R}^{2}$ {.centeredslide}
 
 ![](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/iso_gmm_chains.svg){#fig-gmm .r-stretch}
@@ -1224,8 +1223,8 @@ Jupyter Notebook
 ## Physical Quantities
 
 - To estimate physical quantities, we:
-  - calculate physical observables at **increasing** spatial resolution
-  - perform extrapolation to continuum limit
+  - Calculate physical observables at **increasing** spatial resolution
+  - Perform extrapolation to continuum limit
 
 ::: {#fig-continuum}
 
