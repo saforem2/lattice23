@@ -115,15 +115,15 @@
     "objectID": "index.html#sec-references",
     "href": "index.html#sec-references",
     "title": "MLMC: Machine Learning Monte Carlo",
-    "section": "Links + References",
-    "text": "Links + References\n\nThis talk:  saforem2/lattice23\n\nSlides: 📊 saforem2.github.io/lattice23]\n\nCode repo  saforem2/l2hmc-qcd\nTitle Slide Background (worms) animation\nLink to HMC demo"
+    "section": "",
+    "text": "Links\n\n saforem2/l2hmc-qcd\n📊 slides (Github:  saforem2/lattice23)\n\n\nReferences\n\nTitle Slide Background (worms) animation\n\nGithub:  saforem2/grid-worms-animation\n\nLink to HMC demo"
   },
   {
-    "objectID": "index.html#references",
-    "href": "index.html#references",
+    "objectID": "index.html#references-1",
+    "href": "index.html#references-1",
     "title": "MLMC: Machine Learning Monte Carlo",
     "section": "References",
-    "text": "References\n\n\nBoyda, Denis et al. 2022. “Applications of Machine Learning to Lattice Quantum Field Theory.” In Snowmass 2021. https://arxiv.org/abs/2202.05838.\n\n\nForeman, Sam, Taku Izubuchi, Luchang Jin, Xiao-Yong Jin, James C. Osborn, and Akio Tomiya. 2022. “HMC with Normalizing Flows.” PoS LATTICE2021: 073. https://doi.org/10.22323/1.396.0073.\n\n\nForeman, Sam, Xiao-Yong Jin, and James C. Osborn. 2021. “Deep Learning Hamiltonian Monte Carlo.” In 9th International Conference on Learning Representations. https://arxiv.org/abs/2105.03418.\n\n\n———. 2022. “LeapfrogLayers: A Trainable Framework for Effective Topological Sampling.” PoS LATTICE2021 (May): 508. https://doi.org/10.22323/1.396.0508.\n\n\nShanahan, Phiala et al. 2022. “Snowmass 2021 Computational Frontier CompF03 Topical Group Report: Machine Learning,” September. https://arxiv.org/abs/2209.07559."
+    "text": "References\n(I don’t know why this is broken 🤷🏻‍♂️ )\n\n\nBoyda, Denis et al. 2022. “Applications of Machine Learning to Lattice Quantum Field Theory.” In Snowmass 2021. https://arxiv.org/abs/2202.05838.\n\n\nForeman, Sam, Taku Izubuchi, Luchang Jin, Xiao-Yong Jin, James C. Osborn, and Akio Tomiya. 2022. “HMC with Normalizing Flows.” PoS LATTICE2021: 073. https://doi.org/10.22323/1.396.0073.\n\n\nForeman, Sam, Xiao-Yong Jin, and James C. Osborn. 2021. “Deep Learning Hamiltonian Monte Carlo.” In 9th International Conference on Learning Representations. https://arxiv.org/abs/2105.03418.\n\n\n———. 2022. “LeapfrogLayers: A Trainable Framework for Effective Topological Sampling.” PoS LATTICE2021 (May): 508. https://doi.org/10.22323/1.396.0508.\n\n\nShanahan, Phiala et al. 2022. “Snowmass 2021 Computational Frontier CompF03 Topical Group Report: Machine Learning,” September. https://arxiv.org/abs/2209.07559."
   },
   {
     "objectID": "index.html#integrated-autocorrelation-time",

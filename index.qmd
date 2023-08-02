@@ -1008,15 +1008,37 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 ::::
 
 
-## Links + References {#sec-references}
+## {#sec-references}
 
-- This talk: [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
-  - Slides: [📊 saforem2.github.io/lattice23](https://saforem2.github.io/lattice23)]
-- Code repo [{{< fa brands github >}} `saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
+:::: {.columns}
+
+::: {.column width="50%"}
+
+### Links
+
+- [{{< fa brands github >}} `saforem2/l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)
+
+- [📊 slides](https://saforem2.github.io/lattice23) (Github: [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23))
+
+:::
+
+::: {.column width="50%"}
+
+### References
+
 - [Title Slide Background (worms) animation](https://saforem2.github.io/grid-worms-animation/)
+  - Github: [{{< fa brands github >}} `saforem2/grid-worms-animation`](https://github.com/saforem2/grid-worms-animation)
+
 - [Link to HMC demo](https://chi-feng.github.io/mcmc-demo/app.html)
 
+:::
+
+::::
+
+
 ## References {style="line-height:1.2em;"}
+
+(I don't know why this is broken 🤷🏻‍♂️ )
 
 ::: {#refs}
 :::
