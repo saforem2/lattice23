@@ -1,13 +1,49 @@
 ---
-author: "Sam Foreman"
-date: today
-bibliography: references.bib
-title: "MLMC: Machine Learning Monte Carlo"
+# title: "MLMC: Machine Learning Monte Carlo for Lattice Gauge Theory"
+# date: today
+# date-modified: last-modified
+# author-title: ""
+# affiliation-title: ""
+# published-title: ""
+# modified-title: ""
+# title-block-categories: false
+# number-sections: false
+# bibliography: references.bib
+# appendix-cite-as: display
+# favicon: "./assets/favicon.svg"
+# abstract: | 
+#   We present a trainable framework for efficiently generating gauge
+#   configurations, and discuss ongoing work in this direction. In particular, we
+#   consider the problem of sampling configurations from a 4D 𝑆𝑈(3) lattice gauge
+#   theory, and consider a generalized leapfrog integrator in the molecular
+#   dynamics update that can be trained to improve sampling efficiency.
+# author:
+#   - name: Sam Foreman
+#     url: https://samforeman.me
+#     orcid: 0000-0002-9981-0876
+#     email: foremans@anl.gov
+#     affiliation: Argonne National Laboratory
+#     affiliation-url: https://alcf.anl.gov/about/people/sam-foreman
+# citation:
+#   # type: speech
+#   # container-title: "Journal of Data Science Software"
+#   # doi: "10.23915/reprodocs.00010"
+#   # url: https://example.com/summarizing-output
+#    type: speech
+#    genre: "Presentation at the 2023 International Symposium on Lattice Field Theory"
+#    container-title: https://indico.fnal.gov/event/57249/contributions/271305/
+#    title: "MLMC: Machine Learning Monte Carlo for Lattice Gauge Theory"
+#    url: https://saforem2.github.io/lattice23
+# bibliography: biblio.bib 
+# google-analytics: G-XVM2Y822Y1
+#
+# author: "Sam Foreman"
+# date: today
+# bibliography: references.bib
+# title: "MLMC: Machine Learning Monte Carlo"
 # open-graph: true
 # repo-url: https://github.com/saforem2/climate-analysis
 # repo-actions: [edit, issue]
-favicon: "./assets/favicon.svg"
-google-analytics: G-XVM2Y822Y1
 format:
   revealjs:
     title-block-style: none
