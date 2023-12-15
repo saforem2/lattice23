@@ -17,7 +17,7 @@ bibliography: references.bib
 appendix-cite-as: display
 favicon: "./assets/favicon.svg"
 twitter-card:
-  image: "./assets/thumbnail.png"
+  image: "https://github.com/saforem2/lattice23/blob/main/assets/thumbnail.png?raw=true"
   site: "@saforem2"
   creator: "@saforem2"
 author:
