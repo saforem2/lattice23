@@ -214,6 +214,6 @@
     "href": "index.html#physical-quantities",
     "title": "MLMC: Machine Learning Monte Carlo",
     "section": "Physical Quantities",
-    "text": "Physical Quantities\n\nTo estimate physical quantities, we:\n\nCalculate physical observables at increasing spatial resolution\nPerform extrapolation to continuum limit\n\n\n\n\n\nFigure 17: Increasing the physical resolution (a \\rightarrow 0) allows us to make predictions about numerical values of physical quantities in the continuum limit."
+    "text": "Physical Quantities\n\nTo estimate physical quantities, we:\n\nCalculate physical observables at increasing spatial resolution\nPerform extrapolation to continuum limit\n\n\n\nFigure 17: Increasing the physical resolution (a \\rightarrow 0) allows us to make predictions about numerical values of physical quantities in the continuum limit."
   }
 ]

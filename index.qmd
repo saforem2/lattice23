@@ -76,6 +76,8 @@ format:
     fig-align: center
     mermaid:
       theme: dark
+  gfm:
+    output-file: "lattice23.md"
 ---
 
 # {.title-slide .centeredslide background-iframe="https://saforem2.github.io/grid-worms-animation/" loading="lazy"}
@@ -1293,3 +1295,8 @@ predictions about numerical values of physical quantities in the continuum
 limit.
 
 :::
+
+# Extra
+
+[![](./assets/thumbnail.png)]{.preview-image style="text-align:center; margin-left:auto; margin-right: auto;"}
+
