@@ -16,6 +16,10 @@ number-sections: false
 bibliography: references.bib
 appendix-cite-as: display
 favicon: "./assets/favicon.svg"
+twitter-card:
+  image: "./assets/thumbnail.png"
+  site: "@saforem2"
+  creator: "@saforem2"
 author:
   name: Sam Foreman
   url: https://samforeman.me
