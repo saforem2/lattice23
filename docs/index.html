@@ -10,10 +10,10 @@
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.450">
+  <meta name="generator" content="quarto-1.4.549">
 
   <meta name="author" content="Sam Foreman">
-  <meta name="dcterms.date" content="2023-12-15">
+  <meta name="dcterms.date" content="2024-03-17">
   <title>MLMC: Machine Learning Monte Carlo</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -36,6 +36,7 @@
     div.csl-bib-body { }
     div.csl-entry {
       clear: both;
+      margin-bottom: 0em;
     }
     .hanging-indent div.csl-entry {
       margin-left:2em;
@@ -55,7 +56,6 @@
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="css/default.css">
   <link rel="stylesheet" href="css/callouts.css">
-  <link rel="stylesheet" href="css/code-callout.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
@@ -199,7 +199,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -375,10 +376,10 @@ theory, and consider a generalized leapfrog integrator in the molecular
 dynamics update that can be trained to improve sampling efficiency.
 ">
 <meta name="citation_author" content="Sam Foreman">
-<meta name="citation_publication_date" content="2023-12-15">
-<meta name="citation_cover_date" content="2023-12-15">
-<meta name="citation_year" content="2023">
-<meta name="citation_online_date" content="2023-12-15">
+<meta name="citation_publication_date" content="2024-03-17">
+<meta name="citation_cover_date" content="2024-03-17">
+<meta name="citation_year" content="2024">
+<meta name="citation_online_date" content="2024-03-17">
 <meta name="citation_fulltext_html_url" content="https://saforem2.github.io/lattice23">
 <meta name="citation_language" content="en">
 <meta name="citation_journal_title" content="https://indico.fnal.gov/event/57249/contributions/271305/">
@@ -413,7 +414,7 @@ dynamics update that can be trained to improve sampling efficiency.
     </div>
 </div>
 
-  <p class="date">2023-12-15</p>
+  <p class="date">2024-03-17</p>
 </section>
 <section id="section" class="title-slide slide level1 centeredslide center" data-background-iframe="https://saforem2.github.io/grid-worms-animation/" loading="lazy">
 <h1></h1>
@@ -454,6 +455,7 @@ dynamics update that can be trained to improve sampling efficiency.
 <h1>Markov Chain Monte Carlo (MCMC)</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div title="Goal" style="text-align:left;!important">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -464,6 +466,7 @@ dynamics update that can be trained to improve sampling efficiency.
 </div>
 <div class="callout-content">
 <p>Generate <strong>independent</strong> samples <span class="math inline">\{x_{i}\}</span>, such that<sup>1</sup> <span class="math display">\{x_{i}\} \sim p(x) \propto e^{-S(x)}</span> where <span class="math inline">S(x)</span> is the <em>action</em> (or potential energy)</p>
+</div>
 </div>
 </div>
 </div>
@@ -481,13 +484,13 @@ dynamics update that can be trained to improve sampling efficiency.
 <div class="footer">
 <p><a href="https://saforem2.github.io/lattice23"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/lattice23</code></a></p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Here, <span class="math inline">\sim</span> means “is distributed according to”</p></li></ol></aside></section>
-
+<aside><ol class="aside-footnotes"></ol></aside></section>
 
 <section id="markov-chain-monte-carlo-mcmc-1" class="title-slide slide level1 centeredslide center">
 <h1>Markov Chain Monte Carlo (MCMC)</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div title="Goal" style="text-align:left;!important">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -498,6 +501,7 @@ dynamics update that can be trained to improve sampling efficiency.
 </div>
 <div class="callout-content">
 <p>Generate <strong>independent</strong> samples <span class="math inline">\{x_{i}\}</span>, such that<sup>1</sup> <span class="math display">\{x_{i}\} \sim p(x) \propto e^{-S(x)}</span> where <span class="math inline">S(x)</span> is the <em>action</em> (or potential energy)</p>
+</div>
 </div>
 </div>
 </div>
@@ -515,8 +519,7 @@ dynamics update that can be trained to improve sampling efficiency.
 <div class="footer">
 <p><a href="https://github.com/saforem2/lattice23"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2/lattice23</code></a></p>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn2"><p>Here, <span class="math inline">\sim</span> means “is distributed according to”</p></li></ol></aside></section>
-
+<aside><ol class="aside-footnotes"></ol></aside></section>
 
 <section>
 <section id="hamiltonian-monte-carlo-hmc" class="title-slide slide level1 centeredslide center">
@@ -526,6 +529,7 @@ dynamics update that can be trained to improve sampling efficiency.
 <p>such that, as <span class="math inline">N \rightarrow \infty</span>: <span class="math display">\left\{x_{i}, x_{i+1}, x_{i+2}, \cdots, x_{N} \right\} \xrightarrow[]{N\rightarrow\infty} p(x)
 \propto e^{-S(x)}</span></p></li>
 </ul>
+<div title="Trick" style="display:inline!important;">
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -548,6 +552,7 @@ p(x, v) &amp;\textcolor{#02b875}{=} p(x)\,p(v) \propto e^{-S{(x)}} e^{-\frac{1}{
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="hamiltonian-monte-carlo-hmc-1" class="slide level2 centeredslide center">
 <h2>Hamiltonian Monte Carlo (HMC)</h2>
@@ -560,6 +565,7 @@ p(x, v) \propto e^{-S[x]} e^{-\frac{1}{2}v^{T} v} = e^{-H(x, v)}
 </span></p></li>
 </ul>
 </div><div class="column" style="width:45%;">
+<div title="Hamiltonian Dynamics">
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -576,12 +582,16 @@ p(x, v) \propto e^{-S[x]} e^{-\frac{1}{2}v^{T} v} = e^{-H(x, v)}
 </div>
 </div>
 </div>
+</div>
 
-<img data-src="https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/hmc1.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;1: Overview of HMC algorithm</p></section>
+<img data-src="https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/hmc1.svg" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;1: Overview of HMC algorithm
+</p></section>
 <section id="sec-leapfrog" class="slide level2 centeredslide center">
 <h2>Leapfrog Integrator (HMC)</h2>
 <div class="columns" style="text-align:center;">
 <div class="column" style="width:48%;">
+<div title="Hamiltonian Dynamics" style="font-size:1.1em;">
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -595,6 +605,8 @@ p(x, v) \propto e^{-S[x]} e^{-\frac{1}{2}v^{T} v} = e^{-H(x, v)}
 </div>
 </div>
 </div>
+</div>
+<div title="Leapfrog Step">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -613,6 +625,8 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </div>
 </div>
 </div>
+</div>
+<div title="Warning!" style="text-align:left;">
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -624,6 +638,7 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 <div class="callout-content">
 <p><span style="text-align:left!important;">Resample <span class="math inline">v_{0} \sim \mathcal{N}(0, \mathbb{1})</span></span><br>
 <span style="text-align:left;">at the <span class="yellow-text">beginning</span> of each trajectory</span></p>
+</div>
 </div>
 </div>
 </div>
@@ -659,15 +674,25 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 <p><img data-src="./assets/hmc1/hmc-update-light.svg"></p>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn3"><p>We <strong>always</strong> start by resampling the momentum, <span class="math inline">v_{0} \sim \mathcal{N}(0, \mathbb{1})</span></p></li></ol></aside></section>
 
+<aside><div>
+<hr>
+<ol start="3">
+<li id="fn3"><p>We <strong>always</strong> start by resampling the momentum, <span class="math inline">v_{0} \sim
+\mathcal{N}(0, \mathbb{1})</span><a href="#/fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</div><ol class="aside-footnotes"></ol></aside></section>
 <section id="hmc-demo" class="slide level2 centeredslide center">
 <h2>HMC Demo</h2>
-<div id="fig-hmc-demo" class="quarto-figure quarto-figure-center">
-<figure>
+<div id="fig-hmc-demo" class="quarto-figure quarto-figure-center quarto-float">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-hmc-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <iframe data-src="https://chi-feng.github.io/mcmc-demo/app.html" width="90%" height="500" title="l2hmc-qcd">
 </iframe>
-<figcaption>Figure&nbsp;2: HMC Demo</figcaption>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hmc-demo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: HMC Demo
+</figcaption>
 </figure>
 </div>
 </section></section>
@@ -686,9 +711,10 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </ul></li>
 </ul>
 <div id="fig-hmc-issues" class="quarto-layout-panel">
-<figure>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-hmc-issues-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps025.svg"></p>
@@ -696,7 +722,7 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps05.svg"></p>
@@ -705,7 +731,10 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </div>
 </div>
 </div>
-<p></p><figcaption>Figure&nbsp;3: HMC Samples generated with varying step sizes <span class="math inline">\varepsilon</span></figcaption><p></p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-hmc-issues-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: HMC Samples generated with varying step sizes <span class="math inline">\varepsilon</span>
+</figcaption>
 </figure>
 </div>
 </section>
@@ -717,7 +746,9 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 <div style="text-align:left; font-size: 0.9em;">
 <p><strong>Topological Charge</strong>: <span class="math display">Q = \frac{1}{2\pi}\sum_{P}\left\lfloor x_{P}\right\rfloor  \in \mathbb{Z}</span></p>
 </div>
-<p><span class="dim-text" style="font-size:0.8em;"><strong>note:</strong> <span class="math inline">\left\lfloor x_{P} \right\rfloor = x_{P} - 2\pi \left\lfloor\frac{x_{P} + \pi}{2\pi}\right\rfloor</span></span></p>
+<p><span class="dim-text" style="font-size:0.8em;"><strong>note:</strong> <span class="math inline">\left\lfloor x_{P} \right\rfloor = x_{P} - 2\pi
+\left\lfloor\frac{x_{P} + \pi}{2\pi}\right\rfloor</span></span></p>
+<div title="Critical Slowing Down" style="text-align:left;">
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -739,6 +770,7 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 <strong>grows exponentially</strong>: <span class="red-text"><span class="math inline">\tau_{\mathrm{int}}^{Q} \longrightarrow \infty</span></span></li>
 </ul></li>
 </ul>
+</div>
 </div>
 </div>
 </div>
@@ -776,22 +808,26 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </ul></li>
 </ul>
 </div><div class="column" style="width:45%;">
-<div id="fig-mdupdate" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:70%; text-align:center;"> <!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} --></p>
-<figcaption>Figure&nbsp;4: Generalized MD update where <span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span>, <span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span> are <strong>invertible NNs</strong></figcaption>
+<div id="fig-mdupdate" class="quarto-figure quarto-figure-center quarto-float" style="width:70%; text-align:center;">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-mdupdate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:70%; text-align:center;">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mdupdate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Generalized MD update where <span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span>, <span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span> are <strong>invertible NNs</strong>
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn4"><p><a href="https://github.com/saforem2/l2hmc-qcd">L2HMC:</a> <i class="fa-solid fa-book" aria-label="book"></i> <span class="citation" data-cites="Foreman:2021ixr Foreman:2021rhs">(<a href="#/references-1" role="doc-biblioref" onclick="">Foreman, Jin, and Osborn 2021</a>, <a href="#/references-1" role="doc-biblioref" onclick="">2022</a>)</span></p></li></ol></aside></section>
-
+<aside><ol class="aside-footnotes"></ol></aside></section>
 
 <section>
 <section id="sec-l2hmc" class="title-slide slide level1 centeredslide center">
 <h1>L2HMC: Generalizing the MD Update</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div title="L2HMC Update">
 <div class="callout callout-none no-icon callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
@@ -810,14 +846,19 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </div>
 </div>
 </div>
+</div>
 <p>&nbsp;<br></p>
 <!-- - [**Note**: [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"} -->
 <!-- [^updates]: [Here [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"} -->
 </div><div class="column" style="width:50%;">
-<div id="fig-mdupdate" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:66%; text-align:center;"> <!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} --></p>
-<figcaption>Figure&nbsp;5: Generalized MD update with <span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span>, <span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span> <strong>invertible NNs</strong></figcaption>
+<div id="fig-mdupdate" class="quarto-figure quarto-figure-center quarto-float" style="width:66%; text-align:center;">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-mdupdate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:66%; text-align:center;">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mdupdate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Generalized MD update with <span class="orange-text"><span class="math inline">\Lambda_{\theta}^{\pm}</span></span>, <span class="pink-text"><span class="math inline">\Gamma_{\theta}^{\pm}</span></span> <strong>invertible NNs</strong>
+</figcaption>
 </figure>
 </div>
 </div>
@@ -833,12 +874,18 @@ v' &amp;:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varep
 </div>
 </div>
 <p><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/drawio/network_functions.svg" class="absolute" style="top: 440px; width: 100%; "></p>
-</section>
 
+<aside><div>
+<hr>
+<ol start="5">
+
+</ol>
+</div></aside></section>
 <section id="l2hmc-update" class="slide level2 center" style="font-size: 0.775em;">
 <h2>L2HMC Update</h2>
 <div class="columns">
 <div class="column" style="font-size:0.99em;">
+<div title="Algorithm">
 <div class="callout callout-none no-icon callout-titled callout-style-simple">
 <div class="callout-body">
 <div class="callout-title">
@@ -874,22 +921,34 @@ Evaluate MH criteria <span class="math inline">(1)</span> and return accepted co
 </div>
 </div>
 </div>
+</div>
 </div><div class="column" style="width:50%;">
-<div id="fig-mdupdate" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:75%; text-align:center;"> <!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} --></p>
-<figcaption>Figure&nbsp;6: <strong>Leapfrog Layer</strong> used in generalized MD update</figcaption>
+<div id="fig-mdupdate" class="quarto-figure quarto-figure-center quarto-float" style="width:75%; text-align:center;">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-mdupdate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="./assets/leapfrog-layer-2D-U1-vertical.light.svg" style="width:75%; text-align:center;">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mdupdate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: <strong>Leapfrog Layer</strong> used in generalized MD update
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn6"><p>For simple <span class="math inline">\mathbf{x} \in \mathbb{R}^{2}</span> example, <span class="math inline">\mathcal{L}_{\theta} = A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}</span></p></li></ol></aside></section>
-</section>
+
+<aside><div>
+<hr>
+<ol start="6">
+<li id="fn6"><p>For simple <span class="math inline">\mathbf{x} \in \mathbb{R}^{2}</span> example, <span class="math inline">\mathcal{L}_{\theta} =
+A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}</span><a href="#/fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</div><ol class="aside-footnotes"></ol></aside></section></section>
 <section>
 <section id="sec-su3" class="title-slide slide level1 centeredslide center" style="font-size: 0.9em;">
 <h1>4D <span class="math inline">SU(3)</span> Model</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div title="Link Variables" style="text-align:left;">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -910,6 +969,8 @@ U_{\mu}(x) &amp;= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)
 </div>
 </div>
 </div>
+</div>
+<div title="Conjugate Momenta" style="text-align:left;">
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -925,6 +986,8 @@ U_{\mu}(x) &amp;= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)
 </div>
 </div>
 </div>
+</div>
+<div title="Wilson Action" style="text-align:left;">
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -937,15 +1000,21 @@ U_{\mu}(x) &amp;= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)
 <p><span class="math display"> S_{G} = -\frac{\beta}{6} \sum
 \mathrm{Tr}\left[U_{\mu\nu}(x)
 + U^{\dagger}_{\mu\nu}(x)\right] </span></p>
-<p>where <span class="math inline">U_{\mu\nu}(x) = U_{\mu}(x) U_{\nu}(x+\hat{\mu}) U^{\dagger}_{\mu}(x+\hat{\nu}) U^{\dagger}_{\nu}(x)</span></p>
+<p>where <span class="math inline">U_{\mu\nu}(x) = U_{\mu}(x) U_{\nu}(x+\hat{\mu})
+U^{\dagger}_{\mu}(x+\hat{\nu}) U^{\dagger}_{\nu}(x)</span></p>
+</div>
 </div>
 </div>
 </div>
 </div><div class="column" style="width:45%;">
-<div id="fig-4dlattice" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/u1lattice.dark.svg" style="width:90.0%"></p>
-<figcaption>Figure&nbsp;7: Illustration of the lattice</figcaption>
+<div id="fig-4dlattice" class="quarto-figure quarto-figure-center quarto-float">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-4dlattice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="./assets/u1lattice.dark.svg" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-4dlattice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Illustration of the lattice
+</figcaption>
 </figure>
 </div>
 </div>
@@ -956,6 +1025,7 @@ U_{\mu}(x) &amp;= \mathrm{exp}\left[{i\, \textcolor{#AE81FF}{\omega^{k}_{\mu}(x)
 <p>Hamiltonian: <span class="math inline">H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow</span></p>
 <div class="columns">
 <div class="column" style="font-size:0.9em; text-align: center;">
+<div style="text-align:left;">
 <div class="callout callout-none no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
@@ -971,10 +1041,10 @@ U(\textcolor{#FFEE58}{\varepsilon}) &amp;= e^{i\,\textcolor{#FFEE58}{\varepsilon
 </div>
 </div>
 </div>
-<div class="{aside}">
-<p><span class="dim-text" style="font-size:0.8em;"><span class="math inline">\textcolor{#FFEE58}{\varepsilon}</span> is the step size</span></p>
 </div>
-</div><div class="column" style="font-size:0.9em; text-align:center">
+
+</div><div class="column" style="font-size:0.9em; text-align: center;">
+<div style="text-align:left;">
 <div class="callout callout-none no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
@@ -990,12 +1060,15 @@ P(\textcolor{#FFEE58}{\varepsilon}) &amp;= P(0) - \textcolor{#FFEE58}{\varepsilo
 </div>
 </div>
 </div>
-<div class="{aside}">
+</div>
+
+</div>
+</div>
+<aside><div>
+<p><span class="dim-text" style="font-size:0.8em;"><span class="math inline">\textcolor{#FFEE58}{\varepsilon}</span> is the step size</span></p>
+</div><div>
 <p><span class="dim-text" style="font-size:0.8em;"><span class="math inline">\textcolor{#E599F7}{F[U]}</span> is the force term</span></p>
-</div>
-</div>
-</div>
-</section>
+</div></aside></section>
 <section id="hmc-4d-su3" class="slide level2 centeredslide center">
 <h2>HMC: 4D <span class="math inline">SU(3)</span></h2>
 <div class="columns">
@@ -1106,8 +1179,14 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 </ul>
 </div>
 </div>
-<aside><ol class="aside-footnotes"><li id="fn7"><p><span class="math inline">\sigma(\cdot)</span> denotes an activation function</p></li><li id="fn8"><p><span class="math inline">\lambda_{s},\, \lambda_{q} \in \mathbb{R}</span> are trainable parameters</p></li></ol></aside></section>
 
+<aside><div>
+<hr>
+<ol start="7">
+<li id="fn7"><p><span class="math inline">\sigma(\cdot)</span> denotes an activation function<a href="#/fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><span class="math inline">\lambda_{s},\, \lambda_{q} \in \mathbb{R}</span> are trainable parameters<a href="#/fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</div><ol class="aside-footnotes"></ol></aside></section>
 <section id="p-network-pt.-2" class="slide level2 center" style="font-size:0.9em;">
 <h2><span class="math inline">P</span>-<code>Network</code> (pt.&nbsp;2)</h2>
 <!-- - `output`[^lambda]: $(s_{P}, t_{P}, q_{P})$ [$\hspace{10pt}\longleftarrow$ outputs from NN]{.dim-text} -->
@@ -1118,14 +1197,20 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 <p><img data-src="./assets/SU3/PNetwork.light.svg"></p>
 </div>
 <ul>
-<li><p>Use <span class="math inline">(s_{P}, t_{P}, q_{P})</span> to update <span class="math inline">\Gamma^{\pm}: (U, P) \rightarrow \left(U, P_{\pm}\right)</span><sup>1</sup>:</p>
+<li><p>Use <span class="math inline">(s_{P}, t_{P}, q_{P})</span> to update <span class="math inline">\Gamma^{\pm}: (U, P) \rightarrow
+\left(U, P_{\pm}\right)</span><sup>1</sup>:</p>
 <ul>
 <li><p><span style="color:#FF5252">forward</span> <span class="math inline">(d = \textcolor{#FF5252}{+})</span>: <span class="math display">\Gamma^{\textcolor{#FF5252}{+}}(U, P) \coloneqq P_{\textcolor{#FF5252}{+}} = P \cdot e^{\frac{\varepsilon}{2} s_{P}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]</span></p></li>
 <li><p><span style="color:#1A8FFF;">backward</span> <span class="math inline">(d = \textcolor{#1A8FFF}{-})</span>: <span class="math display">\Gamma^{\textcolor{#1A8FFF}{-}}(U, P) \coloneqq P_{\textcolor{#1A8FFF}{-}} = e^{-\frac{\varepsilon}{2} s_{P}} \left\{P + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]\right\}</span></p></li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn9"><p>Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(U, P)\right] = \Gamma^{-}\left[\Gamma^{+}(U, P)\right] = (U, P)</span></p></li></ol></aside></section>
-</section>
+
+<aside><div>
+<hr>
+<ol start="9">
+<li id="fn9"><p>Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(U, P)\right] = \Gamma^{-}\left[\Gamma^{+}(U, P)\right] = (U, P)</span><a href="#/fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</div><ol class="aside-footnotes"></ol></aside></section></section>
 <section>
 <section id="sec-results" class="title-slide slide level1 centeredslide center">
 <h1>Results: 2D <span class="math inline">U(1)</span></h1>
@@ -1133,6 +1218,7 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 <div class="column" style="align:top;">
 <p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/autocorr_new.svg" style="width:90.0%"></p>
 </div><div class="column" style="text-align:left; padding-top: 5%;">
+<div title="Improvement" style="text-align:left!important;">
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1144,6 +1230,7 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 <div class="callout-content">
 <p>We can measure the performance by comparing <span class="math inline">\tau_{\mathrm{int}}</span> for the <span style="color:#FF2052;"><strong>trained model</strong></span> vs. <span style="color:#9F9F9F;"><strong>HMC</strong></span>.</p>
 <p><strong>Note</strong>: <span style="color:#FF2052;">lower</span> is better</p>
+</div>
 </div>
 </div>
 </div>
@@ -1163,13 +1250,16 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 </div>
 </div>
 
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/ridgeplots.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;8: Illustration of how different observables evolve over a single L2HMC trajectory.</p></section>
+<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/ridgeplots.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;8: Illustration of how different observables evolve over a single L2HMC trajectory.
+</p></section>
 <section id="interpretation" class="slide level2 centeredslide center">
 <h2>Interpretation</h2>
 <div id="fig-energy-ridgeplot" class="quarto-layout-panel">
-<figure>
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-energy-ridgeplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_ridgeplot.svg"></p>
@@ -1177,7 +1267,7 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/Hf_ridgeplot.svg"></p>
@@ -1186,7 +1276,10 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 </div>
 </div>
 </div>
-<p></p><figcaption>Figure&nbsp;9: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors.</figcaption><p></p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-energy-ridgeplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: The trained model artifically increases the energy towards the middle of the trajectory, allowing the sampler to tunnel between isolated sectors.
+</figcaption>
 </figure>
 </div>
 </section></section>
@@ -1194,45 +1287,65 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 <section id="sec-su3results" class="title-slide slide level1 center">
 <h1>4D <span class="math inline">SU(3)</span> Results</h1>
 <div id="fig-ridgeplot" class="quarto-layout-panel">
-<figure>
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-ridgeplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
-<div id="fig-ridgeplot1" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/SU3/logdet_ridgeplot1.svg" data-ref-parent="fig-ridgeplot"></p>
-<figcaption>(a) <code>100</code> train iters</figcaption>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ridgeplot" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-ridgeplot1" class="quarto-figure quarto-figure-center quarto-float">
+<figure class="quarto-float quarto-subfloat-fig">
+<div aria-describedby="fig-ridgeplot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="./assets/SU3/logdet_ridgeplot1.svg" style="width:33.0%" data-ref-parent="fig-ridgeplot">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-ridgeplot1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) <code>100</code> train iters
+</figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
-<div id="fig-ridgeplot2" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/SU3/logdet_ridgeplot2.svg" data-ref-parent="fig-ridgeplot"></p>
-<figcaption>(b) <code>500</code> train iters</figcaption>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ridgeplot" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-ridgeplot2" class="quarto-figure quarto-figure-center quarto-float">
+<figure class="quarto-float quarto-subfloat-fig">
+<div aria-describedby="fig-ridgeplot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="./assets/SU3/logdet_ridgeplot2.svg" style="width:33.0%" data-ref-parent="fig-ridgeplot">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-ridgeplot2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) <code>500</code> train iters
+</figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 33.3%;justify-content: center;">
-<div id="fig-ridgeplot3" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="./assets/SU3/logdet_ridgeplot3.svg" data-ref-parent="fig-ridgeplot"></p>
-<figcaption>(c) <code>1000</code> train iters</figcaption>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-ridgeplot" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-ridgeplot3" class="quarto-figure quarto-figure-center quarto-float">
+<figure class="quarto-float quarto-subfloat-fig">
+<div aria-describedby="fig-ridgeplot3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="./assets/SU3/logdet_ridgeplot3.svg" style="width:33.0%" data-ref-parent="fig-ridgeplot">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-ridgeplot3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) <code>1000</code> train iters
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p></p><figcaption>Figure&nbsp;10: <span class="math inline">\log|\mathcal{J}|</span> vs.&nbsp;<span class="math inline">N_{\mathrm{LF}}</span> during training</figcaption><p></p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ridgeplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: <span class="math inline">\log|\mathcal{J}|</span> vs.&nbsp;<span class="math inline">N_{\mathrm{LF}}</span> during training
+</figcaption>
 </figure>
 </div>
 </section>
 <section id="d-su3-results-delta-u_munu" class="slide level2 center">
 <h2>4D <span class="math inline">SU(3)</span> Results: <span class="math inline">\delta U_{\mu\nu}</span></h2>
 
-<img data-src="./assets/SU3/pdiff.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;11: The difference in the average plaquette <span class="math inline">\left|\delta U_{\mu\nu}\right|^{2}</span> between the trained model and HMC</p></section>
+<img data-src="./assets/SU3/pdiff.svg" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;11: The difference in the average plaquette <span class="math inline">\left|\delta U_{\mu\nu}\right|^{2}</span> between the trained model and HMC
+</p></section>
 <section id="d-su3-results-delta-u_munu-1" class="slide level2 center">
 <h2>4D <span class="math inline">SU(3)</span> Results: <span class="math inline">\delta U_{\mu\nu}</span></h2>
 
-<img data-src="./assets/SU3/pdiff-robust.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;12: The difference in the average plaquette <span class="math inline">\left|\delta U_{\mu\nu}\right|^{2}</span> between the trained model and HMC</p></section></section>
+<img data-src="./assets/SU3/pdiff-robust.svg" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;12: The difference in the average plaquette <span class="math inline">\left|\delta U_{\mu\nu}\right|^{2}</span> between the trained model and HMC
+</p></section></section>
 <section>
 <section id="sec-next-steps" class="title-slide slide level1 center">
 <h1>Next Steps</h1>
@@ -1258,22 +1371,23 @@ h_{n} &amp;= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
 <section id="sec-thank-you" class="slide level2 center">
 <h2>Thank you!</h2>
 <p>&nbsp;<br></p>
-<div class="quarto-layout-panel" style="text-align:left; font-size:0.8em;">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-layout-panel" style="text-align:left; font-size:0.8em;" data-layout-ncol="4">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
 <p><span style="font-size:0.8em;"><a href="https://samforeman.me"><i class="fa-solid fa-home" aria-label="home"></i> <code>samforeman.me</code></a></span></p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
 <p><span style="font-size:0.8em;"><a href="https://github.com/saforem2"><i class="fa-brands fa-github" aria-label="github"></i> <code>saforem2</code></a></span></p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
 <p><span style="font-size:0.8em;"><a href="https://www.twitter.com/saforem2"><i class="fa-brands fa-twitter" aria-label="twitter"></i> <code>@saforem2</code></a></span></p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 25.0%;justify-content: flex-start;">
 <p><span style="font-size:0.8em;"><a href="mailto:///foremans@anl.gov"><i class="fa-regular fa-paper-plane" aria-label="paper-plane"></i> <code>foremans@anl.gov</code></a></span></p>
 </div>
 </div>
 </div>
+<div title="Acknowledgements">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1288,15 +1402,12 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="sec-l2hmc-gh" class="slide level2 center">
 <h2></h2>
 <div style="text-align:center;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
 <p><a href="https://github.com/saforem2/l2hmc-qcd"><img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-qcd/main/assets/logo-small.svg"></a></p>
-</figure>
-</div>
 <p><a href="https://hits.seeyoufarm.com"><img alt="hits" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsaforem2%2Fl2hmc-qcd&amp;count_bg=%2300CCFF&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23111111&amp;title=👋&amp;edge_flat=false"></a> <a href="https://github.com/saforem2/l2hmc-qcd/"><img alt="l2hmc-qcd" src="https://img.shields.io/badge/-l2hmc--qcd-252525?style=flat&amp;logo=github&amp;labelColor=gray"></a> <a href="https://www.codefactor.io/repository/github/saforem2/l2hmc-qcd"><img alt="codefactor" src="https://www.codefactor.io/repository/github/saforem2/l2hmc-qcd/badge"></a></p>
 <p><a href="https://arxiv.org/abs/2112.01582"><img alt="arxiv" src="http://img.shields.io/badge/arXiv-2112.01582-B31B1B.svg"></a> <a href="https://arxiv.org/abs/2105.03418"><img alt="arxiv" src="http://img.shields.io/badge/arXiv-2105.03418-B31B1B.svg"></a></p>
 <p><a href="https://hydra.cc"><img alt="hydra" src="https://img.shields.io/badge/Config-Hydra-89b8cd"></a> <a href="https://pytorch.org/get-started/locally/"><img alt="pyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&amp;logoColor=white"></a> <a href="https://www.tensorflow.org"><img alt="tensorflow" src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?&amp;logo=TensorFlow&amp;logoColor=white"></a> <a href="https://wandb.ai/l2hmc-qcd/l2hmc-qcd"><img src="https://raw.githubusercontent.com/wandb/assets/main/wandb-github-badge-28.svg" alt="Weights &amp; Biases monitoring" height="20"></a></p>
@@ -1368,7 +1479,7 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 <section id="references-1" class="slide level2 smaller scrollable" style="line-height:1.2em;">
 <h2>References</h2>
 <p>(I don’t know why this is broken 🤷🏻‍♂️ )</p>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Boyda:2022nmh" class="csl-entry" role="listitem">
 Boyda, Denis et al. 2022. <span>“<span class="nocase">Applications of Machine Learning to Lattice Quantum Field Theory</span>.”</span> In <em><span>Snowmass 2021</span></em>. <a href="https://arxiv.org/abs/2202.05838">https://arxiv.org/abs/2202.05838</a>.
 </div>
@@ -1394,30 +1505,44 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 <section id="integrated-autocorrelation-time" class="slide level2 centeredslide center">
 <h2>Integrated Autocorrelation Time</h2>
 
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/tint1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;13: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale).</p></section>
+<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/tint1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;13: Plot of the integrated autocorrelation time for both the trained model (colored) and HMC (greyscale).
+</p></section>
 <section id="comparison" class="slide level2 center">
 <h2>Comparison</h2>
 <div id="fig-comparison" class="quarto-layout-panel">
-<figure>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-eval" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://saforem2.github.io/anl-job-talk/assets/dQint_eval.svg" data-ref-parent="fig-comparison"></p>
-<figcaption>(a) Trained model</figcaption>
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comparison" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-eval" class="quarto-figure quarto-figure-center quarto-float">
+<figure class="quarto-float quarto-subfloat-fig">
+<div aria-describedby="fig-eval-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="https://saforem2.github.io/anl-job-talk/assets/dQint_eval.svg" data-ref-parent="fig-comparison">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-eval-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Trained model
+</figcaption>
 </figure>
 </div>
 </div>
-<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 50.0%;justify-content: center;">
-<div id="fig-hmc" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="https://saforem2.github.io/anl-job-talk/assets/dQint_hmc.svg" data-ref-parent="fig-comparison"></p>
-<figcaption>(b) Generic HMC</figcaption>
+<div class="quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-comparison" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-hmc" class="quarto-figure quarto-figure-center quarto-float">
+<figure class="quarto-float quarto-subfloat-fig">
+<div aria-describedby="fig-hmc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img data-src="https://saforem2.github.io/anl-job-talk/assets/dQint_hmc.svg" data-ref-parent="fig-comparison">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-hmc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Generic HMC
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p></p><figcaption>Figure&nbsp;14: Comparison of <span class="math inline">\langle \delta Q\rangle = \frac{1}{N}\sum_{i=k}^{N} \delta Q_{i}</span> for the trained model <a href="#/comparison">Figure&nbsp;14 (a)</a> vs.&nbsp;HMC <a href="#/comparison">Figure&nbsp;14 (b)</a></figcaption><p></p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: Comparison of <span class="math inline">\langle \delta Q\rangle = \frac{1}{N}\sum_{i=k}^{N} \delta Q_{i}</span> for the trained model <a href="#/comparison" class="quarto-xref">Figure&nbsp;14 (a)</a> vs.&nbsp;HMC <a href="#/comparison" class="quarto-xref">Figure&nbsp;14 (b)</a>
+</figcaption>
 </figure>
 </div>
 </section>
@@ -1431,7 +1556,9 @@ Shanahan, Phiala et al. 2022. <span>“<span>Snowmass 2021 Computational Frontie
 </div>
 </div>
 
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_vs_lf_step1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;15: Plot showing how <strong>average plaquette</strong>, <span class="math inline">\left\langle x_{P}\right\rangle</span> varies over a single trajectory for models trained at different <span class="math inline">\beta</span>, with varying trajectory lengths <span class="math inline">N_{\mathrm{LF}}</span></p></section>
+<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_vs_lf_step1.svg" style="width:100.0%" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;15: Plot showing how <strong>average plaquette</strong>, <span class="math inline">\left\langle x_{P}\right\rangle</span> varies over a single trajectory for models trained at different <span class="math inline">\beta</span>, with varying trajectory lengths <span class="math inline">N_{\mathrm{LF}}</span>
+</p></section>
 <section id="loss-function" class="slide level2 center">
 <h2>Loss Function</h2>
 <ul>
@@ -1452,8 +1579,14 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 \end{equation*}</span></p></li>
 </ul></li>
 </ul>
-<aside><ol class="aside-footnotes"><li id="fn10"><p>Where <span class="math inline">\xi^{\ast}</span> is the <em>proposed</em> configuration (prior to Accept / Reject)</p></li><li id="fn11"><p>And <span class="math inline">\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|</span> is the Jacobian of the transformation from <span class="math inline">\xi \rightarrow \xi^{\ast}</span></p></li></ol></aside></section>
 
+<aside><div>
+<hr>
+<ol start="10">
+<li id="fn10"><p>Where <span class="math inline">\xi^{\ast}</span> is the <em>proposed</em> configuration (prior to Accept / Reject)<a href="#/fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>And <span class="math inline">\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|</span> is the Jacobian of the transformation from <span class="math inline">\xi \rightarrow \xi^{\ast}</span><a href="#/fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</div><ol class="aside-footnotes"></ol></aside></section>
 <section id="networks-2d-u1" class="slide level2 center" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Networks 2D <span class="math inline">U(1)</span></h2>
 <ul>
@@ -1481,8 +1614,13 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 <li><span style="color:#1A8FFF;">backward</span> <span class="math inline">(d = \textcolor{#1A8FFF}{-})</span>:</li>
 </ul>
 <p><span class="math display">\Gamma^{\textcolor{#1A8FFF}{-}}: (x, v) \rightarrow v' \coloneqq e^{-\frac{\varepsilon}{2} s_{v}} \left\{v + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]\right\}</span></p>
-<aside><ol class="aside-footnotes"><li id="fn12"><p><span style="font-size:0.8em;">Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)</span></span></p></li></ol></aside></section>
 
+<aside><div>
+<hr>
+<ol start="12">
+<li id="fn12"><p><span style="font-size:0.8em;">Note that <span class="math inline">\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}</span>, i.e.&nbsp;<span class="math inline">\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)</span></span><a href="#/fnref12" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</div><ol class="aside-footnotes"></ol></aside></section>
 <section id="x-update" class="slide level2 center">
 <h2><span class="math inline">x</span>-Update</h2>
 <ul>
@@ -1499,6 +1637,7 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 <div class="columns" data-layout-valign="top">
 <div class="column" style="width:50%;">
 <div style="text-align:center;">
+<div title="Link Variables">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1512,7 +1651,9 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </div>
 </div>
 </div>
+</div>
 <div>
+<div title="Wilson Action">
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1525,6 +1666,7 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 <p><span class="math display">S_{\beta}(x) = \beta\sum_{P} \cos \textcolor{#00CCFF}{x_{P}},</span></p>
 <p><span class="math display">\textcolor{#00CCFF}{x_{P}} = \left[x_{\mu}(n) + x_{\nu}(n+\hat{\mu})
 - x_{\mu}(n+\hat{\nu})-x_{\nu}(n)\right]</span></p>
+</div>
 </div>
 </div>
 </div>
@@ -1543,11 +1685,15 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </section>
 <section id="section-1" class="slide level2 center" data-background-color="white">
 <h2></h2>
-<div id="fig-notebook" class="quarto-figure quarto-figure-center">
-<figure>
+<div id="fig-notebook" class="quarto-figure quarto-figure-center quarto-float">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-notebook-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <iframe data-src="https://nbviewer.org/github/saforem2/l2hmc-qcd/blob/SU3/src/l2hmc/notebooks/l2hmc-2dU1.ipynb" width="100%" height="650" title="l2hmc-qcd">
 </iframe>
-<figcaption>Figure&nbsp;16: Jupyter Notebook</figcaption>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-notebook-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16: Jupyter Notebook
+</figcaption>
 </figure>
 </div>
 </section>
@@ -1583,8 +1729,10 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </section>
 <section id="toy-example-gmm-in-mathbbr2" class="slide level2 centeredslide center">
 <h2>Toy Example: GMM <span class="math inline">\in \mathbb{R}^{2}</span></h2>
-<img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/iso_gmm_chains.svg" id="fig-gmm" class="r-stretch">
-</section>
+
+<img data-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/iso_gmm_chains.svg" id="fig-gmm" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;17
+</p></section>
 <section id="physical-quantities" class="slide level2 center">
 <h2>Physical Quantities</h2>
 <ul>
@@ -1595,14 +1743,18 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
 </ul></li>
 </ul>
 
-<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/static/continuum.svg" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;17: Increasing the physical resolution (<span class="math inline">a \rightarrow 0</span>) allows us to make predictions about numerical values of physical quantities in the continuum limit.</p></section></section>
+<img data-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/static/continuum.svg" class="r-stretch quarto-figure-center"><p class="caption">
+Figure&nbsp;18: Increasing the physical resolution (<span class="math inline">a \rightarrow 0</span>) allows us to make predictions about numerical values of physical quantities in the continuum limit.
+</p></section></section>
 <section id="extra" class="title-slide slide level1 center">
 <h1>Extra</h1>
 <p><span class="preview-image" style="text-align:center; margin-left:auto; margin-right: auto;"><img data-src="./assets/thumbnail.png"></span></p>
 
+<div class="quarto-auto-generated-content">
 <p><img src="https://raw.githubusercontent.com/saforem2/anl-job-talk/main/docs/assets/anl.svg" class="slide-logo"></p>
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -1631,7 +1783,6 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
       Reveal.initialize({
 'controlsAuto': false,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -1875,10 +2026,9 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -1888,8 +2038,17 @@ A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 

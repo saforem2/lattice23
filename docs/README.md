@@ -1,6 +1,6 @@
 # MLMC: Machine Learning Monte Carlo
 Sam Foreman
-2023-12-15
+2024-03-17
 
 # 
 
@@ -49,15 +49,13 @@ Osborn</span>
 
 <div class="column" width="50%">
 
-<div>
-
-> **Goal**
+> [!NOTE]
+>
+> ### Goal
 >
 > Generate **independent** samples $\{x_{i}\}$, such that[^1]
 > $$\{x_{i}\} \sim p(x) \propto e^{-S(x)}$$ where $S(x)$ is the *action*
 > (or potential energy)
-
-</div>
 
 - Want to calculate observables $\mathcal{O}$:  
   $\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, p(x)}$
@@ -90,15 +88,13 @@ $$\sigma_{\mathcal{O}}^{2} = \frac{1}{N}\mathrm{Var}{\left[\mathcal{O} (x)
 
 <div class="column" width="50%">
 
-<div>
-
-> **Goal**
+> [!NOTE]
+>
+> ### Goal
 >
 > Generate **independent** samples $\{x_{i}\}$, such that[^2]
 > $$\{x_{i}\} \sim p(x) \propto e^{-S(x)}$$ where $S(x)$ is the *action*
 > (or potential energy)
-
-</div>
 
 - Want to calculate observables $\mathcal{O}$:  
   $\left\langle \mathcal{O}\right\rangle \propto \int \left[\mathcal{D}x\right]\hspace{4pt} {\mathcal{O}(x)\, p(x)}$
@@ -135,9 +131,9 @@ $$\sigma_{\mathcal{O}}^{2} =
   $$\left\{x_{i}, x_{i+1}, x_{i+2}, \cdots, x_{N} \right\} \xrightarrow[]{N\rightarrow\infty} p(x)
   \propto e^{-S(x)}$$
 
-<div>
-
-> **Trick**
+> [!TIP]
+>
+> ### Trick
 >
 > - Introduce <span class="green-text">fictitious</span> momentum
 >   $v \sim \mathcal{N}(0, \mathbb{1})$
@@ -146,8 +142,6 @@ $$\sigma_{\mathcal{O}}^{2} =
 >     = e^{-\left[S(x) + \frac{1}{2} v^{T}{v}\right]}
 >     \textcolor{#02b875}{=} e^{-H(x, v)}
 >     \end{align*}$$
-
-</div>
 
 ## Hamiltonian Monte Carlo (HMC)
 
@@ -166,9 +160,9 @@ $$\sigma_{\mathcal{O}}^{2} =
 
 <div class="column" width="45%">
 
-<div>
-
-> **Hamiltonian Dynamics**
+> [!TIP]
+>
+> ### Hamiltonian Dynamics
 >
 > $H = S[x] + \frac{1}{2} v^{T} v \Longrightarrow$
 > $$\dot{x} = +\partial_{v} H,
@@ -178,17 +172,9 @@ $$\sigma_{\mathcal{O}}^{2} =
 
 </div>
 
-</div>
-
-<div id="fig-hmc-traj">
-
 <img
 src="https://raw.githubusercontent.com/saforem2/deep-fridays/main/assets/hmc1.svg"
 class="r-stretch" />
-
-Figure 1: Overview of HMC algorithm
-
-</div>
 
 ## Leapfrog Integrator (HMC)
 
@@ -196,17 +182,15 @@ Figure 1: Overview of HMC algorithm
 
 <div class="column" width="48%">
 
-<div>
-
-> **Hamiltonian Dynamics**
+> [!TIP]
+>
+> ### Hamiltonian Dynamics
 >
 > $\left(\dot{x}, \dot{v}\right) = \left(\partial_{v} H, -\partial_{x} H\right)$
 
-</div>
-
-<div>
-
-> **Leapfrog Step**
+> [!NOTE]
+>
+> ### Leapfrog Step
 >
 > `input` $\,\left(x, v\right) \rightarrow \left(x', v'\right)\,$
 > `output`
@@ -217,18 +201,14 @@ Figure 1: Overview of HMC algorithm
 > v' &:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varepsilon}{2} \partial_{x} S(x')
 > \end{align*}$$
 
-</div>
-
-<div>
-
-> **Warning!**
+> [!WARNING]
+>
+> ### Warning!
 >
 > <span style="text-align:left!important;">Resample
 > $v_{0} \sim \mathcal{N}(0, \mathbb{1})$</span>  
 > <span style="text-align:left;">at the
 > <span class="yellow-text">beginning</span> of each trajectory</span>
-
-</div>
 
 <div style="font-size:0.8em; margin-left:13%;">
 
@@ -286,14 +266,8 @@ $$\begin{align*}
 
 ## HMC Demo
 
-<div id="fig-hmc-demo">
-
 <iframe data-src="https://chi-feng.github.io/mcmc-demo/app.html" width="90%" height="500" title="l2hmc-qcd">
 </iframe>
-
-Figure 2: HMC Demo
-
-</div>
 
 # Issues with HMC
 
@@ -305,34 +279,11 @@ Figure 2: HMC Demo
   - Cannot easily traverse low-density zones $\rightarrow$ **slow
     convergence**
 
-<div id="fig-hmc-issues">
+![HMC Samples with
+$\varepsilon=0.25$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps025.svg)
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><div width="50.0%"
-data-layout-align="center">
-<p><img
-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps025.svg"
-data-fig.extended="false" alt="HMC Samples with \varepsilon=0.25" /></p>
-</div></td>
-<td style="text-align: center;"><div width="50.0%"
-data-layout-align="center">
-<p><img
-src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps05.svg"
-data-fig.extended="false" alt="HMC Samples with \varepsilon=0.5" /></p>
-</div></td>
-</tr>
-</tbody>
-</table>
-
-Figure 3: HMC Samples generated with varying step sizes $\varepsilon$
-
-</div>
+![HMC Samples with
+$\varepsilon=0.5$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/hmc_traj_eps05.svg)
 
 # Topological Freezing
 
@@ -348,11 +299,12 @@ $$Q = \frac{1}{2\pi}\sum_{P}\left\lfloor x_{P}\right\rfloor  \in \mathbb{Z}$$
 </div>
 
 <span class="dim-text" style="font-size:0.8em;">**note:**
-$\left\lfloor x_{P} \right\rfloor = x_{P} - 2\pi \left\lfloor\frac{x_{P} + \pi}{2\pi}\right\rfloor$</span>
+$\left\lfloor x_{P} \right\rfloor = x_{P} - 2\pi
+\left\lfloor\frac{x_{P} + \pi}{2\pi}\right\rfloor$</span>
 
-<div>
-
-> **Critical Slowing Down**
+> [!IMPORTANT]
+>
+> ### Critical Slowing Down
 >
 > - $Q$ gets stuck!
 >   - as $\beta\longrightarrow \infty$:
@@ -361,8 +313,6 @@ $\left\lfloor x_{P} \right\rfloor = x_{P} - 2\pi \left\lfloor\frac{x_{P} + \pi}{
 >   - \# configs required to estimate errors  
 >     **grows exponentially**:
 >     <span class="red-text">$\tau_{\mathrm{int}}^{Q} \longrightarrow \infty$</span>
-
-</div>
 
 </div>
 
@@ -409,18 +359,8 @@ alt="Note \delta Q \rightarrow 0 at increasing \beta" />
 
 <div class="column" width="45%">
 
-<div id="fig-mdupdate">
-
 <img src="./assets/leapfrog-layer-2D-U1-vertical.light.svg"
 style="width:70%; text-align:center;" />
-<!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} -->
-
-Figure 4: Generalized MD update where
-<span class="orange-text">$\Lambda_{\theta}^{\pm}$</span>,
-<span class="pink-text">$\Gamma_{\theta}^{\pm}$</span> are **invertible
-NNs**
-
-</div>
 
 </div>
 
@@ -432,9 +372,9 @@ NNs**
 
 <div class="column" width="50%">
 
-<div>
-
-> **L2HMC Update**
+> [!NONE]
+>
+> ### L2HMC Update
 >
 > - Introduce $d \sim \mathcal{U}(\pm)$ to determine the direction[^5]
 >   of our update
@@ -459,8 +399,6 @@ NNs**
 >     <span class="dim-text" style="font-size:0.9em;">$\hspace{36pt}$
 >     update $v$</span>
 
-</div>
-
  <br>
 
 <!-- - [**Note**: [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"} -->
@@ -470,18 +408,8 @@ NNs**
 
 <div class="column" width="50%">
 
-<div id="fig-mdupdate">
-
 <img src="./assets/leapfrog-layer-2D-U1-vertical.light.svg"
 style="width:66%; text-align:center;" />
-<!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} -->
-
-Figure 5: Generalized MD update with
-<span class="orange-text">$\Lambda_{\theta}^{\pm}$</span>,
-<span class="pink-text">$\Gamma_{\theta}^{\pm}$</span> **invertible
-NNs**
-
-</div>
 
 </div>
 
@@ -519,9 +447,9 @@ class="absolute" style="width:100.0%" data-top="440" />
 
 <div class="column" width="50%" style="font-size:0.99em;">
 
-<div>
-
-> **Algorithm**
+> [!NONE]
+>
+> ### Algorithm
 >
 > 1.  `input`: <span class="purple-text">$x$</span>
 >
@@ -558,19 +486,10 @@ class="absolute" style="width:100.0%" data-top="440" />
 
 </div>
 
-</div>
-
 <div class="column" width="50%">
-
-<div id="fig-mdupdate">
 
 <img src="./assets/leapfrog-layer-2D-U1-vertical.light.svg"
 style="width:75%; text-align:center;" />
-<!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} -->
-
-Figure 6: **Leapfrog Layer** used in generalized MD update
-
-</div>
 
 </div>
 
@@ -582,9 +501,9 @@ Figure 6: **Leapfrog Layer** used in generalized MD update
 
 <div class="column" width="50%">
 
-<div>
-
-> **Link Variables**
+> [!NOTE]
+>
+> ### Link Variables
 >
 > - Write link variables $U_{\mu}(x) \in SU(3)$:
 >
@@ -598,42 +517,30 @@ Figure 6: **Leapfrog Layer** used in generalized MD update
 >   $\in \mathbb{R}$, and $\lambda^{k}$ are the generators of
 >   $SU(3)$</span>
 
-</div>
-
-<div>
-
-> **Conjugate Momenta**
+> [!TIP]
+>
+> ### Conjugate Momenta
 >
 > - Introduce
 >   <span class="green-text">$P_{\mu}(x) = P^{k}_{\mu}(x) \lambda^{k}$</span>
 >   conjugate to <span class="purple-text">$\omega^{k}_{\mu}(x)$</span>
 
-</div>
-
-<div>
-
-> **Wilson Action**
+> [!IMPORTANT]
+>
+> ### Wilson Action
 >
 > $$ S_{G} = -\frac{\beta}{6} \sum
 > \mathrm{Tr}\left[U_{\mu\nu}(x)
 > + U^{\dagger}_{\mu\nu}(x)\right] $$
 >
-> where
-> $U_{\mu\nu}(x) = U_{\mu}(x) U_{\nu}(x+\hat{\mu}) U^{\dagger}_{\mu}(x+\hat{\nu}) U^{\dagger}_{\nu}(x)$
-
-</div>
+> where $U_{\mu\nu}(x) = U_{\mu}(x) U_{\nu}(x+\hat{\mu})
+> U^{\dagger}_{\mu}(x+\hat{\nu}) U^{\dagger}_{\nu}(x)$
 
 </div>
 
 <div class="column" width="45%">
 
-<div id="fig-4dlattice">
-
 <img src="./assets/u1lattice.dark.svg" style="width:90.0%" />
-
-Figure 7: Illustration of the lattice
-
-</div>
 
 </div>
 
@@ -645,12 +552,9 @@ Hamiltonian: $H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow$
 
 <div class="columns">
 
-<div class="column" width="65%"
-style="font-size:0.9em; text-align: center;">
+<div class="column" style="font-size:0.9em; text-align: center;">
 
-<div>
-
-> **None**
+> [!NONE]
 >
 > - <span style="border-bottom: 2px solid #AE81FF;">$U$ update</span>:
 >   <span class="purple-text"
@@ -664,9 +568,7 @@ style="font-size:0.9em; text-align: center;">
 >   \textcolor{#FD971F}{\Lambda}:\,\, U \longrightarrow U' &\coloneqq e^{i\varepsilon P'} U
 >   \end{align*}$$
 
-</div>
-
-<div class="{aside}">
+<div class="aside">
 
 <span class="dim-text"
 style="font-size:0.8em;">$\textcolor{#FFEE58}{\varepsilon}$ is the step
@@ -676,12 +578,9 @@ size</span>
 
 </div>
 
-<div class="column" width="35%"
-style="font-size:0.9em; text-align:center">
+<div class="column" style="font-size:0.9em; text-align: center;">
 
-<div>
-
-> **None**
+> [!NONE]
 >
 > - <span style="border-bottom: 2px solid #07B875;">$P$ update</span>:
 >   <span class="green-text"
@@ -695,9 +594,7 @@ style="font-size:0.9em; text-align:center">
 >   \textcolor{#F06292}{\Gamma}:\,\, P \longrightarrow P' &\coloneqq P - \frac{\varepsilon}{2} F[U]
 >   \end{align*}$$
 
-</div>
-
-<div class="{aside}">
+<div class="aside">
 
 <span class="dim-text"
 style="font-size:0.8em;">$\textcolor{#E599F7}{F[U]}$ is the force
@@ -892,7 +789,8 @@ style="width:80.0%" />
 </div>
 
 - Use $(s_{P}, t_{P}, q_{P})$ to update
-  $\Gamma^{\pm}: (U, P) \rightarrow \left(U, P_{\pm}\right)$[^9]:
+  $\Gamma^{\pm}: (U, P) \rightarrow
+  \left(U, P_{\pm}\right)$[^9]:
 
   - <span style="color:#FF5252">forward</span>
     $(d = \textcolor{#FF5252}{+})$:
@@ -917,17 +815,15 @@ style="width:90.0%" />
 <div class="column" width="33%"
 style="text-align:left; padding-top: 5%;">
 
-<div>
-
-> **Improvement**
+> [!IMPORTANT]
+>
+> ### Improvement
 >
 > We can measure the performance by comparing $\tau_{\mathrm{int}}$ for
 > the <span style="color:#FF2052;">**trained model**</span> vs.
 > <span style="color:#9F9F9F;">**HMC**</span>.
 >
 > **Note**: <span style="color:#FF2052;">lower</span> is better
-
-</div>
 
 </div>
 
@@ -968,111 +864,36 @@ of energy</span>
 
 </div>
 
-<div id="fig-interpretation">
-
 <img
 src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/ridgeplots.svg"
 style="width:100.0%" />
 
-Figure 8: Illustration of how different observables evolve over a single
-L2HMC trajectory.
-
-</div>
-
 ## Interpretation
 
-<div id="fig-energy-ridgeplot" layout-valign="top">
+![Average plaquette: $\langle x_{P}\rangle$ vs LF
+step](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_ridgeplot.svg)
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><div width="50.0%"
-data-layout-align="center">
-<p><img
-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_ridgeplot.svg"
-data-fig.extended="false"
-alt="Average plaquette: \langle x_{P}\rangle vs LF step" /></p>
-</div></td>
-<td style="text-align: center;"><div width="50.0%"
-data-layout-align="center">
-<p><img
-src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/Hf_ridgeplot.svg"
-data-fig.extended="false"
-alt="Average energy: H - \sum\log|\mathcal{J}|" /></p>
-</div></td>
-</tr>
-</tbody>
-</table>
-
-Figure 9: The trained model artifically increases the energy towards the
-middle of the trajectory, allowing the sampler to tunnel between
-isolated sectors.
-
-</div>
+![Average energy:
+$H - \sum\log|\mathcal{J}|$](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/Hf_ridgeplot.svg)
 
 # 4D $SU(3)$ Results
 
-<div id="fig-ridgeplot" layout-valign="top">
+<img src="./assets/SU3/logdet_ridgeplot1.svg" style="width:33.0%"
+data-ref-parent="fig-ridgeplot" />
 
-<table style="width:100%;">
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><div width="33.3%"
-data-layout-align="center">
-<p><img src="./assets/SU3/logdet_ridgeplot1.svg" id="fig-ridgeplot1"
-data-ref-parent="fig-ridgeplot" data-fig.extended="false"
-alt="(a) 100 train iters" /></p>
-</div></td>
-<td style="text-align: center;"><div width="33.3%"
-data-layout-align="center">
-<p><img src="./assets/SU3/logdet_ridgeplot2.svg" id="fig-ridgeplot2"
-data-ref-parent="fig-ridgeplot" data-fig.extended="false"
-alt="(b) 500 train iters" /></p>
-</div></td>
-<td style="text-align: center;"><div width="33.3%"
-data-layout-align="center">
-<p><img src="./assets/SU3/logdet_ridgeplot3.svg" id="fig-ridgeplot3"
-data-ref-parent="fig-ridgeplot" data-fig.extended="false"
-alt="(c) 1000 train iters" /></p>
-</div></td>
-</tr>
-</tbody>
-</table>
+<img src="./assets/SU3/logdet_ridgeplot2.svg" style="width:33.0%"
+data-ref-parent="fig-ridgeplot" />
 
-Figure 10: $\log|\mathcal{J}|$ vs. $N_{\mathrm{LF}}$ during training
-
-</div>
+<img src="./assets/SU3/logdet_ridgeplot3.svg" style="width:33.0%"
+data-ref-parent="fig-ridgeplot" />
 
 ## 4D $SU(3)$ Results: $\delta U_{\mu\nu}$
-
-<div id="fig-pdiff">
 
 ![](./assets/SU3/pdiff.svg)
 
-Figure 11: The difference in the average plaquette
-$\left|\delta U_{\mu\nu}\right|^{2}$ between the trained model and HMC
-
-</div>
-
 ## 4D $SU(3)$ Results: $\delta U_{\mu\nu}$
 
-<div id="fig-pdiff-robust">
-
 ![](./assets/SU3/pdiff-robust.svg)
-
-Figure 12: The difference in the average plaquette
-$\left|\delta U_{\mu\nu}\right|^{2}$ between the trained model and HMC
-
-</div>
 
 # Next Steps
 
@@ -1097,64 +918,24 @@ $\left|\delta U_{\mu\nu}\right|^{2}$ between the trained model and HMC
 
  <br>
 
-<div style="text-align:left; font-size:0.8em;">
-
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><div width="25.0%"
-data-layout-align="center">
-<p><span style="font-size:0.8em;"><a href="https://samforeman.me">
-<code>samforeman.me</code></a></span></p>
-</div></td>
-<td style="text-align: center;"><div width="25.0%"
-data-layout-align="center">
-<p><span style="font-size:0.8em;"><a href="https://github.com/saforem2">
-<code>saforem2</code></a></span></p>
-</div></td>
-<td style="text-align: center;"><div width="25.0%"
-data-layout-align="center">
-<p><span style="font-size:0.8em;"><a
-href="https://www.twitter.com/saforem2">
-<code>@saforem2</code></a></span></p>
-</div></td>
-<td style="text-align: center;"><div width="25.0%"
-data-layout-align="center">
-<p><span style="font-size:0.8em;"><a href="mailto:///foremans@anl.gov">
-<code>foremans@anl.gov</code></a></span></p>
-</div></td>
-</tr>
-</tbody>
-</table>
+<div>
 
 </div>
 
-<div>
-
-> **Acknowledgements**
+> [!NOTE]
+>
+> ### Acknowledgements
 >
 > This research used resources of the Argonne Leadership Computing
 > Facility,  
 > which is a DOE Office of Science User Facility supported under
 > Contract DE-AC02-06CH11357.
 
-</div>
-
 ## 
 
 <div style="text-align:center;">
 
-<div>
-
 [![](https://raw.githubusercontent.com/saforem2/l2hmc-qcd/main/assets/logo-small.svg)](https://github.com/saforem2/l2hmc-qcd)
-
-</div>
 
 <a href="https://hits.seeyoufarm.com"><img alt="hits" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsaforem2%2Fl2hmc-qcd&count_bg=%2300CCFF&title_bg=%23555555&icon=&icon_color=%23111111&title=👋&edge_flat=false"></a>
 <a href="https://github.com/saforem2/l2hmc-qcd/"><img alt="l2hmc-qcd" src="https://img.shields.io/badge/-l2hmc--qcd-252525?style=flat&logo=github&labelColor=gray"></a>
@@ -1242,7 +1023,8 @@ data-layout-align="center">
 
 (I don’t know why this is broken 🤷🏻‍♂️ )
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-Boyda:2022nmh" class="csl-entry">
 
@@ -1292,52 +1074,17 @@ CompF03 Topical Group Report: Machine Learning,” September.
 
 ## Integrated Autocorrelation Time
 
-<div id="fig-iat">
-
 <img
 src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/tint1.svg"
 style="width:100.0%" />
 
-Figure 13: Plot of the integrated autocorrelation time for both the
-trained model (colored) and HMC (greyscale).
-
-</div>
-
 ## Comparison
 
-<div id="fig-comparison">
+<img src="https://saforem2.github.io/anl-job-talk/assets/dQint_eval.svg"
+data-ref-parent="fig-comparison" />
 
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;"><div width="50.0%"
-data-layout-align="center">
-<p><img
-src="https://saforem2.github.io/anl-job-talk/assets/dQint_eval.svg"
-id="fig-eval" data-ref-parent="fig-comparison" data-fig.extended="false"
-alt="(a) Trained model" /></p>
-</div></td>
-<td style="text-align: center;"><div width="50.0%"
-data-layout-align="center">
-<p><img
-src="https://saforem2.github.io/anl-job-talk/assets/dQint_hmc.svg"
-id="fig-hmc" data-ref-parent="fig-comparison" data-fig.extended="false"
-alt="(b) Generic HMC" /></p>
-</div></td>
-</tr>
-</tbody>
-</table>
-
-Figure 14: Comparison of
-$\langle \delta Q\rangle = \frac{1}{N}\sum_{i=k}^{N} \delta Q_{i}$ for
-the trained model [Figure 14 (a)](#fig-eval) vs. HMC [Figure 14
-(b)](#fig-hmc)
-
-</div>
+<img src="https://saforem2.github.io/anl-job-talk/assets/dQint_hmc.svg"
+data-ref-parent="fig-comparison" />
 
 ## Plaquette analysis: $x_{P}$
 
@@ -1361,18 +1108,9 @@ $\langle x_{P}\rangle$, with $x_{P}^{\ast}$ (dotted-lines)</span>
 
 </div>
 
-<div id="fig-avg-plaq">
-
 <img
 src="https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/plaqsf_vs_lf_step1.svg"
 style="width:100.0%" />
-
-Figure 15: Plot showing how **average plaquette**,
-$\left\langle x_{P}\right\rangle$ varies over a single trajectory for
-models trained at different $\beta$, with varying trajectory lengths
-$N_{\mathrm{LF}}$
-
-</div>
 
 ## Loss Function
 
@@ -1451,27 +1189,23 @@ $$\Lambda^{\textcolor{#1A8FFF}{-}}(x, v) = e^{-\frac{\varepsilon}{2} s_{x}} \lef
 
 <div style="text-align:center;">
 
-<div>
-
-> **Link Variables**
+> [!NOTE]
+>
+> ### Link Variables
 >
 > $$U_{\mu}(n) = e^{i x_{\mu}(n)}\in \mathbb{C},\quad \text{where}\quad$$
 > $$x_{\mu}(n) \in [-\pi,\pi)$$
 
-</div>
-
 <div>
 
-<div>
-
-> **Wilson Action**
+> [!IMPORTANT]
+>
+> ### Wilson Action
 >
 > $$S_{\beta}(x) = \beta\sum_{P} \cos \textcolor{#00CCFF}{x_{P}},$$
 >
 > $$\textcolor{#00CCFF}{x_{P}} = \left[x_{\mu}(n) + x_{\nu}(n+\hat{\mu})
 > - x_{\mu}(n+\hat{\nu})-x_{\nu}(n)\right]$$
-
-</div>
 
 <span class="dim-text" style="font-size:0.8em;">**Note**:
 $\textcolor{#00CCFF}{x_{P}}$ is the product of links around $1\times 1$
@@ -1495,14 +1229,8 @@ style="width:80.0%" alt="2D Lattice" />
 
 ## 
 
-<div id="fig-notebook">
-
 <iframe data-src="https://nbviewer.org/github/saforem2/l2hmc-qcd/blob/SU3/src/l2hmc/notebooks/l2hmc-2dU1.ipynb" width="100%" height="650" title="l2hmc-qcd">
 </iframe>
-
-Figure 16: Jupyter Notebook
-
-</div>
 
 ## Annealing Schedule
 
@@ -1553,15 +1281,7 @@ id="fig-gmm" class="r-stretch" />
   - Calculate physical observables at **increasing** spatial resolution
   - Perform extrapolation to continuum limit
 
-<div id="fig-continuum">
-
 ![](https://raw.githubusercontent.com/saforem2/physicsSeminar/main/assets/static/continuum.svg)
-
-Figure 17: Increasing the physical resolution ($a \rightarrow 0$) allows
-us to make predictions about numerical values of physical quantities in
-the continuum limit.
-
-</div>
 
 # Extra
 
@@ -1572,8 +1292,8 @@ style="text-align:center; margin-left:auto; margin-right: auto;">![](./assets/th
 
 [^2]: Here, $\sim$ means “is distributed according to”
 
-[^3]: We **always** start by resampling the momentum,
-    $v_{0} \sim \mathcal{N}(0, \mathbb{1})$
+[^3]: We **always** start by resampling the momentum, $v_{0} \sim
+    \mathcal{N}(0, \mathbb{1})$
 
 [^4]: [L2HMC:](https://github.com/saforem2/l2hmc-qcd) (Foreman, Jin, and
     Osborn 2021, 2022)
@@ -1582,7 +1302,8 @@ style="text-align:center; margin-left:auto; margin-right: auto;">![](./assets/th
     $d \sim \mathcal{U}(\pm)$ at the beginning of each trajectory
 
 [^6]: For simple $\mathbf{x} \in \mathbb{R}^{2}$ example,
-    $\mathcal{L}_{\theta} = A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}$
+    $\mathcal{L}_{\theta} =
+    A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}$
 
 [^7]: $\sigma(\cdot)$ denotes an activation function
 
