@@ -1,49 +1,4 @@
 ---
-# title: "MLMC: Machine Learning Monte Carlo for Lattice Gauge Theory"
-# date: today
-# date-modified: last-modified
-# author-title: ""
-# affiliation-title: ""
-# published-title: ""
-# modified-title: ""
-# title-block-categories: false
-# number-sections: false
-# bibliography: references.bib
-# appendix-cite-as: display
-# favicon: "./assets/favicon.svg"
-# abstract: | 
-#   We present a trainable framework for efficiently generating gauge
-#   configurations, and discuss ongoing work in this direction. In particular, we
-#   consider the problem of sampling configurations from a 4D 𝑆𝑈(3) lattice gauge
-#   theory, and consider a generalized leapfrog integrator in the molecular
-#   dynamics update that can be trained to improve sampling efficiency.
-# author:
-#   - name: Sam Foreman
-#     url: https://samforeman.me
-#     orcid: 0000-0002-9981-0876
-#     email: foremans@anl.gov
-#     affiliation: Argonne National Laboratory
-#     affiliation-url: https://alcf.anl.gov/about/people/sam-foreman
-# citation:
-#   # type: speech
-#   # container-title: "Journal of Data Science Software"
-#   # doi: "10.23915/reprodocs.00010"
-#   # url: https://example.com/summarizing-output
-#    type: speech
-#    genre: "Presentation at the 2023 International Symposium on Lattice Field Theory"
-#    container-title: https://indico.fnal.gov/event/57249/contributions/271305/
-#    title: "MLMC: Machine Learning Monte Carlo for Lattice Gauge Theory"
-#    url: https://saforem2.github.io/lattice23
-# bibliography: biblio.bib 
-# google-analytics: G-XVM2Y822Y1
-#
-# author: "Sam Foreman"
-# date: today
-# bibliography: references.bib
-# title: "MLMC: Machine Learning Monte Carlo"
-# open-graph: true
-# repo-url: https://github.com/saforem2/climate-analysis
-# repo-actions: [edit, issue]
 format:
   revealjs:
     title-block-style: none
@@ -63,7 +18,7 @@ format:
     logo: "https://raw.githubusercontent.com/saforem2/anl-job-talk/main/docs/assets/anl.svg"
     history: false
     theme: [dark, css/dark.scss]
-    css: [css/default.css, css/callouts.css, css/code-callout.css]
+    css: [css/default.css, css/callouts.css]
     self-contained: false
     embed-resources: false
     self-contained-math: false
@@ -599,9 +554,10 @@ Hamiltonian: $H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow$
 
 :::: {.columns}
 
-::: {.column width="65%" style="font-size:0.9em; text-align: center;"}
+::: {.column style="font-size:0.9em; text-align: center;"}
 
 ::: {.callout style="text-align:left;"}
+
 - [$U$ update]{style="border-bottom: 2px solid #AE81FF;"}:
 [$\frac{d\omega^{k}}{dt} = \frac{\partial H}{\partial P^{k}}$]{.purple-text style="font-size:1.5em;"}
 $$\frac{d\omega^{k}}{dt}\lambda^{k} = P^{k}\lambda^{k} \Longrightarrow \frac{dQ}{dt} = P$$
@@ -615,19 +571,14 @@ U(\textcolor{#FFEE58}{\varepsilon}) &= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(
 
 :::
 
-::: {aside}
-
+::: aside
 [$\textcolor{#FFEE58}{\varepsilon}$ is the step size]{.dim-text style="font-size:0.8em;"}
-
 :::
 
 :::
 
-
-::: {.column width="35%" style="font-size:0.9em; text-align:center"}
-
-::: {.callout style="text-align:center; font-size: 2.0em;"}
-
+::: {.column style="font-size:0.9em; text-align: center;"}
+::: {.callout style="text-align:left;"}
 - [$P$ update]{style="border-bottom: 2px solid #07B875;"}:
 [$\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}$]{.green-text style="font-size:1.5em;"} 
 $$\frac{dP^{k}}{dt} = - \frac{\partial H}{\partial \omega^{k}}
@@ -638,19 +589,15 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 &\hspace{1pt}\\
 \textcolor{#F06292}{\Gamma}:\,\, P \longrightarrow P' &\coloneqq P - \frac{\varepsilon}{2} F[U]
 \end{align*}$$
-
 :::
 
-::: {aside}
-
+::: aside
 [$\textcolor{#E599F7}{F[U]}$ is the force term]{.dim-text style="font-size:0.8em;"}
-
 :::
-
 :::
-
 
 ::::
+
 
 ## HMC: 4D $SU(3)$ {.centeredslide}
 
