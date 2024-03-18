@@ -17,7 +17,8 @@ format:
     controls: false
     logo: "https://raw.githubusercontent.com/saforem2/anl-job-talk/main/docs/assets/anl.svg"
     history: false
-    theme: [dark, css/dark.scss]
+    theme: [css/dark.scss]
+    callot-style: simple
     css: [css/default.css, css/callouts.css]
     self-contained: false
     embed-resources: false
@@ -155,7 +156,7 @@ $\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}$:
   \end{align*}$$
 :::
 
-## Hamiltonian Monte Carlo (HMC) {.centeredslide}
+##n Hamiltonian Monte Carlo (HMC) {.centeredslide}
 
 :::: {.columns}
 
@@ -190,11 +191,11 @@ Overview of HMC algorithm
 
 ## Leapfrog Integrator (HMC) {#sec-leapfrog .centeredslide}
 
-:::: {.columns style="text-align:center;"}
+:::: {.columns style="text-align:center; font-size: 0.9em;" height="100%"}
 
 ::: {.column width="48%"}
 
-::: {.callout-tip title="Hamiltonian Dynamics" style="font-size:1.1em;"}
+::: {.callout-tip title="Hamiltonian Dynamics"}
 $\left(\dot{x}, \dot{v}\right) = \left(\partial_{v} H, -\partial_{x} H\right)$
 :::
 
@@ -209,9 +210,9 @@ v' &:= \textcolor{#F06292}{\Gamma}(x', \tilde{v}) = \tilde{v} - \frac{\varepsilo
 
 :::
 
-::: {.callout-warning title="Warning!" style="text-align:left;"}
-[Resample $v_{0} \sim \mathcal{N}(0, \mathbb{1})$]{style="text-align:left!important;"}  
-[at the [beginning]{.yellow-text} of each trajectory]{style="text-align:left;"}
+::: {.callout-warning title="Warning!"}
+- Resample $v_{0} \sim \mathcal{N}(0, \mathbb{1})$  
+at the [beginning]{.yellow-text} of each trajectory
 :::
 
 ::: {style="font-size:0.8em; margin-left:13%;"}
@@ -566,7 +567,7 @@ Q(\textcolor{#FFEE58}{\varepsilon}) &= Q(0) + \textcolor{#FFEE58}{\varepsilon} P
 -i\, \log U(\textcolor{#FFEE58}{\varepsilon}) &= -i\, \log U(0) + \textcolor{#FFEE58}{\varepsilon} P(0) \\
 U(\textcolor{#FFEE58}{\varepsilon}) &= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(0)} U(0)\Longrightarrow \\
 &\hspace{1pt}\\
-\textcolor{#FD971F}{\Lambda}:\,\, U \longrightarrow U' &\coloneqq e^{i\varepsilon P'} U
+\textcolor{#FD971F}{\Lambda}:\,\, U \longrightarrow U' &:= e^{i\varepsilon P'} U
 \end{align*}$$
 
 :::
@@ -587,7 +588,7 @@ $$\begin{align*}
 P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \left.\frac{dS}{dQ}\right|_{t=0} \\
 &= P(0) - \textcolor{#FFEE58}{\varepsilon} \,\textcolor{#E599F7}{F[U]} \\
 &\hspace{1pt}\\
-\textcolor{#F06292}{\Gamma}:\,\, P \longrightarrow P' &\coloneqq P - \frac{\varepsilon}{2} F[U]
+\textcolor{#F06292}{\Gamma}:\,\, P \longrightarrow P' &:= P - \frac{\varepsilon}{2} F[U]
 \end{align*}$$
 :::
 
@@ -736,13 +737,13 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 
 ::: {.column width="50%"}
 
-- [`input`[^sigma]: $\hspace{7pt}\left(U, F\right) \coloneqq (e^{i Q}, F)$]{style="border-bottom: 2px solid rgba(131, 131, 131, 0.493);"}
+- [`input`[^sigma]: $\hspace{7pt}\left(U, F\right) := (e^{i Q}, F)$]{style="border-bottom: 2px solid rgba(131, 131, 131, 0.493);"}
   $$\begin{align*}
   h_{0} &= \sigma\left( w_{Q} Q + w_{F} F + b \right) \\
   h_{1} &= \sigma\left( w_{1} h_{0} + b_{1} \right) \\
   &\vdots \\
   h_{n} &= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
-  \textcolor{#FF5252}{z} & \coloneqq \sigma\left(w_{n} h_{n-1} + b_{n}\right) \longrightarrow \\
+  \textcolor{#FF5252}{z} & := \sigma\left(w_{n} h_{n-1} + b_{n}\right) \longrightarrow \\
   \end{align*}$$
 
 :::
@@ -779,10 +780,10 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 \left(U, P_{\pm}\right)$[^inverse]:
 
     - [forward]{style="color:#FF5252"} $(d = \textcolor{#FF5252}{+})$:
-      $$\Gamma^{\textcolor{#FF5252}{+}}(U, P) \coloneqq P_{\textcolor{#FF5252}{+}} = P \cdot e^{\frac{\varepsilon}{2} s_{P}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]$$
+    $$\Gamma^{\textcolor{#FF5252}{+}}(U, P) := P_{\textcolor{#FF5252}{+}} = P \cdot e^{\frac{\varepsilon}{2} s_{P}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]$$
 
     - [backward]{style="color:#1A8FFF;"} $(d = \textcolor{#1A8FFF}{-})$: 
-      $$\Gamma^{\textcolor{#1A8FFF}{-}}(U, P) \coloneqq P_{\textcolor{#1A8FFF}{-}} = e^{-\frac{\varepsilon}{2} s_{P}} \left\{P + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]\right\}$$
+    $$\Gamma^{\textcolor{#1A8FFF}{-}}(U, P) := P_{\textcolor{#1A8FFF}{-}} = e^{-\frac{\varepsilon}{2} s_{P}} \left\{P + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]\right\}$$
 
 
 [^lambda]: $\lambda_{s},\, \lambda_{q} \in \mathbb{R}$ are trainable parameters
@@ -862,15 +863,20 @@ sectors.
 
 # 4D $SU(3)$ Results {#sec-su3results}
 
-::: {#fig-ridgeplot layout-ncol=3 layout-valign="top"}
 
-![`100` train iters](./assets/SU3/logdet_ridgeplot1.svg){#fig-ridgeplot1 width="33%"}
+- Distribution of $\log|\mathcal{J}|$ over all chains, at each _leapfrog step_,  $N_{\mathrm{LF}}$
+($= 0, 1, \ldots, 8$)
+during training:
 
-![`500` train iters](./assets/SU3/logdet_ridgeplot2.svg){#fig-ridgeplot2 width="33%"}
+<!-- ::: {layout-ncol=3 layout-valign="top"} -->
+::: {layout="[ [30, 30, 30] ]" layout-valign="center" style="display: flex; flex-direction: row; margin-top: -0.0em; align-items: center;"}
 
-![`1000` train iters](./assets/SU3/logdet_ridgeplot3.svg){#fig-ridgeplot3 width="33%"}
+![`100` train iters](./assets/SU3/logdet_ridgeplot1.svg){#fig-ridgeplot1}
 
-$\log|\mathcal{J}|$ vs. $N_{\mathrm{LF}}$ during training
+![`500` train iters](./assets/SU3/logdet_ridgeplot2.svg){#fig-ridgeplot2}
+
+![`1000` train iters](./assets/SU3/logdet_ridgeplot3.svg){#fig-ridgeplot3}
+
 :::
 
 ## 4D $SU(3)$ Results: $\delta U_{\mu\nu}$
@@ -1124,11 +1130,11 @@ Jacobian of the transformation from $\xi \rightarrow \xi^{\ast}$
 - [forward]{style="color:#FF5252"} $(d = \textcolor{#FF5252}{+})$:  
 <!-- $\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v'$ -->
 
-$$\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v' \coloneqq v \cdot e^{\frac{\varepsilon}{2} s_{v}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]$$
+$$\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v' := v \cdot e^{\frac{\varepsilon}{2} s_{v}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]$$
 
 - [backward]{style="color:#1A8FFF;"} $(d = \textcolor{#1A8FFF}{-})$:
 
-$$\Gamma^{\textcolor{#1A8FFF}{-}}: (x, v) \rightarrow v' \coloneqq e^{-\frac{\varepsilon}{2} s_{v}} \left\{v + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]\right\}$$
+$$\Gamma^{\textcolor{#1A8FFF}{-}}: (x, v) \rightarrow v' := e^{-\frac{\varepsilon}{2} s_{v}} \left\{v + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]\right\}$$
 
 [^reverse]: [Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e. $\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)$]{style="font-size:0.8em;"}
 

@@ -377,3 +377,24 @@ $algbg: #1c1c1c !default;
 .reveal a:hover {
     border-bottom: ridge;
 }
+
+
+.reveal .slide aside, .reveal .slide div.aside {
+    position: absolute;
+    bottom: 20px;
+    font-size: 0.7em;
+    color: #777777;
+}
+
+hr {
+    color: #666666;
+    display: block;
+    unicode-bidi: isolate;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    overflow: hidden;
+    border-style: inset;
+    border-width: 1px;
+}

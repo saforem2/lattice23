@@ -1,6 +1,6 @@
 # MLMC: Machine Learning Monte Carlo
 Sam Foreman
-2024-03-17
+2024-03-18
 
 # 
 
@@ -143,7 +143,7 @@ $$\sigma_{\mathcal{O}}^{2} =
 >     \textcolor{#02b875}{=} e^{-H(x, v)}
 >     \end{align*}$$
 
-## Hamiltonian Monte Carlo (HMC)
+\##n Hamiltonian Monte Carlo (HMC) {.centeredslide}
 
 <div class="columns">
 
@@ -178,7 +178,8 @@ class="r-stretch" />
 
 ## Leapfrog Integrator (HMC)
 
-<div class="columns" style="text-align:center;">
+<div class="columns" style="text-align:center; font-size: 0.9em;"
+height="100%">
 
 <div class="column" width="48%">
 
@@ -205,10 +206,8 @@ class="r-stretch" />
 >
 > ### Warning!
 >
-> <span style="text-align:left!important;">Resample
-> $v_{0} \sim \mathcal{N}(0, \mathbb{1})$</span>  
-> <span style="text-align:left;">at the
-> <span class="yellow-text">beginning</span> of each trajectory</span>
+> - Resample $v_{0} \sim \mathcal{N}(0, \mathbb{1})$  
+>   at the <span class="yellow-text">beginning</span> of each trajectory
 
 <div style="font-size:0.8em; margin-left:13%;">
 
@@ -565,7 +564,7 @@ Hamiltonian: $H[P, U] = \frac{1}{2} P^{2} + S[U] \Longrightarrow$
 >   -i\, \log U(\textcolor{#FFEE58}{\varepsilon}) &= -i\, \log U(0) + \textcolor{#FFEE58}{\varepsilon} P(0) \\
 >   U(\textcolor{#FFEE58}{\varepsilon}) &= e^{i\,\textcolor{#FFEE58}{\varepsilon} P(0)} U(0)\Longrightarrow \\
 >   &\hspace{1pt}\\
->   \textcolor{#FD971F}{\Lambda}:\,\, U \longrightarrow U' &\coloneqq e^{i\varepsilon P'} U
+>   \textcolor{#FD971F}{\Lambda}:\,\, U \longrightarrow U' &:= e^{i\varepsilon P'} U
 >   \end{align*}$$
 
 <div class="aside">
@@ -591,7 +590,7 @@ size</span>
 >   P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \left.\frac{dS}{dQ}\right|_{t=0} \\
 >   &= P(0) - \textcolor{#FFEE58}{\varepsilon} \,\textcolor{#E599F7}{F[U]} \\
 >   &\hspace{1pt}\\
->   \textcolor{#F06292}{\Gamma}:\,\, P \longrightarrow P' &\coloneqq P - \frac{\varepsilon}{2} F[U]
+>   \textcolor{#F06292}{\Gamma}:\,\, P \longrightarrow P' &:= P - \frac{\varepsilon}{2} F[U]
 >   \end{align*}$$
 
 <div class="aside">
@@ -751,13 +750,13 @@ style="width:80.0%" />
 <div class="column" width="50%">
 
 - <span style="border-bottom: 2px solid rgba(131, 131, 131, 0.493);">`input`[^7]:
-  $\hspace{7pt}\left(U, F\right) \coloneqq (e^{i Q}, F)$</span>
+  $\hspace{7pt}\left(U, F\right) := (e^{i Q}, F)$</span>
   $$\begin{align*}
   h_{0} &= \sigma\left( w_{Q} Q + w_{F} F + b \right) \\
   h_{1} &= \sigma\left( w_{1} h_{0} + b_{1} \right) \\
   &\vdots \\
   h_{n} &= \sigma\left(w_{n-1} h_{n-2} + b_{n}\right) \\
-  \textcolor{#FF5252}{z} & \coloneqq \sigma\left(w_{n} h_{n-1} + b_{n}\right) \longrightarrow \\
+  \textcolor{#FF5252}{z} & := \sigma\left(w_{n} h_{n-1} + b_{n}\right) \longrightarrow \\
   \end{align*}$$
 
 </div>
@@ -794,11 +793,11 @@ style="width:80.0%" />
 
   - <span style="color:#FF5252">forward</span>
     $(d = \textcolor{#FF5252}{+})$:
-    $$\Gamma^{\textcolor{#FF5252}{+}}(U, P) \coloneqq P_{\textcolor{#FF5252}{+}} = P \cdot e^{\frac{\varepsilon}{2} s_{P}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]$$
+    $$\Gamma^{\textcolor{#FF5252}{+}}(U, P) := P_{\textcolor{#FF5252}{+}} = P \cdot e^{\frac{\varepsilon}{2} s_{P}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]$$
 
   - <span style="color:#1A8FFF;">backward</span>
     $(d = \textcolor{#1A8FFF}{-})$:
-    $$\Gamma^{\textcolor{#1A8FFF}{-}}(U, P) \coloneqq P_{\textcolor{#1A8FFF}{-}} = e^{-\frac{\varepsilon}{2} s_{P}} \left\{P + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]\right\}$$
+    $$\Gamma^{\textcolor{#1A8FFF}{-}}(U, P) := P_{\textcolor{#1A8FFF}{-}} = e^{-\frac{\varepsilon}{2} s_{P}} \left\{P + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{P}} + t_{P} \right]\right\}$$
 
 # Results: 2D $U(1)$
 
@@ -878,14 +877,14 @@ $H - \sum\log|\mathcal{J}|$](https://raw.githubusercontent.com/saforem2/physicsS
 
 # 4D $SU(3)$ Results
 
-<img src="./assets/SU3/logdet_ridgeplot1.svg" style="width:33.0%"
-data-ref-parent="fig-ridgeplot" />
+- Distribution of $\log|\mathcal{J}|$ over all chains, at each *leapfrog
+  step*, $N_{\mathrm{LF}}$ ($= 0, 1, \ldots, 8$) during training:
 
-<img src="./assets/SU3/logdet_ridgeplot2.svg" style="width:33.0%"
-data-ref-parent="fig-ridgeplot" />
+<!-- ::: {layout-ncol=3 layout-valign="top"} -->
 
-<img src="./assets/SU3/logdet_ridgeplot3.svg" style="width:33.0%"
-data-ref-parent="fig-ridgeplot" />
+<div>
+
+</div>
 
 ## 4D $SU(3)$ Results: $\delta U_{\mu\nu}$
 
@@ -1162,12 +1161,12 @@ style="width:100.0%" />
   $(d = \textcolor{#FF5252}{+})$:  
   <!-- $\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v'$ -->
 
-$$\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v' \coloneqq v \cdot e^{\frac{\varepsilon}{2} s_{v}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]$$
+$$\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v' := v \cdot e^{\frac{\varepsilon}{2} s_{v}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]$$
 
 - <span style="color:#1A8FFF;">backward</span>
   $(d = \textcolor{#1A8FFF}{-})$:
 
-$$\Gamma^{\textcolor{#1A8FFF}{-}}: (x, v) \rightarrow v' \coloneqq e^{-\frac{\varepsilon}{2} s_{v}} \left\{v + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]\right\}$$
+$$\Gamma^{\textcolor{#1A8FFF}{-}}: (x, v) \rightarrow v' := e^{-\frac{\varepsilon}{2} s_{v}} \left\{v + \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]\right\}$$
 
 ## $x$-Update
 
