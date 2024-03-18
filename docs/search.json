@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "index.html#hamiltonian-monte-carlo-hmc-1",
+    "href": "index.html#hamiltonian-monte-carlo-hmc-1",
+    "title": "MLMC: Machine Learning Monte Carlo",
+    "section": "Hamiltonian Monte Carlo (HMC)",
+    "text": "Hamiltonian Monte Carlo (HMC)\n\n\n\nIdea: Evolve the (\\dot{x}, \\dot{v}) system to get new states \\{x_{i}\\}❗\nWrite the joint distribution p(x, v): \np(x, v) \\propto e^{-S[x]} e^{-\\frac{1}{2}v^{T} v} = e^{-H(x, v)}\n\n\n\n\n\n\n\n\n\n\nHamiltonian Dynamics\n\n\nH = S[x] + \\frac{1}{2} v^{T} v \\Longrightarrow \\dot{x} = +\\partial_{v} H,\n\\,\\,\\dot{v} = -\\partial_{x} H\n\n\n\n\n\n\n\n\nFigure 1: Overview of HMC algorithm"
+  },
+  {
     "objectID": "index.html#sec-leapfrog",
     "href": "index.html#sec-leapfrog",
     "title": "MLMC: Machine Learning Monte Carlo",

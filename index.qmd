@@ -156,7 +156,7 @@ $\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}$:
   \end{align*}$$
 :::
 
-##n Hamiltonian Monte Carlo (HMC) {.centeredslide}
+## Hamiltonian Monte Carlo (HMC) {.centeredslide}
 
 :::: {.columns}
 

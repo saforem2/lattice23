@@ -143,7 +143,7 @@ $$\sigma_{\mathcal{O}}^{2} =
 >     \textcolor{#02b875}{=} e^{-H(x, v)}
 >     \end{align*}$$
 
-\##n Hamiltonian Monte Carlo (HMC) {.centeredslide}
+## Hamiltonian Monte Carlo (HMC)
 
 <div class="columns">
 
