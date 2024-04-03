@@ -38,7 +38,6 @@ format:
 
 # {.title-slide .centeredslide background-iframe="https://saforem2.github.io/grid-worms-animation/" loading="lazy"}
 
-<!-- ::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(22,22,22,0.33); border-radius: 10px; text-align:center; box-shadow:RGBA(0, 0, 0, 0.25) 0px 5px 15px; padding-top: 0.25em; padding-bottom: 0.25em;"} -->
 ::: {style="background-color: rgba(22,22,22,0.75); border-radius: 10px; text-align:center; padding: 0px; padding-left: 1.5em; padding-right: 1.5em; max-width: min-content; min-width: max-content; margin-left: auto; margin-right: auto; padding-top: 0.2em; padding-bottom: 0.2em; line-height: 1.5em!important;"}
 <span style="color:#939393; font-size:1.5em; font-weight: bold;">MLMC: Machine Learning Monte Carlo</span>  
 <span style="color:#777777; font-size:1.2em; font-weight: bold;">for Lattice Gauge Theory</span>  
@@ -46,13 +45,10 @@ format:
 [{{< fa solid home >}}](https://samforeman.me) Sam Foreman  
 [Xiao-Yong Jin, James C. Osborn]{.dim-text style="font-size:0.8em;"}  
 [[[{{< fa brands github >}} `saforem2/`](https://github.com/saforem2/)]{style="border-bottom: 0.5px solid #00ccff;"}`{`[[`lattice23`](https://github.com/saforem2/lattice23)]{style="border-bottom: 0.5px solid #00ccff;"}, [[`l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)]{style="border-bottom: 0.5px solid #00ccff;"}`}`]{style="font-size:0.8em;"}
-
 :::
 
 ::: footer
-
 [2023-07-31 @ [Lattice 2023](https://indico.fnal.gov/event/57249/contributions/271305/)]{.dim-text style="text-align:left;'}
-
 :::
 
 # Overview
@@ -242,9 +238,6 @@ at the [beginning]{.yellow-text} of each trajectory
   \end{equation*}$$
 
 - And propose $x'$ as the next state in our chain
-<!-- - which is _accepted_ (or rejected) via Metroplis-Hastings[^accept] -->
-<!-- - $x'$ is proposed with probability $A(x'|x)$[^accept] -->
-<!-- - Use $x'$ as our proposal in the Metropolis-Hastings accept / reject, $A(x'|x)$ -->
 
 $$\begin{align*}
   \textcolor{#F06292}{\Gamma}: (x, v) \textcolor{#F06292}{\rightarrow} v' &:= v - \frac{\varepsilon}{2} \partial_{x} S(x) \\
@@ -325,8 +318,6 @@ $$Q = \frac{1}{2\pi}\sum_{P}\left\lfloor x_{P}\right\rfloor  \in \mathbb{Z}$$
 ![Note $\delta Q \rightarrow 0$ at increasing
 $\beta$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/critical_slowing_down.svg){width="80%"}
 
-<!-- Illustration of critical slowing down at increasing $\beta$. Note at $\beta = 7$, $Q$ remains stuck for the entire run. -->
-
 :::
 
 ::::
@@ -340,29 +331,20 @@ $\beta$](https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets
 - Introduce two (**invertible NNs**) `vNet` and `xNet`[^l2hmc]:
   - [`vNet: ` $(x, F) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{style="font-size:0.9em;"}  
   - [`xNet: ` $(x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$]{style="font-size:0.9em;"}
-  <!-- - [[$x$]{.purple-text}-update]{style="border-bottom: 2px solid #AE81FF;"}:   -->
-  <!-- - [[$v$]{.green-text}-update]{style="border-bottom: 2px solid #09B875"}:   -->
 
 &nbsp;  
-
-<!-- $\left(s_{k}, t_{k}, q_{k}\right)$, $k \in \{x, v\}$ in the -->
 
 - Use these $(s, t, q)$ in the _generalized_ MD update:
   - [[$\Gamma_{\theta}^{\pm}$]{.pink-text} $: ({x}, \textcolor{#07B875}{v}) \xrightarrow[]{\textcolor{#F06292}{s_{v}, t_{v}, q_{v}}} (x, \textcolor{#07B875}{v'})$]{}
   - [[$\Lambda_{\theta}^{\pm}$]{.orange-text} $: (\textcolor{#AE81FF}{x}, v) \xrightarrow[]{\textcolor{#FD971F}{s_{x}, t_{x}, q_{x}}} (\textcolor{#AE81FF}{x'}, v)$]{}
-  <!-- - [[$x$]{.purple-text}-update]{style="border-bottom: 2px solid #AE81FF;"}:   -->
-  <!-- - [[$v$]{.green-text}-update]{style="border-bottom: 2px solid #09B875"}:   -->
-
-
 
 :::
 
-::: {.column width="45%"}
+::: {.column width="48%"}
 
 ::: {#fig-mdupdate}
 
-![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:70%; text-align:center;"}
-<!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} -->
+![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:85%; text-align:center;"}
 
 Generalized MD update where [$\Lambda_{\theta}^{\pm}$]{.orange-text},
 [$\Gamma_{\theta}^{\pm}$]{.pink-text} are **invertible NNs**
@@ -382,30 +364,33 @@ Generalized MD update where [$\Lambda_{\theta}^{\pm}$]{.orange-text},
 
 ::: {.column width="50%"}
 
-::: {.callout title="L2HMC Update"}
+::: {.callout title="L2HMC Update" style="font-size: 0.9em;"}
 
-- [Introduce $d \sim \mathcal{U}(\pm)$ to determine the direction[^resampled] of our update]{}
+- Introduce $d \sim \mathcal{U}(\pm)$ to determine the direction of our update
 
-1. [$\textcolor{#07B875}{v'} =$ [$\Gamma^{\pm}$]{.pink-text}$({x}, \textcolor{#07B875}{v})$]{} [$\hspace{46pt}$ update $v$]{.dim-text style="font-size:0.9em;"}
+  1. [$\textcolor{#07B875}{v'} =$ [$\Gamma^{\pm}$]{.pink-text}$({x}, \textcolor{#07B875}{v})$]{} [$\hspace{46pt}$ update $v$]{.dim-text style="font-size:0.9em;"}
 
-2. [$\textcolor{#AE81FF}{x'} =$ [$x_{B}$]{.blue-text}$\,+\,$[$\Lambda^{\pm}$]{.orange-text}$($[$x_{A}$]{.red-text}$, {v'})$]{} [$\hspace{10pt}$ update first **half**: $x_{A}$]{.dim-text style="font-size:0.9em;"}
+  2. [$\textcolor{#AE81FF}{x'} =$ [$x_{B}$]{.blue-text}$\,+\,$[$\Lambda^{\pm}$]{.orange-text}$($[$x_{A}$]{.red-text}$, {v'})$]{} [$\hspace{10pt}$ update first **half**: $x_{A}$]{.dim-text style="font-size:0.9em;"}
 
-3. [$\textcolor{#AE81FF}{x''} =$ [$x'_{A}$]{.red-text}$\,+\,$[$\Lambda^{\pm}$]{.orange-text}$($[$x'_{B}$]{.blue-text}$, {v'})$]{} [$\hspace{8pt}$ update other half: $x_{B}$]{.dim-text style="font-size:0.9em;"}
+  3. [$\textcolor{#AE81FF}{x''} =$ [$x'_{A}$]{.red-text}$\,+\,$[$\Lambda^{\pm}$]{.orange-text}$($[$x'_{B}$]{.blue-text}$, {v'})$]{} [$\hspace{8pt}$ update other half: $x_{B}$]{.dim-text style="font-size:0.9em;"}
 
-4. [$\textcolor{#07B875}{v''} =$ [$\Gamma^{\pm}$]{.pink-text}$({x''}, \textcolor{#07B875}{v'})$]{} [$\hspace{36pt}$ update $v$]{.dim-text style="font-size:0.9em;"}
+  4. [$\textcolor{#07B875}{v''} =$ [$\Gamma^{\pm}$]{.pink-text}$({x''}, \textcolor{#07B875}{v'})$]{} [$\hspace{36pt}$ update $v$]{.dim-text style="font-size:0.9em;"}
 
 :::
 
-&nbsp;<br>  
+::: {.callout icon=false title="🎲 Re-Sampling" style="text-align:left; font-size: 0.7em; line-height:1em;"}
 
-[^resampled]: Resample both $v\sim \mathcal{N}(0, 1)$, and $d \sim \mathcal{U}(\pm)$ at the beginning of each trajectory
+- Resample both $v\sim \mathcal{N}(0, 1)$, and $d \sim \mathcal{U}(\pm)$ at the
+beginning of each trajectory
+  - To ensure ergodicity + reversibility, we split the [$x$]{.purple-text}
+  update into sequential (complementary) updates
+- Introduce directional variable $d \sim \mathcal{U}(\pm)$, resampled at the
+beginning of each trajectory:
+  - Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e.
+  $$\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x,
+  v)\right] = (x, v)$$
 
-<!-- - [**Note**: [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"} -->
-
-<!-- [^updates]: [Here [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"} -->
-[^half]: [To ensure ergodicity + reversibility[^direction] [^reverse], we split the [$x$]{.purple-text} update into sequential (complementary) updates:]{style="font-size:0.8em;"}
-[^direction]: [We introduce a directional variable $d \sim \mathcal{U}(\pm)$ that is resampled each trajectory to determine the direction of our update]{style="font-size:0.8em;"}
-[^reverse]: [Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e. $\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)$]{style="font-size:0.8em;"}
+:::
 
 :::
 
@@ -413,8 +398,7 @@ Generalized MD update where [$\Lambda_{\theta}^{\pm}$]{.orange-text},
 
 ::: {#fig-mdupdate}
 
-![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:66%; text-align:center;"}
-<!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} -->
+![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:85%; text-align:center;"}
 
 Generalized MD update with [$\Lambda_{\theta}^{\pm}$]{.orange-text}, [$\Gamma_{\theta}^{\pm}$]{.pink-text} **invertible NNs**
 :::
@@ -481,7 +465,6 @@ $$\textcolor{#939393} \xi \hspace{1pt}\xrightarrow[]{\tiny{\mathrm{LF} \text{ la
 ::: {#fig-mdupdate}
 
 ![](./assets/leapfrog-layer-2D-U1-vertical.light.svg){style="width:75%; text-align:center;"}
-<!-- ![](assets/leapfrog-layer-minimal/leapfrog-layer-dark.svg){style="width:75%; text-align:right!important; padding-left: 3em;"} -->
 
 **Leapfrog Layer** used in generalized MD update
 :::
@@ -614,7 +597,6 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 
 - We maintain a batch of `Nb` lattices, all updated in parallel
   - $U$`.dtype = complex128`
-  <!-- - `shape`$\left(U\right)$:   -->
   - $U$`.shape`  
     [`= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]`]{style="font-size: 0.95em;"}
 
@@ -627,31 +609,6 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 :::
 
 ::::
-
-<!-- # 4D $SU(3)$ Model {.centeredslide} -->
-<!---->
-<!-- :::: {.columns} -->
-<!---->
-<!-- ::: {.column width="45%" style="font-size:0.9em;"} -->
-<!---->
-<!-- - link variables:  -->
-<!--     - $U_{\mu}(x) \in SU(3)$, -->
-<!-- - \+ conjugate momenta: -->
-<!--     - $P_{\mu}(x) \in \mathfrak{su}(3)$ -->
-<!-- - We maintain a batch of `Nb` lattices, all updated in parallel -->
-<!--     - `lattice.shape`: -->
-<!--         - [`[4, Nt, Nx, Ny, Nz, 3, 3]`]{style="font-size: 0.9em;"} -->
-<!--     - `batch.shape`: -->
-<!--         - [`[Nb, *lattice.shape]`]{style="font-size: 0.9em;"} -->
-<!-- ::: -->
-<!---->
-<!-- ::: {.column width="45%"} -->
-<!---->
-<!-- ![](./assets/leapfrog-layer-4D-SU3-vertical.light.svg) -->
-<!---->
-<!-- ::: -->
-<!---->
-<!-- :::: -->
 
 # Networks 4D $SU(3)$ {#sec-su3networks .centeredslide auto-animate="true"}
 
@@ -765,11 +722,6 @@ P(\textcolor{#FFEE58}{\varepsilon}) &= P(0) - \textcolor{#FFEE58}{\varepsilon} \
 
 ## $P$-`Network` (pt. 2) {style="font-size:0.9em;"}
 
-<!-- - `output`[^lambda]: $(s_{P}, t_{P}, q_{P})$ [$\hspace{10pt}\longleftarrow$ outputs from NN]{.dim-text} -->
-<!--   $$s_{P} = \lambda_{s} \tanh\left(w_{s}\, z + b_{s}\right), \quad -->
-<!--   t_{P} = w_{t} z + b_{t}, \quad -->
-<!--   q_{P} = \lambda_{q}\tanh\left(w_{q} z + b_{q}\right)$$ -->
-
 ::: {style="text-align:center;"}
 
 ![](./assets/SU3/PNetwork.light.svg)
@@ -868,7 +820,6 @@ sectors.
 ($= 0, 1, \ldots, 8$)
 during training:
 
-<!-- ::: {layout-ncol=3 layout-valign="top"} -->
 ::: {layout="[ [30, 30, 30] ]" layout-valign="center" style="display: flex; flex-direction: row; margin-top: -0.0em; align-items: center;"}
 
 ![`100` train iters](./assets/SU3/logdet_ridgeplot1.svg){#fig-ridgeplot1}
@@ -1119,16 +1070,13 @@ Jacobian of the transformation from $\xi \rightarrow \xi^{\ast}$
 
 - $x$-Network:
     - [$\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$]{.purple-text}
-    <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
 
 - $v$-Network:
   - [$\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{.green-text} [$\hspace{2pt}\longleftarrow$ lets look at this]{.dim-text}
-    <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
 
 ## $v$-Update[^reverse]
 
 - [forward]{style="color:#FF5252"} $(d = \textcolor{#FF5252}{+})$:  
-<!-- $\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v'$ -->
 
 $$\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v' := v \cdot e^{\frac{\varepsilon}{2} s_{v}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]$$
 
@@ -1223,11 +1171,9 @@ Jupyter Notebook
 
 - $x$-Network:
     - [$\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$]{.purple-text}
-    <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
 
 - $v$-Network:
     - [$\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$]{.green-text}
-    <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
 
 ## Toy Example: GMM $\in \mathbb{R}^{2}$ {.centeredslide}
 

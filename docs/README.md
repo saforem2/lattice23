@@ -1,10 +1,8 @@
 # MLMC: Machine Learning Monte Carlo
 Sam Foreman
-2024-03-18
+2024-04-03
 
 # 
-
-<!-- ::: {style="text-shadow: 0px 0px 10px RGBA(0, 0, 0, 0.45); background-color: rgba(22,22,22,0.33); border-radius: 10px; text-align:center; box-shadow:RGBA(0, 0, 0, 0.25) 0px 5px 15px; padding-top: 0.25em; padding-bottom: 0.25em;"} -->
 
 <div style="background-color: rgba(22,22,22,0.75); border-radius: 10px; text-align:center; padding: 0px; padding-left: 1.5em; padding-right: 1.5em; max-width: min-content; min-width: max-content; margin-left: auto; margin-right: auto; padding-top: 0.2em; padding-bottom: 0.2em; line-height: 1.5em!important;">
 
@@ -241,9 +239,6 @@ style="text-align:left; margin-left:2%;">
   \end{equation*}$$
 
 - And propose $x'$ as the next state in our chain
-  <!-- - which is _accepted_ (or rejected) via Metroplis-Hastings[^accept] -->
-  <!-- - $x'$ is proposed with probability $A(x'|x)$[^accept] -->
-  <!-- - Use $x'$ as our proposal in the Metropolis-Hastings accept / reject, $A(x'|x)$ -->
 
 $$\begin{align*}
   \textcolor{#F06292}{\Gamma}: (x, v) \textcolor{#F06292}{\rightarrow} v' &:= v - \frac{\varepsilon}{2} \partial_{x} S(x) \\
@@ -322,8 +317,6 @@ src="https://raw.githubusercontent.com/saforem2/l2hmc-dwq25/main/docs/assets/cri
 style="width:80.0%"
 alt="Note \delta Q \rightarrow 0 at increasing \beta" />
 
-<!-- Illustration of critical slowing down at increasing $\beta$. Note at $\beta = 7$, $Q$ remains stuck for the entire run. -->
-
 </div>
 
 </div>
@@ -339,27 +332,21 @@ alt="Note \delta Q \rightarrow 0 at increasing \beta" />
     $(x, F) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$</span>  
   - <span style="font-size:0.9em;">`xNet:`
     $(x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$</span>
-    <!-- - [[$x$]{.purple-text}-update]{style="border-bottom: 2px solid #AE81FF;"}:   -->
-    <!-- - [[$v$]{.green-text}-update]{style="border-bottom: 2px solid #09B875"}:   -->
 
  
-
-<!-- $\left(s_{k}, t_{k}, q_{k}\right)$, $k \in \{x, v\}$ in the -->
 
 - Use these $(s, t, q)$ in the *generalized* MD update:
   - <span class="pink-text">$\Gamma_{\theta}^{\pm}$</span>
     $: ({x}, \textcolor{#07B875}{v}) \xrightarrow[]{\textcolor{#F06292}{s_{v}, t_{v}, q_{v}}} (x, \textcolor{#07B875}{v'})$
   - <span class="orange-text">$\Lambda_{\theta}^{\pm}$</span>
     $: (\textcolor{#AE81FF}{x}, v) \xrightarrow[]{\textcolor{#FD971F}{s_{x}, t_{x}, q_{x}}} (\textcolor{#AE81FF}{x'}, v)$
-    <!-- - [[$x$]{.purple-text}-update]{style="border-bottom: 2px solid #AE81FF;"}:   -->
-    <!-- - [[$v$]{.green-text}-update]{style="border-bottom: 2px solid #09B875"}:   -->
 
 </div>
 
-<div class="column" width="45%">
+<div class="column" width="48%">
 
 <img src="./assets/leapfrog-layer-2D-U1-vertical.light.svg"
-style="width:70%; text-align:center;" />
+style="width:85%; text-align:center;" />
 
 </div>
 
@@ -375,40 +362,50 @@ style="width:70%; text-align:center;" />
 >
 > ### L2HMC Update
 >
-> - Introduce $d \sim \mathcal{U}(\pm)$ to determine the direction[^5]
->   of our update
+> - Introduce $d \sim \mathcal{U}(\pm)$ to determine the direction of
+>   our update
 >
-> 1.  $\textcolor{#07B875}{v'} =$
->     <span class="pink-text">$\Gamma^{\pm}$</span>$({x}, \textcolor{#07B875}{v})$
->     <span class="dim-text" style="font-size:0.9em;">$\hspace{46pt}$
->     update $v$</span>
+>   1.  $\textcolor{#07B875}{v'} =$
+>       <span class="pink-text">$\Gamma^{\pm}$</span>$({x}, \textcolor{#07B875}{v})$
+>       <span class="dim-text" style="font-size:0.9em;">$\hspace{46pt}$
+>       update $v$</span>
 >
-> 2.  $\textcolor{#AE81FF}{x'} =$
->     <span class="blue-text">$x_{B}$</span>$\,+\,$<span class="orange-text">$\Lambda^{\pm}$</span>$($<span class="red-text">$x_{A}$</span>$, {v'})$
->     <span class="dim-text" style="font-size:0.9em;">$\hspace{10pt}$
->     update first **half**: $x_{A}$</span>
+>   2.  $\textcolor{#AE81FF}{x'} =$
+>       <span class="blue-text">$x_{B}$</span>$\,+\,$<span class="orange-text">$\Lambda^{\pm}$</span>$($<span class="red-text">$x_{A}$</span>$, {v'})$
+>       <span class="dim-text" style="font-size:0.9em;">$\hspace{10pt}$
+>       update first **half**: $x_{A}$</span>
 >
-> 3.  $\textcolor{#AE81FF}{x''} =$
->     <span class="red-text">$x'_{A}$</span>$\,+\,$<span class="orange-text">$\Lambda^{\pm}$</span>$($<span class="blue-text">$x'_{B}$</span>$, {v'})$
->     <span class="dim-text" style="font-size:0.9em;">$\hspace{8pt}$
->     update other half: $x_{B}$</span>
+>   3.  $\textcolor{#AE81FF}{x''} =$
+>       <span class="red-text">$x'_{A}$</span>$\,+\,$<span class="orange-text">$\Lambda^{\pm}$</span>$($<span class="blue-text">$x'_{B}$</span>$, {v'})$
+>       <span class="dim-text" style="font-size:0.9em;">$\hspace{8pt}$
+>       update other half: $x_{B}$</span>
 >
-> 4.  $\textcolor{#07B875}{v''} =$
->     <span class="pink-text">$\Gamma^{\pm}$</span>$({x''}, \textcolor{#07B875}{v'})$
->     <span class="dim-text" style="font-size:0.9em;">$\hspace{36pt}$
->     update $v$</span>
+>   4.  $\textcolor{#07B875}{v''} =$
+>       <span class="pink-text">$\Gamma^{\pm}$</span>$({x''}, \textcolor{#07B875}{v'})$
+>       <span class="dim-text" style="font-size:0.9em;">$\hspace{36pt}$
+>       update $v$</span>
 
- <br>
-
-<!-- - [**Note**: [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"} -->
-<!-- [^updates]: [Here [$\Gamma^{\pm}$]{.pink-text} and [$\Lambda^{\pm}$]{.orange-text} are invertible NNs]{style="font-size:0.8em;"} -->
+> [!NONE]
+>
+> ### 🎲 Re-Sampling
+>
+> - Resample both $v\sim \mathcal{N}(0, 1)$, and
+>   $d \sim \mathcal{U}(\pm)$ at the beginning of each trajectory
+>   - To ensure ergodicity + reversibility, we split the
+>     <span class="purple-text">$x$</span> update into sequential
+>     (complementary) updates
+> - Introduce directional variable $d \sim \mathcal{U}(\pm)$, resampled
+>   at the beginning of each trajectory:
+>   - Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$, i.e.
+>     $$\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x,
+>     v)\right] = (x, v)$$
 
 </div>
 
 <div class="column" width="50%">
 
 <img src="./assets/leapfrog-layer-2D-U1-vertical.light.svg"
-style="width:66%; text-align:center;" />
+style="width:85%; text-align:center;" />
 
 </div>
 
@@ -471,7 +468,7 @@ class="absolute" style="width:100.0%" data-top="440" />
 >
 > 3.  `backward` (if training):
 >
->     - Evaluate the **loss function**[^6]
+>     - Evaluate the **loss function**[^5]
 >       $\mathcal{L}\gets \mathcal{L}_{\theta}(\textcolor{#f8f8f8}{\xi'}, \textcolor{#939393}{\xi})$
 >       and backprop
 >
@@ -620,7 +617,7 @@ term</span>
 
 - We maintain a batch of `Nb` lattices, all updated in parallel
 
-  - $U$`.dtype = complex128` <!-- - `shape`$\left(U\right)$:   -->
+  - $U$`.dtype = complex128`
   - $U$`.shape`  
     <span style="font-size: 0.95em;">`= [Nb, 4, Nt, Nx, Ny, Nz, 3, 3]`</span>
 
@@ -633,31 +630,6 @@ term</span>
 </div>
 
 </div>
-
-<!-- # 4D $SU(3)$ Model {.centeredslide} -->
-<!---->
-<!-- :::: {.columns} -->
-<!---->
-<!-- ::: {.column width="45%" style="font-size:0.9em;"} -->
-<!---->
-<!-- - link variables:  -->
-<!--     - $U_{\mu}(x) \in SU(3)$, -->
-<!-- - \+ conjugate momenta: -->
-<!--     - $P_{\mu}(x) \in \mathfrak{su}(3)$ -->
-<!-- - We maintain a batch of `Nb` lattices, all updated in parallel -->
-<!--     - `lattice.shape`: -->
-<!--         - [`[4, Nt, Nx, Ny, Nz, 3, 3]`]{style="font-size: 0.9em;"} -->
-<!--     - `batch.shape`: -->
-<!--         - [`[Nb, *lattice.shape]`]{style="font-size: 0.9em;"} -->
-<!-- ::: -->
-<!---->
-<!-- ::: {.column width="45%"} -->
-<!---->
-<!-- ![](./assets/leapfrog-layer-4D-SU3-vertical.light.svg) -->
-<!---->
-<!-- ::: -->
-<!---->
-<!-- :::: -->
 
 # Networks 4D $SU(3)$
 
@@ -749,7 +721,7 @@ style="width:80.0%" />
 
 <div class="column" width="50%">
 
-- <span style="border-bottom: 2px solid rgba(131, 131, 131, 0.493);">`input`[^7]:
+- <span style="border-bottom: 2px solid rgba(131, 131, 131, 0.493);">`input`[^6]:
   $\hspace{7pt}\left(U, F\right) := (e^{i Q}, F)$</span>
   $$\begin{align*}
   h_{0} &= \sigma\left( w_{Q} Q + w_{F} F + b \right) \\
@@ -763,7 +735,7 @@ style="width:80.0%" />
 
 <div class="column" width="50%">
 
-- <span style="border-bottom: 2px solid rgba(131, 131, 131, 0.5);">`output`[^8]:
+- <span style="border-bottom: 2px solid rgba(131, 131, 131, 0.5);">`output`[^7]:
   $\hspace{7pt} (s_{P}, t_{P}, q_{P})$</span>
 
   - $s_{P} = \lambda_{s} \tanh(w_s \textcolor{#FF5252}{z} + b_s)$
@@ -776,11 +748,6 @@ style="width:80.0%" />
 
 ## $P$-`Network` (pt. 2)
 
-<!-- - `output`[^lambda]: $(s_{P}, t_{P}, q_{P})$ [$\hspace{10pt}\longleftarrow$ outputs from NN]{.dim-text} -->
-<!--   $$s_{P} = \lambda_{s} \tanh\left(w_{s}\, z + b_{s}\right), \quad -->
-<!--   t_{P} = w_{t} z + b_{t}, \quad -->
-<!--   q_{P} = \lambda_{q}\tanh\left(w_{q} z + b_{q}\right)$$ -->
-
 <div style="text-align:center;">
 
 ![](./assets/SU3/PNetwork.light.svg)
@@ -789,7 +756,7 @@ style="width:80.0%" />
 
 - Use $(s_{P}, t_{P}, q_{P})$ to update
   $\Gamma^{\pm}: (U, P) \rightarrow
-  \left(U, P_{\pm}\right)$[^9]:
+  \left(U, P_{\pm}\right)$[^8]:
 
   - <span style="color:#FF5252">forward</span>
     $(d = \textcolor{#FF5252}{+})$:
@@ -879,8 +846,6 @@ $H - \sum\log|\mathcal{J}|$](https://raw.githubusercontent.com/saforem2/physicsS
 
 - Distribution of $\log|\mathcal{J}|$ over all chains, at each *leapfrog
   step*, $N_{\mathrm{LF}}$ ($= 0, 1, \ldots, 8$) during training:
-
-<!-- ::: {layout-ncol=3 layout-valign="top"} -->
 
 <div>
 
@@ -1113,7 +1078,7 @@ style="width:100.0%" />
 
 ## Loss Function
 
-- Want to maximize the *expected* squared charge difference[^10]:
+- Want to maximize the *expected* squared charge difference[^9]:
   $$\begin{equation*}
   \mathcal{L}_{\theta}\left(\xi^{\ast}, \xi\right) =
   {\mathbb{E}_{p(\xi)}}\big[-\textcolor{#FA5252}{{\delta Q}}^{2}
@@ -1126,7 +1091,7 @@ style="width:100.0%" />
     \textcolor{#FA5252}{\delta Q}(\xi^{\ast},\xi)=\left|Q^{\ast} - Q\right|
     \end{equation*}$$
 
-  - $A(\xi^{\ast}|\xi)$ is the probability[^11] of accepting the
+  - $A(\xi^{\ast}|\xi)$ is the probability[^10] of accepting the
     proposal $\xi^{\ast}$: $$\begin{equation*}
     A(\xi^{\ast}|\xi) = \mathrm{min}\left( 1,
     \frac{p(\xi^{\ast})}{p(\xi)}\left|\frac{\partial \xi^{\ast}}{\partial
@@ -1146,20 +1111,17 @@ style="width:100.0%" />
 - $x$-Network:
 
   - <span class="purple-text">$\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$</span>
-    <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
 
 - $v$-Network:
 
   - <span class="green-text">$\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$</span>
     <span class="dim-text">$\hspace{2pt}\longleftarrow$ lets look at
     this</span>
-    <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
 
-## $v$-Update[^12]
+## $v$-Update[^11]
 
 - <span style="color:#FF5252">forward</span>
-  $(d = \textcolor{#FF5252}{+})$:  
-  <!-- $\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v'$ -->
+  $(d = \textcolor{#FF5252}{+})$:
 
 $$\Gamma^{\textcolor{#FF5252}{+}}: (x, v) \rightarrow v' := v \cdot e^{\frac{\varepsilon}{2} s_{v}} - \frac{\varepsilon}{2}\left[ F \cdot e^{\varepsilon q_{v}} + t_{v} \right]$$
 
@@ -1261,12 +1223,10 @@ style="width:80.0%" alt="2D Lattice" />
 - $x$-Network:
 
   - <span class="purple-text">$\psi_{\theta}: (x, v) \longrightarrow \left(s_{x},\, t_{x},\, q_{x}\right)$</span>
-    <!-- - $\Lambda^{\pm}_{k}(x, v) \rightarrow \left[s^{k}_{x}, t^{k}_{x}, q^{k}_{x}\right]$ -->
 
 - $v$-Network:
 
   - <span class="green-text">$\varphi_{\theta}: (x, v) \longrightarrow \left(s_{v},\, t_{v},\, q_{v}\right)$</span>
-    <!-- - $\Gamma_{k}^{\pm}(x, v) \rightarrow \left[s^{k}_{v}, t^{k}_{v}, q^{k}_{v}\right]$ -->
 
 ## Toy Example: GMM $\in \mathbb{R}^{2}$
 
@@ -1297,28 +1257,25 @@ style="text-align:center; margin-left:auto; margin-right: auto;">![](./assets/th
 [^4]: [L2HMC:](https://github.com/saforem2/l2hmc-qcd) (Foreman, Jin, and
     Osborn 2021, 2022)
 
-[^5]: Resample both $v\sim \mathcal{N}(0, 1)$, and
-    $d \sim \mathcal{U}(\pm)$ at the beginning of each trajectory
-
-[^6]: For simple $\mathbf{x} \in \mathbb{R}^{2}$ example,
+[^5]: For simple $\mathbf{x} \in \mathbb{R}^{2}$ example,
     $\mathcal{L}_{\theta} =
     A(\xi^{\ast}|\xi)\cdot \left(\mathbf{x}^{\ast} - \mathbf{x}\right)^{2}$
 
-[^7]: $\sigma(\cdot)$ denotes an activation function
+[^6]: $\sigma(\cdot)$ denotes an activation function
 
-[^8]: $\lambda_{s},\, \lambda_{q} \in \mathbb{R}$ are trainable
+[^7]: $\lambda_{s},\, \lambda_{q} \in \mathbb{R}$ are trainable
     parameters
 
-[^9]: Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$,
+[^8]: Note that $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$,
     i.e. $\Gamma^{+}\left[\Gamma^{-}(U, P)\right] = \Gamma^{-}\left[\Gamma^{+}(U, P)\right] = (U, P)$
 
-[^10]: Where $\xi^{\ast}$ is the *proposed* configuration (prior to
+[^9]: Where $\xi^{\ast}$ is the *proposed* configuration (prior to
     Accept / Reject)
 
-[^11]: And $\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|$
+[^10]: And $\left|\frac{\partial \xi^{\ast}}{\partial \xi^{T}}\right|$
     is the Jacobian of the transformation from
     $\xi \rightarrow \xi^{\ast}$
 
-[^12]: <span style="font-size:0.8em;">Note that
+[^11]: <span style="font-size:0.8em;">Note that
     $\left(\Gamma^{+}\right)^{-1} = \Gamma^{-}$,
     i.e. $\Gamma^{+}\left[\Gamma^{-}(x, v)\right] = \Gamma^{-}\left[\Gamma^{+}(x, v)\right] = (x, v)$</span>
