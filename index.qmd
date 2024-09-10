@@ -1,6 +1,52 @@
 ---
+lightbox: auto
+title: "MLMC: Machine Learning Monte Carlo"
+date: 2023-07-31
+date-modified: last-modified
+bibliography: references.bib
+appendix-cite-as: display
+favicon: "./assets/favicon.svg"
+# date: 2023-07-31
+image: "assets/thumbnail.png"
+footer: "{{< fa brands github >}} [saforem2.github.io/lattice23](https://saforem2.github.io/lattice23)"
+twitter-card:
+  site: "saforem2"
+  creator: "saforem2"
+  image: "./assets/thumbnail.png"
+  title: "MLMC: Machine Learning Monte Carlo"
+  description: "MLMC: Machine Learning Monte Carlo for Lattice Gauge Theory"
+open-graph:
+  image: "./assets/thumbnail.png"
+  title: "MLMC: Machine Learning Monte Carlo"
+  description: "MLMC: Machine Learning Monte Carlo for Lattice Gauge Theory"
+author:
+  name: Sam Foreman
+  url: https://samforeman.me
+  orcid: 0000-0002-9981-0876
+  email: foremans@anl.gov
+  affiliation: Argonne National Laboratory
+  affiliation-url: https://alcf.anl.gov/about/people/sam-foreman
+citation:
+   author: Sam Foreman
+   type: speech
+   genre: "Presentation at the 2023 International Symposium on Lattice Field Theory"
+   container-title: https://indico.fnal.gov/event/57249/contributions/271305/
+   title: "MLMC: Machine Learning Monte Carlo for Lattice Gauge Theory"
+   url: https://saforem2.github.io/lattice23
+   abstract: | 
+     We present a trainable framework for efficiently generating gauge
+     configurations, and discuss ongoing work in this direction. In particular, we
+     consider the problem of sampling configurations from a 4D 𝑆𝑈(3) lattice gauge
+     theory, and consider a generalized leapfrog integrator in the molecular
+     dynamics update that can be trained to improve sampling efficiency.
+callout-style: simple
 format:
+  # html:
+  #   theme:
+  #       dark: cyborg
+  #       light: cosmo
   revealjs:
+    output-file: "slides.html"
     title-block-style: none
     slide-number: c
     title-slide-style: default
@@ -31,9 +77,9 @@ format:
     html-math-method: katex
     fig-align: center
     mermaid:
-      theme: dark
-  gfm:
-    output-file: "README.md"
+      theme: neutral
+  # gfm:
+  #   output-file: "lattice23.md"
 ---
 
 # {.title-slide .centeredslide background-iframe="https://saforem2.github.io/grid-worms-animation/" loading="lazy"}
@@ -45,9 +91,7 @@ format:
 [{{< fa solid home >}}](https://samforeman.me) Sam Foreman  
 [Xiao-Yong Jin, James C. Osborn]{.dim-text style="font-size:0.8em;"}  
 [[[{{< fa brands github >}} `saforem2/`](https://github.com/saforem2/)]{style="border-bottom: 0.5px solid #00ccff;"}`{`[[`lattice23`](https://github.com/saforem2/lattice23)]{style="border-bottom: 0.5px solid #00ccff;"}, [[`l2hmc-qcd`](https://github.com/saforem2/l2hmc-qcd)]{style="border-bottom: 0.5px solid #00ccff;"}`}`]{style="font-size:0.8em;"}
-:::
 
-::: footer
 [2023-07-31 @ [Lattice 2023](https://indico.fnal.gov/event/57249/contributions/271305/)]{.dim-text style="text-align:left;'}
 :::
 
@@ -94,9 +138,9 @@ If these were <span style="color:#00CCFF;">independent</span>, we could approxim
 
 [^notation]: Here, $\sim$ means "is distributed according to"
 
-::: footer
-[{{< fa brands github >}} `saforem2/lattice23`](https://saforem2.github.io/lattice23)
-:::
+<!-- ::: footer -->
+<!-- [{{< fa brands github >}} `saforem2/lattice23`](https://saforem2.github.io/lattice23) -->
+<!-- ::: -->
 
 # Markov Chain Monte Carlo (MCMC) {.centeredslide}
 
@@ -129,9 +173,9 @@ $\textcolor{#FF5252}{\tau^{\mathcal{O}}_{\mathrm{int}}}$:
 
 [^notation]: Here, $\sim$ means "is distributed according to"
 
-::: footer
-[{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23)
-:::
+<!-- ::: footer -->
+<!-- [{{< fa brands github >}} `saforem2/lattice23`](https://github.com/saforem2/lattice23) -->
+<!-- ::: -->
 
 # Hamiltonian Monte Carlo (HMC) {.centeredslide}
 
@@ -901,7 +945,7 @@ which is a DOE Office of Science User Facility supported under Contract DE-AC02-
 <a href="https://hits.seeyoufarm.com"><img alt="hits" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsaforem2%2Fl2hmc-qcd&count_bg=%2300CCFF&title_bg=%23555555&icon=&icon_color=%23111111&title=👋&edge_flat=false"></a>
 <a href="https://github.com/saforem2/l2hmc-qcd/"><img alt="l2hmc-qcd" src="https://img.shields.io/badge/-l2hmc--qcd-252525?style=flat&logo=github&labelColor=gray"></a> <a href="https://www.codefactor.io/repository/github/saforem2/l2hmc-qcd"><img alt="codefactor" src="https://www.codefactor.io/repository/github/saforem2/l2hmc-qcd/badge"></a>  
 
-<a href="https://arxiv.org/abs/2112.01582"><img alt="arxiv" src="http://img.shields.io/badge/arXiv-2112.01582-B31B1B.svg"></a> <a href="https://arxiv.org/abs/2105.03418"><img alt="arxiv" src="http://img.shields.io/badge/arXiv-2105.03418-B31B1B.svg"></a>  
+<a href="https://arxiv.org/abs/2112.01582"><img alt="arxiv" src="https://img.shields.io/badge/arXiv-2112.01582-B31B1B.svg"></a> <a href="https://arxiv.org/abs/2105.03418"><img alt="arxiv" src="https://img.shields.io/badge/arXiv-2105.03418-B31B1B.svg"></a>  
 
 <a href="https://hydra.cc"><img alt="hydra" src="https://img.shields.io/badge/Config-Hydra-89b8cd"></a> <a href="https://pytorch.org/get-started/locally/"><img alt="pyTorch" src="https://img.shields.io/badge/PyTorch-ee4c2c?logo=pytorch&logoColor=white"></a> <a href="https://www.tensorflow.org"><img alt="tensorflow" src="https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?&logo=TensorFlow&logoColor=white"></a> 
 [<img src="https://raw.githubusercontent.com/wandb/assets/main/wandb-github-badge-28.svg" alt="Weights & Biases monitoring" height=20>](https://wandb.ai/l2hmc-qcd/l2hmc-qcd)
@@ -1195,7 +1239,6 @@ limit.
 
 :::
 
-# Extra
+<!-- # Extra -->
 
-[![](./assets/thumbnail.png)]{.preview-image style="text-align:center; margin-left:auto; margin-right: auto;"}
-
+<!-- [![](./assets/thumbnail.png)]{.preview-image style="text-align:center; margin-left:auto; margin-right: auto;"} -->
